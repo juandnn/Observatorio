@@ -1,75 +1,221 @@
 ---
-title: Example report
+title: Exploración de datos
 ---
 
-# A brief history of space exploration
-
-This report is a brief overview of the history and current state of rocket launches and space exploration.
-
-## Background
-
-The history of rocket launches dates back to ancient China, where gunpowder-filled tubes were used as primitive forms of propulsion.
-
-Fast-forward to the 20th century during the Cold War era, the United States and the Soviet Union embarked on a space race, a competition to innovate and explore beyond Earth.
-
-This led to the launch of the first artificial satellite, Sputnik 1, and the crewed moon landing by Apollo 11. As technology advanced, rocket launches became synonymous with space exploration and satellite deployment.
-
-## The Space Shuttle era
-
 ```js
-import {timeline} from "./components/timeline.js";
+
+
+// Carga del archivo desde src/data (ojo: ruta con /, no con \)
+const data = await FileAttachment("data/histogramas_variables.json").json();
+
+// Card contenedor (tamaño fijo) + render del chart adentro
+function histograms(data) {
+  const CARD_W = 920;      // ancho fijo del card (ajústalo)
+  const CARD_MIN_H = 320;  // alto mínimo fijo del card (ajústalo)
+
+  const WIDTH = 420, HEIGHT = 320;
+  const MARGIN = {top: 28, right: 16, bottom: 120, left: 52};
+  const TOP_K = 10;
+
+  // ---- Indexar por variable y año ----
+  const entries = Object.values(data);
+
+  const byVarYear = new Map(); // var -> Map(year -> obj)
+  for (const obj of entries) {
+    const v = obj.variable;
+    const y = +obj.year;
+    if (!byVarYear.has(v)) byVarYear.set(v, new Map());
+    byVarYear.get(v).set(y, obj);
+  }
+
+  const years = [2021, 2025];
+  const variables = Array.from(byVarYear.keys())
+    .filter(v => years.every(y => byVarYear.get(v)?.has(y)))
+    .sort(d3.ascending);
+
+  const view = Inputs.select(variables, {label: "Variable", value: variables[0]});
+
+  function normalizeText(s) {
+    return (s == null || s === "") ? "NA" : String(s);
+  }
+
+  function drawOne(panel, obj, yearLabel) {
+    panel.selectAll("*").remove();
+
+    const svg = panel.append("svg")
+      .attr("viewBox", [0, 0, WIDTH, HEIGHT])
+      .style("max-width", "100%")
+      .style("height", "auto");
+
+    const innerW = WIDTH - MARGIN.left - MARGIN.right;
+    const innerH = HEIGHT - MARGIN.top - MARGIN.bottom;
+
+    svg.append("text")
+      .attr("x", WIDTH / 2)
+      .attr("y", 18)
+      .attr("text-anchor", "middle")
+      .attr("font-size", 13)
+      .attr("font-weight", 600)
+      .text(`${obj.variable} (${yearLabel})`);
+
+    const g = svg.append("g")
+      .attr("transform", `translate(${MARGIN.left},${MARGIN.top})`);
+
+    if (obj.type === "numeric") {
+      const counts = obj.counts ?? [];
+      const bins = obj.bins ?? [];
+      const edges = bins.length === counts.length + 1 ? bins : d3.range(counts.length + 1).map(i => i);
+
+      const x = d3.scaleLinear()
+        .domain([edges[0], edges[edges.length - 1]])
+        .nice()
+        .range([0, innerW]);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(counts) || 1])
+        .nice()
+        .range([innerH, 0]);
+
+      g.append("g")
+        .attr("transform", `translate(0,${innerH})`)
+        .call(d3.axisBottom(x).ticks(6));
+
+      g.append("g")
+        .call(d3.axisLeft(y).ticks(6));
+
+      const bars = counts.map((c, i) => ({x0: edges[i], x1: edges[i + 1], c}));
+
+      g.selectAll("rect")
+        .data(bars)
+        .join("rect")
+        .attr("x", d => x(d.x0) + 1)
+        .attr("y", d => y(d.c))
+        .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+        .attr("height", d => innerH - y(d.c))
+        .attr("fill", "#1f77b4")
+        .attr("opacity", 0.85);
+
+      svg.append("text")
+        .attr("x", MARGIN.left + innerW / 2)
+        .attr("y", HEIGHT - 10)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text(obj.variable);
+
+      svg.append("text")
+        .attr("transform", `translate(14, ${MARGIN.top + innerH / 2}) rotate(-90)`)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text("Frecuencia");
+
+    } else {
+      const cats = (obj.categories ?? []).map(normalizeText);
+      const counts = obj.counts ?? [];
+
+      let rows = cats.map((k, i) => ({k, c: counts[i] ?? 0}));
+      rows.sort((a, b) => d3.descending(a.c, b.c));
+      rows = rows.slice(0, TOP_K);
+
+      const x = d3.scaleBand()
+        .domain(rows.map(d => d.k))
+        .range([0, innerW])
+        .padding(0.15);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(rows, d => d.c) || 1])
+        .nice()
+        .range([innerH, 0]);
+
+      g.append("g")
+        .attr("transform", `translate(0,${innerH})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .attr("transform", "rotate(-30)")
+        .style("text-anchor", "end");
+
+      g.append("g")
+        .call(d3.axisLeft(y).ticks(6));
+
+      g.selectAll("rect")
+        .data(rows)
+        .join("rect")
+        .attr("x", d => x(d.k))
+        .attr("y", d => y(d.c))
+        .attr("width", x.bandwidth())
+        .attr("height", d => innerH - y(d.c))
+        .attr("fill", "#1f77b4")
+        .attr("opacity", 0.85);
+
+      svg.append("text")
+        .attr("x", MARGIN.left + innerW / 2)
+        .attr("y", HEIGHT - 10)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text(`${obj.variable} (Top ${TOP_K})`);
+
+      svg.append("text")
+        .attr("transform", `translate(14, ${MARGIN.top + innerH / 2}) rotate(-90)`)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text("Frecuencia");
+    }
+  }
+
+  // --- Card ---
+  const card = d3.create("div")
+    .style("max-width", `${CARD_W}px`)
+    .style("border", "1px solid rgba(0,0,0,0.12)")
+    .style("border-radius", "12px")
+    .style("padding", "14px 14px 16px 14px")
+    .style("background", "rgba(255, 255, 255, 0.06)")
+    .style("box-shadow", "0 2px 10px rgba(0,0,0,0.06)")
+    .style("min-height", `${CARD_MIN_H}px`)
+    .style("overflow", "hidden"); // el card NO crece por contenido
+
+  const container = card.append("div")
+    .style("font-family", "system-ui, sans-serif");
+
+  const header = container.append("div")
+    .style("display", "flex")
+    .style("gap", "12px")
+    .style("align-items", "center")
+    .style("margin-bottom", "10px");
+
+  header.append(() => view);
+
+  // zona scroll interna si en pantallas pequeñas se desborda
+  const body = container.append("div")
+    .style("overflow", "auto")
+    .style("padding-bottom", "4px");
+
+  const panels = body.append("div")
+    .style("display", "grid")
+    .style("grid-template-columns", "1fr 1fr")
+    .style("gap", "14px")
+    .style("align-items", "start")
+    .style("min-width", "860px"); // fuerza 2 columnas; si no cabe, aparece scroll horizontal
+
+  const left = panels.append("div");
+  const right = panels.append("div");
+
+  function render(v) {
+    const m = byVarYear.get(v);
+    const obj2021 = m.get(2021);
+    const obj2025 = m.get(2025);
+    drawOne(left, obj2021, "2021");
+    drawOne(right, obj2025, "2025");
+  }
+
+  render(view.value);
+  view.addEventListener("input", () => render(view.value));
+
+  return card.node();
+}
+
 ```
 
-```js
-const events = FileAttachment("./data/events.json").json();
-```
 
 ```js
-timeline(events, {height: 300})
+
+histograms(data)
 ```
-
-### Sputnik 1 (1957)
-
-This was the first artificial satellite. Launched by the Soviet Union, it marked the beginning of the space age.
-
-### Apollo 11 (1969)
-
-The historic Apollo 11 mission, led by NASA, marked the first successful human landing on the Moon. Astronauts Neil Armstrong and Buzz Aldrin became the first humans to set foot on the lunar surface.
-
-### Viking 1 and 2 (1975)
-
-NASA’s Viking program successfully launched two spacecraft, Viking 1 and Viking 2, to Mars. These missions were the first to successfully land and operate on the Martian surface, conducting experiments to search for signs of life.
-
-### Space Shuttle Columbia (1981)
-
-The first orbital space shuttle mission, STS-1, launched the Space Shuttle Columbia on April 12, 1981. The shuttle program revolutionized space travel, providing a reusable spacecraft for a variety of missions.
-
-### Hubble Space Telescope (1990)
-
-The Hubble Space Telescope has provided unparalleled images and data, revolutionizing our understanding of the universe and contributing to countless astronomical discoveries.
-
-### International Space Station (ISS) construction (1998—2011)
-
-The ISS, a collaborative effort involving multiple space agencies, began construction with the launch of its first module, Zarya, in 1998. Over the following years, various modules were added, making the ISS a symbol of international cooperation in space exploration.
-
-## Commercial spaceflight
-
-After the Space Shuttle program, a new era emerged with a shift towards commercial spaceflight.
-
-Private companies like Blue Origin, founded by Jeff Bezos in 2000, and SpaceX, founded by Elon Musk in 2002, entered the scene. These companies focused on developing reusable rocket technologies, significantly reducing launch costs.
-
-SpaceX, in particular, achieved milestones like the first privately developed spacecraft to reach orbit (Dragon in 2010) and the first privately funded spacecraft to dock with the ISS (Dragon in 2012).
-
-## Recent launch activity
-
-The proliferation of commercial space companies has driven a surge in global launch activity within the last few years.
-
-SpaceX’s Falcon 9 and Falcon Heavy, along with other vehicles from companies like Rocket Lab, have become workhorses for deploying satellites, conducting scientific missions, and ferrying crew to the ISS.
-
-The advent of small satellite constellations, such as Starlink by SpaceX, has further fueled this increase in launches. The push for lunar exploration has added momentum to launch activities, with initiatives like NASA’s Artemis program and plans for crewed missions to the Moon and Mars.
-
-## Looking forward
-
-As technology continues to advance and global interest in space exploration grows, the future promises even more exciting developments in the realm of rocket launches and space travel.
-
-Exploration will not only be limited to the Moon or Mars, but extend to other parts of our solar system such as Jupiter and Saturn’s moons, and beyond.
