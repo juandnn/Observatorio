@@ -1,6 +1,6 @@
 # Observatorio de Paz y Democracia: percepción de seguridad
 
-This is an [Observable Framework](https://observablehq.com/framework/) app. To install the required dependencies, run:
+Thiss is an [Observable Framework](https://observablehq.com/framework/) app. To install the required dependencies, run:
 
 ```
 npm install
