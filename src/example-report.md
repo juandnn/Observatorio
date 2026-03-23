@@ -11,7 +11,7 @@ const img2025 = FileAttachment("data/histogramas2025.png").url();
 
 ```
 ```js
-display(html`<p>Año seleccionado: ${anioSeleccionado}</p>`);
+
 
 const ruta = anioSeleccionado === "2021"
   ? display(html`<img src="${img2021}" style="max-width: 100%;">`)
