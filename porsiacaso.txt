@@ -1,0 +1,216 @@
+```js
+
+// Carga del archivo desde src/data (ojo: ruta con /, no con \)
+const data = await FileAttachment("data/histogramas_variables.json").json();
+
+// Card contenedor (tamaño fijo) + render del chart adentro
+function histograms(data) {
+  const CARD_W = 920;      // ancho fijo del card (ajústalo)
+  const CARD_MIN_H = 320;  // alto mínimo fijo del card (ajústalo)
+
+  const WIDTH = 420, HEIGHT = 320;
+  const MARGIN = {top: 28, right: 16, bottom: 120, left: 52};
+  const TOP_K = 10;
+
+  // ---- Indexar por variable y año ----
+  const entries = Object.values(data);
+
+  const byVarYear = new Map(); // var -> Map(year -> obj)
+  for (const obj of entries) {
+    const v = obj.variable;
+    const y = +obj.year;
+    if (!byVarYear.has(v)) byVarYear.set(v, new Map());
+    byVarYear.get(v).set(y, obj);
+  }
+
+  const years = [2021, 2025];
+  const variables = Array.from(byVarYear.keys())
+    .filter(v => years.every(y => byVarYear.get(v)?.has(y)))
+    .sort(d3.ascending);
+
+  const view = Inputs.select(variables, {label: "Variable", value: variables[0]});
+
+  function normalizeText(s) {
+    return (s == null || s === "") ? "NA" : String(s);
+  }
+
+  function drawOne(panel, obj, yearLabel) {
+    panel.selectAll("*").remove();
+
+    const svg = panel.append("svg")
+      .attr("viewBox", [0, 0, WIDTH, HEIGHT])
+      .style("max-width", "100%")
+      .style("height", "auto");
+
+    const innerW = WIDTH - MARGIN.left - MARGIN.right;
+    const innerH = HEIGHT - MARGIN.top - MARGIN.bottom;
+
+    svg.append("text")
+      .attr("x", WIDTH / 2)
+      .attr("y", 18)
+      .attr("text-anchor", "middle")
+      .attr("font-size", 13)
+      .attr("font-weight", 600)
+      .text(`${obj.variable} (${yearLabel})`);
+
+    const g = svg.append("g")
+      .attr("transform", `translate(${MARGIN.left},${MARGIN.top})`);
+
+    if (obj.type === "numeric") {
+      const counts = obj.counts ?? [];
+      const bins = obj.bins ?? [];
+      const edges = bins.length === counts.length + 1 ? bins : d3.range(counts.length + 1).map(i => i);
+
+      const x = d3.scaleLinear()
+        .domain([edges[0], edges[edges.length - 1]])
+        .nice()
+        .range([0, innerW]);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(counts) || 1])
+        .nice()
+        .range([innerH, 0]);
+
+      g.append("g")
+        .attr("transform", `translate(0,${innerH})`)
+        .call(d3.axisBottom(x).ticks(6));
+
+      g.append("g")
+        .call(d3.axisLeft(y).ticks(6));
+
+      const bars = counts.map((c, i) => ({x0: edges[i], x1: edges[i + 1], c}));
+
+      g.selectAll("rect")
+        .data(bars)
+        .join("rect")
+        .attr("x", d => x(d.x0) + 1)
+        .attr("y", d => y(d.c))
+        .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+        .attr("height", d => innerH - y(d.c))
+        .attr("fill", "#1f77b4")
+        .attr("opacity", 0.85);
+
+      svg.append("text")
+        .attr("x", MARGIN.left + innerW / 2)
+        .attr("y", HEIGHT - 10)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text(obj.variable);
+
+      svg.append("text")
+        .attr("transform", `translate(14, ${MARGIN.top + innerH / 2}) rotate(-90)`)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text("Frecuencia");
+
+    } else {
+      const cats = (obj.categories ?? []).map(normalizeText);
+      const counts = obj.counts ?? [];
+
+      let rows = cats.map((k, i) => ({k, c: counts[i] ?? 0}));
+      rows.sort((a, b) => d3.descending(a.c, b.c));
+      rows = rows.slice(0, TOP_K);
+
+      const x = d3.scaleBand()
+        .domain(rows.map(d => d.k))
+        .range([0, innerW])
+        .padding(0.15);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(rows, d => d.c) || 1])
+        .nice()
+        .range([innerH, 0]);
+
+      g.append("g")
+        .attr("transform", `translate(0,${innerH})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .attr("transform", "rotate(-30)")
+        .style("text-anchor", "end");
+
+      g.append("g")
+        .call(d3.axisLeft(y).ticks(6));
+
+      g.selectAll("rect")
+        .data(rows)
+        .join("rect")
+        .attr("x", d => x(d.k))
+        .attr("y", d => y(d.c))
+        .attr("width", x.bandwidth())
+        .attr("height", d => innerH - y(d.c))
+        .attr("fill", "#1f77b4")
+        .attr("opacity", 0.85);
+
+      svg.append("text")
+        .attr("x", MARGIN.left + innerW / 2)
+        .attr("y", HEIGHT - 10)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text(`${obj.variable} (Top ${TOP_K})`);
+
+      svg.append("text")
+        .attr("transform", `translate(14, ${MARGIN.top + innerH / 2}) rotate(-90)`)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 11)
+        .text("Frecuencia");
+    }
+  }
+
+  // --- Card ---
+  const card = d3.create("div")
+    .style("max-width", `${CARD_W}px`)
+    .style("border", "1px solid rgba(0,0,0,0.12)")
+    .style("border-radius", "12px")
+    .style("padding", "14px 14px 16px 14px")
+    .style("background", "rgba(255, 255, 255, 0.06)")
+    .style("box-shadow", "0 2px 10px rgba(0,0,0,0.06)")
+    .style("min-height", `${CARD_MIN_H}px`)
+    .style("overflow", "hidden"); // el card NO crece por contenido
+
+  const container = card.append("div")
+    .style("font-family", "system-ui, sans-serif");
+
+  const header = container.append("div")
+    .style("display", "flex")
+    .style("gap", "12px")
+    .style("align-items", "center")
+    .style("margin-bottom", "10px");
+
+  header.append(() => view);
+
+  // zona scroll interna si en pantallas pequeñas se desborda
+  const body = container.append("div")
+    .style("overflow", "auto")
+    .style("padding-bottom", "4px");
+
+  const panels = body.append("div")
+    .style("display", "grid")
+    .style("grid-template-columns", "1fr 1fr")
+    .style("gap", "14px")
+    .style("align-items", "start")
+    .style("min-width", "860px"); // fuerza 2 columnas; si no cabe, aparece scroll horizontal
+
+  const left = panels.append("div");
+  const right = panels.append("div");
+
+  function render(v) {
+    const m = byVarYear.get(v);
+    const obj2021 = m.get(2021);
+    const obj2025 = m.get(2025);
+    drawOne(left, obj2021, "2021");
+    drawOne(right, obj2025, "2025");
+  }
+
+  render(view.value);
+  view.addEventListener("input", () => render(view.value));
+
+  return card.node();
+}
+
+```
+
+
+```js
+
+histograms(data)
+```

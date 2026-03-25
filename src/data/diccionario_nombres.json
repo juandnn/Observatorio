@@ -1,0 +1,13 @@
+{
+    "year": "Año",
+    "estratopri": "Estrato socioeconómico primario",
+    "aoj21": "Percepción de la principal amenaza a la seguridad",
+    "colseg": "Percepción de la situación general de seguridad",
+    "ur": "Área urbana o rural",
+    "q1": "Género del encuestado",
+    "q2": "Edad del encuestado",
+    "ideologia": "Ideología política (autoubicación ideológica)",
+    "m1": "Favorabilidad del presidente",
+    "trust": "Confianza en policías",
+    "pr5": "Efectividad percibida de la policía"
+}
