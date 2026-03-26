@@ -411,6 +411,16 @@
   },
   "ideologia": {
     "2021": {
+      "Izquierda": {
+        "Peor": 194,
+        "Igual": 34,
+        "Mejor": 5
+      },
+      "Centro izquierda": {
+        "Peor": 79,
+        "Igual": 11,
+        "Mejor": 1
+      },
       "Centro": {
         "Peor": 121,
         "Igual": 23,
@@ -421,23 +431,23 @@
         "Igual": 31,
         "Mejor": 10
       },
-      "Centro izquierda": {
-        "Peor": 79,
-        "Igual": 11,
-        "Mejor": 1
-      },
       "Derecha": {
         "Peor": 199,
         "Igual": 51,
         "Mejor": 20
-      },
-      "Izquierda": {
-        "Peor": 194,
-        "Igual": 34,
-        "Mejor": 5
       }
     },
     "2025": {
+      "Izquierda": {
+        "Peor": 121,
+        "Igual": 91,
+        "Mejor": 41
+      },
+      "Centro izquierda": {
+        "Peor": 95,
+        "Igual": 95,
+        "Mejor": 19
+      },
       "Centro": {
         "Peor": 318,
         "Igual": 168,
@@ -448,20 +458,10 @@
         "Igual": 57,
         "Mejor": 7
       },
-      "Centro izquierda": {
-        "Peor": 95,
-        "Igual": 95,
-        "Mejor": 19
-      },
       "Derecha": {
         "Peor": 217,
         "Igual": 44,
         "Mejor": 9
-      },
-      "Izquierda": {
-        "Peor": 121,
-        "Igual": 91,
-        "Mejor": 41
       }
     }
   }
