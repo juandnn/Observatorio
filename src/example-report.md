@@ -8,15 +8,28 @@ title: Exploración de datos
 
 
 
+
+
+<!-- Pedir si mostrar -->
+
+```js
+
+const mostrarHeatmaps = view(Inputs.select(["Sí", "No"], {label: "Elige si quieres ver los histogramas al mismo tiempo:"}));
+mostrarHeatmaps;
+
+```
+
 <!-- Selección del año -->
 ```js
 
-const anioSeleccionado = view(Inputs.select(["2021", "2025"], {label: "Elige un año:"}));
-anioSeleccionado;
+const anioSeleccionado = mostrarHeatmaps === "Sí"
+  ? view(Inputs.select(["2021", "2025"], { label: "Elige un año:" }))
+  : null;
 const img2021 = FileAttachment("data/histogramas2021.png").url();
 const img2025 = FileAttachment("data/histogramas2025.png").url();
 
 ```
+
 <!-- ```js
 
 
@@ -53,6 +66,9 @@ function panelDistribucionesPorAnio(data, yearSeleccionado, {
   marginBottom = 58,
   marginLeft = 48
 } = {}) {
+
+  
+
   const container = html`<div style="width: 100%;"></div>`;
 
   function valorValido(v) {
@@ -85,7 +101,7 @@ function panelDistribucionesPorAnio(data, yearSeleccionado, {
       d3.select(container)
         .append("div")
         .style("padding", "12px")
-        .text(`No hay datos para el año ${yearSeleccionado}.`);
+        .text(`No se quiere ver los histogramas.`);
       return;
     }
 

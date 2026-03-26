@@ -1,6 +1,22 @@
 {
+  "year": {
+    "2021": {
+      "2021": {
+        "Peor": 1134,
+        "Igual": 247,
+        "Mejor": 57
+      }
+    },
+    "2025": {
+      "2025": {
+        "Peor": 967,
+        "Igual": 488,
+        "Mejor": 102
+      }
+    }
+  },
   "estratopri": {
-    "2021.0": {
+    "2021": {
       "Atlántica": {
         "Peor": 193,
         "Igual": 51,
@@ -32,7 +48,7 @@
         "Mejor": 5
       }
     },
-    "2025.0": {
+    "2025": {
       "Atlántica": {
         "Peor": 162,
         "Igual": 107,
@@ -66,7 +82,7 @@
     }
   },
   "aoj21": {
-    "2021.0": {
+    "2021": {
       "Crimen organizado": {
         "Peor": 362,
         "Igual": 64,
@@ -93,7 +109,7 @@
         "Mejor": 0
       }
     },
-    "2025.0": {
+    "2025": {
       "Crimen organizado": {
         "Peor": 298,
         "Igual": 152,
@@ -132,8 +148,8 @@
     }
   },
   "ur": {
-    "2021.0": {},
-    "2025.0": {
+    "2021": {},
+    "2025": {
       "Rural": {
         "Peor": 92,
         "Igual": 33,
@@ -147,8 +163,8 @@
     }
   },
   "q1": {
-    "2021.0": {},
-    "2025.0": {
+    "2021": {},
+    "2025": {
       "Hombre": {
         "Peor": 475,
         "Igual": 235,
@@ -162,683 +178,103 @@
     }
   },
   "q2": {
-    "2021.0": {
-      "18.0": {
-        "Peor": 14,
-        "Igual": 7,
-        "Mejor": 1
-      },
-      "19.0": {
-        "Peor": 10,
-        "Igual": 4,
-        "Mejor": 0
-      },
-      "20.0": {
-        "Peor": 21,
-        "Igual": 14,
-        "Mejor": 0
-      },
-      "21.0": {
-        "Peor": 12,
-        "Igual": 2,
-        "Mejor": 1
-      },
-      "22.0": {
-        "Peor": 15,
-        "Igual": 4,
-        "Mejor": 0
-      },
-      "23.0": {
-        "Peor": 16,
-        "Igual": 4,
-        "Mejor": 1
-      },
-      "24.0": {
-        "Peor": 17,
-        "Igual": 3,
-        "Mejor": 0
-      },
-      "25.0": {
-        "Peor": 22,
-        "Igual": 4,
-        "Mejor": 1
-      },
-      "26.0": {
-        "Peor": 23,
-        "Igual": 5,
-        "Mejor": 2
-      },
-      "27.0": {
-        "Peor": 17,
-        "Igual": 6,
-        "Mejor": 2
-      },
-      "28.0": {
-        "Peor": 25,
-        "Igual": 15,
-        "Mejor": 0
-      },
-      "29.0": {
-        "Peor": 33,
-        "Igual": 3,
-        "Mejor": 0
-      },
-      "30.0": {
-        "Peor": 41,
-        "Igual": 9,
-        "Mejor": 1
-      },
-      "31.0": {
-        "Peor": 37,
-        "Igual": 8,
-        "Mejor": 1
-      },
-      "32.0": {
-        "Peor": 35,
-        "Igual": 1,
-        "Mejor": 1
-      },
-      "33.0": {
-        "Peor": 32,
-        "Igual": 3,
-        "Mejor": 1
-      },
-      "34.0": {
-        "Peor": 33,
-        "Igual": 1,
-        "Mejor": 1
-      },
-      "35.0": {
-        "Peor": 28,
-        "Igual": 8,
-        "Mejor": 1
-      },
-      "36.0": {
-        "Peor": 31,
-        "Igual": 8,
-        "Mejor": 1
-      },
-      "37.0": {
-        "Peor": 45,
-        "Igual": 8,
-        "Mejor": 2
-      },
-      "38.0": {
-        "Peor": 31,
+    "2021": {
+      "Entre 10 y 19": {
+        "Peor": 24,
         "Igual": 11,
+        "Mejor": 1
+      },
+      "Entre 20 y 29": {
+        "Peor": 201,
+        "Igual": 60,
+        "Mejor": 7
+      },
+      "Entre 30 y 39": {
+        "Peor": 339,
+        "Igual": 62,
+        "Mejor": 13
+      },
+      "Entre 40 y 49": {
+        "Peor": 263,
+        "Igual": 46,
+        "Mejor": 19
+      },
+      "Entre 50 y 59": {
+        "Peor": 215,
+        "Igual": 48,
+        "Mejor": 13
+      },
+      "Entre 60 y 69": {
+        "Peor": 66,
+        "Igual": 12,
         "Mejor": 3
       },
-      "39.0": {
-        "Peor": 26,
-        "Igual": 5,
-        "Mejor": 1
-      },
-      "40.0": {
-        "Peor": 33,
-        "Igual": 4,
-        "Mejor": 5
-      },
-      "41.0": {
-        "Peor": 15,
-        "Igual": 6,
-        "Mejor": 1
-      },
-      "42.0": {
-        "Peor": 26,
-        "Igual": 2,
-        "Mejor": 3
-      },
-      "43.0": {
-        "Peor": 35,
-        "Igual": 5,
-        "Mejor": 3
-      },
-      "44.0": {
-        "Peor": 30,
-        "Igual": 3,
-        "Mejor": 0
-      },
-      "45.0": {
-        "Peor": 24,
-        "Igual": 4,
-        "Mejor": 1
-      },
-      "46.0": {
-        "Peor": 21,
-        "Igual": 6,
-        "Mejor": 1
-      },
-      "47.0": {
-        "Peor": 24,
-        "Igual": 5,
-        "Mejor": 3
-      },
-      "48.0": {
-        "Peor": 24,
-        "Igual": 6,
-        "Mejor": 2
-      },
-      "49.0": {
-        "Peor": 31,
-        "Igual": 5,
-        "Mejor": 0
-      },
-      "50.0": {
-        "Peor": 37,
-        "Igual": 6,
-        "Mejor": 4
-      },
-      "51.0": {
-        "Peor": 19,
-        "Igual": 6,
-        "Mejor": 1
-      },
-      "52.0": {
-        "Peor": 23,
-        "Igual": 1,
-        "Mejor": 3
-      },
-      "53.0": {
-        "Peor": 23,
-        "Igual": 6,
-        "Mejor": 1
-      },
-      "54.0": {
-        "Peor": 15,
-        "Igual": 5,
-        "Mejor": 1
-      },
-      "55.0": {
-        "Peor": 27,
+      "Entre 70 y 79": {
+        "Peor": 22,
         "Igual": 8,
-        "Mejor": 0
-      },
-      "56.0": {
-        "Peor": 30,
-        "Igual": 2,
         "Mejor": 1
       },
-      "57.0": {
-        "Peor": 18,
-        "Igual": 4,
-        "Mejor": 1
-      },
-      "58.0": {
-        "Peor": 12,
-        "Igual": 5,
-        "Mejor": 0
-      },
-      "59.0": {
-        "Peor": 11,
-        "Igual": 5,
-        "Mejor": 1
-      },
-      "60.0": {
-        "Peor": 13,
-        "Igual": 3,
-        "Mejor": 0
-      },
-      "61.0": {
-        "Peor": 2,
-        "Igual": 0,
-        "Mejor": 1
-      },
-      "62.0": {
-        "Peor": 13,
-        "Igual": 3,
-        "Mejor": 1
-      },
-      "63.0": {
-        "Peor": 9,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "64.0": {
-        "Peor": 5,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "65.0": {
-        "Peor": 7,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "66.0": {
-        "Peor": 7,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "67.0": {
+      "Entre 80 y 89": {
         "Peor": 4,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "68.0": {
-        "Peor": 3,
-        "Igual": 1,
-        "Mejor": 1
-      },
-      "69.0": {
-        "Peor": 3,
-        "Igual": 2,
-        "Mejor": 0
-      },
-      "70.0": {
-        "Peor": 5,
-        "Igual": 3,
-        "Mejor": 0
-      },
-      "71.0": {
-        "Peor": 3,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "72.0": {
-        "Peor": 4,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "73.0": {
-        "Peor": 3,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "74.0": {
-        "Peor": 5,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "75.0": {
-        "Peor": 0,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "76.0": {
-        "Peor": 1,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "77.0": {
-        "Peor": 0,
-        "Igual": 2,
-        "Mejor": 0
-      },
-      "78.0": {
-        "Peor": 0,
-        "Igual": 0,
-        "Mejor": 1
-      },
-      "79.0": {
-        "Peor": 1,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "80.0": {
-        "Peor": 2,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "81.0": {
-        "Peor": 2,
         "Igual": 0,
         "Mejor": 0
       }
     },
-    "2025.0": {
-      "18.0": {
-        "Peor": 26,
-        "Igual": 17,
+    "2025": {
+      "Entre 10 y 19": {
+        "Peor": 43,
+        "Igual": 37,
         "Mejor": 3
       },
-      "19.0": {
-        "Peor": 17,
-        "Igual": 20,
-        "Mejor": 0
+      "Entre 20 y 29": {
+        "Peor": 219,
+        "Igual": 133,
+        "Mejor": 26
       },
-      "20.0": {
-        "Peor": 20,
-        "Igual": 14,
-        "Mejor": 2
+      "Entre 30 y 39": {
+        "Peor": 199,
+        "Igual": 129,
+        "Mejor": 19
       },
-      "21.0": {
-        "Peor": 9,
-        "Igual": 11,
-        "Mejor": 3
+      "Entre 40 y 49": {
+        "Peor": 222,
+        "Igual": 97,
+        "Mejor": 15
       },
-      "22.0": {
-        "Peor": 22,
-        "Igual": 10,
-        "Mejor": 4
+      "Entre 50 y 59": {
+        "Peor": 109,
+        "Igual": 33,
+        "Mejor": 20
       },
-      "23.0": {
-        "Peor": 17,
-        "Igual": 10,
-        "Mejor": 3
+      "Entre 60 y 69": {
+        "Peor": 97,
+        "Igual": 28,
+        "Mejor": 13
       },
-      "24.0": {
-        "Peor": 19,
-        "Igual": 11,
-        "Mejor": 4
-      },
-      "25.0": {
-        "Peor": 30,
-        "Igual": 19,
-        "Mejor": 1
-      },
-      "26.0": {
-        "Peor": 16,
-        "Igual": 11,
-        "Mejor": 0
-      },
-      "27.0": {
-        "Peor": 24,
-        "Igual": 14,
-        "Mejor": 2
-      },
-      "28.0": {
-        "Peor": 25,
+      "Entre 70 y 79": {
+        "Peor": 57,
         "Igual": 21,
-        "Mejor": 3
+        "Mejor": 5
       },
-      "29.0": {
-        "Peor": 37,
-        "Igual": 12,
-        "Mejor": 4
-      },
-      "30.0": {
-        "Peor": 28,
-        "Igual": 16,
-        "Mejor": 6
-      },
-      "31.0": {
-        "Peor": 24,
-        "Igual": 11,
-        "Mejor": 0
-      },
-      "32.0": {
-        "Peor": 19,
-        "Igual": 15,
-        "Mejor": 4
-      },
-      "33.0": {
-        "Peor": 29,
-        "Igual": 24,
-        "Mejor": 1
-      },
-      "34.0": {
-        "Peor": 18,
-        "Igual": 5,
-        "Mejor": 1
-      },
-      "35.0": {
-        "Peor": 27,
-        "Igual": 16,
-        "Mejor": 0
-      },
-      "36.0": {
-        "Peor": 17,
-        "Igual": 9,
-        "Mejor": 1
-      },
-      "37.0": {
-        "Peor": 13,
-        "Igual": 16,
-        "Mejor": 3
-      },
-      "38.0": {
-        "Peor": 13,
-        "Igual": 11,
-        "Mejor": 2
-      },
-      "39.0": {
-        "Peor": 11,
-        "Igual": 6,
-        "Mejor": 1
-      },
-      "40.0": {
-        "Peor": 28,
-        "Igual": 8,
-        "Mejor": 2
-      },
-      "41.0": {
-        "Peor": 14,
-        "Igual": 3,
-        "Mejor": 2
-      },
-      "42.0": {
-        "Peor": 25,
-        "Igual": 11,
-        "Mejor": 4
-      },
-      "43.0": {
-        "Peor": 22,
-        "Igual": 4,
-        "Mejor": 2
-      },
-      "44.0": {
-        "Peor": 12,
-        "Igual": 8,
-        "Mejor": 0
-      },
-      "45.0": {
-        "Peor": 35,
-        "Igual": 16,
-        "Mejor": 2
-      },
-      "46.0": {
-        "Peor": 20,
-        "Igual": 14,
-        "Mejor": 1
-      },
-      "47.0": {
-        "Peor": 20,
-        "Igual": 13,
-        "Mejor": 0
-      },
-      "48.0": {
-        "Peor": 34,
-        "Igual": 10,
-        "Mejor": 0
-      },
-      "49.0": {
-        "Peor": 12,
-        "Igual": 10,
-        "Mejor": 2
-      },
-      "50.0": {
-        "Peor": 12,
-        "Igual": 11,
-        "Mejor": 2
-      },
-      "51.0": {
-        "Peor": 7,
-        "Igual": 3,
-        "Mejor": 1
-      },
-      "52.0": {
-        "Peor": 19,
-        "Igual": 7,
-        "Mejor": 1
-      },
-      "53.0": {
-        "Peor": 6,
-        "Igual": 2,
-        "Mejor": 3
-      },
-      "54.0": {
-        "Peor": 4,
-        "Igual": 2,
-        "Mejor": 2
-      },
-      "55.0": {
-        "Peor": 10,
-        "Igual": 1,
-        "Mejor": 3
-      },
-      "56.0": {
-        "Peor": 9,
-        "Igual": 0,
-        "Mejor": 2
-      },
-      "57.0": {
-        "Peor": 9,
-        "Igual": 0,
-        "Mejor": 2
-      },
-      "58.0": {
+      "Entre 80 y 89": {
         "Peor": 16,
-        "Igual": 3,
-        "Mejor": 3
-      },
-      "59.0": {
-        "Peor": 17,
-        "Igual": 4,
-        "Mejor": 1
-      },
-      "60.0": {
-        "Peor": 11,
-        "Igual": 4,
-        "Mejor": 2
-      },
-      "61.0": {
-        "Peor": 8,
-        "Igual": 4,
-        "Mejor": 0
-      },
-      "62.0": {
-        "Peor": 11,
-        "Igual": 3,
-        "Mejor": 3
-      },
-      "63.0": {
-        "Peor": 17,
-        "Igual": 3,
-        "Mejor": 2
-      },
-      "64.0": {
-        "Peor": 8,
-        "Igual": 3,
-        "Mejor": 2
-      },
-      "65.0": {
-        "Peor": 13,
         "Igual": 2,
         "Mejor": 0
       },
-      "66.0": {
-        "Peor": 6,
-        "Igual": 1,
-        "Mejor": 3
-      },
-      "67.0": {
-        "Peor": 8,
-        "Igual": 1,
+      "Entre 90 y 99": {
+        "Peor": 1,
+        "Igual": 0,
         "Mejor": 0
       },
-      "68.0": {
-        "Peor": 7,
-        "Igual": 5,
-        "Mejor": 0
-      },
-      "69.0": {
-        "Peor": 8,
-        "Igual": 2,
-        "Mejor": 1
-      },
-      "70.0": {
-        "Peor": 14,
-        "Igual": 6,
-        "Mejor": 0
-      },
-      "71.0": {
+      "Entre <NA> y <NA>": {
         "Peor": 4,
-        "Igual": 2,
-        "Mejor": 2
-      },
-      "72.0": {
-        "Peor": 6,
-        "Igual": 3,
+        "Igual": 8,
         "Mejor": 1
-      },
-      "73.0": {
-        "Peor": 7,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "74.0": {
-        "Peor": 6,
-        "Igual": 0,
-        "Mejor": 1
-      },
-      "75.0": {
-        "Peor": 5,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "76.0": {
-        "Peor": 5,
-        "Igual": 3,
-        "Mejor": 0
-      },
-      "77.0": {
-        "Peor": 3,
-        "Igual": 3,
-        "Mejor": 0
-      },
-      "78.0": {
-        "Peor": 5,
-        "Igual": 1,
-        "Mejor": 1
-      },
-      "79.0": {
-        "Peor": 2,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "80.0": {
-        "Peor": 3,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "81.0": {
-        "Peor": 3,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "82.0": {
-        "Peor": 1,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "83.0": {
-        "Peor": 2,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "84.0": {
-        "Peor": 1,
-        "Igual": 1,
-        "Mejor": 0
-      },
-      "85.0": {
-        "Peor": 3,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "87.0": {
-        "Peor": 3,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "90.0": {
-        "Peor": 1,
-        "Igual": 0,
-        "Mejor": 0
       }
     }
   },
   "m1": {
-    "2021.0": {
+    "2021": {
       "Bueno": {
         "Peor": 159,
         "Igual": 83,
@@ -865,7 +301,7 @@
         "Mejor": 19
       }
     },
-    "2025.0": {
+    "2025": {
       "Bueno": {
         "Peor": 137,
         "Igual": 156,
@@ -894,8 +330,8 @@
     }
   },
   "trust": {
-    "2021.0": {},
-    "2025.0": {
+    "2021": {},
+    "2025": {
       "1.0": {
         "Peor": 126,
         "Igual": 34,
@@ -934,8 +370,8 @@
     }
   },
   "pr5": {
-    "2021.0": {},
-    "2025.0": {
+    "2021": {},
+    "2025": {
       "1.0": {
         "Peor": 137,
         "Igual": 33,
@@ -974,7 +410,7 @@
     }
   },
   "ideologia": {
-    "2021.0": {
+    "2021": {
       "Centro": {
         "Peor": 121,
         "Igual": 23,
@@ -1001,7 +437,7 @@
         "Mejor": 5
       }
     },
-    "2025.0": {
+    "2025": {
       "Centro": {
         "Peor": 318,
         "Igual": 168,
