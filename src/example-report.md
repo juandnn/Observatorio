@@ -287,6 +287,10 @@ panelDistribucionesPorAnio(data, anioSeleccionado, {
 
 ```
 
+<div class="hero">
+  <h2> Análisis por variable </h2>
+</div>
+
 <!-- Pedir variable -->
 
 ```js
@@ -904,7 +908,309 @@ heatmapsColsegPorAnio({
 
 
 
+<!-- Variable influencia -->
+
+```js
+const tipoInfluencia = view(
+  Inputs.select(["Peor", "Mejor"], {
+    label: "¿Qué define influencia?"
+  })
+);
+
+tipoInfluencia;
+
+```
 
 
+```js
+function topAtributosInfluyentes({
+  dataHeatmapRelativo,
+  dataHeatmapAbsoluto,
+  esRelativo,
+  tipoInfluencia,
+  diccionario = null,
+  years = [2021, 2025],
+  topN = 10,
+  height = 420,
+  marginTop = 30,
+  marginRight = 20,
+  marginBottom = 150,
+  marginLeft = 70
+} = {}) {
+  const container = html`<div style="width: 100%;"></div>`;
 
+  const dataHeatmap = esRelativo === "Sí"
+    ? dataHeatmapRelativo
+    : dataHeatmapAbsoluto;
+
+  let selectedDatum = null;
+  let lastWidth = null;
+
+  function normalizarYearKeys(y) {
+    return [String(y), `${y}.0`, +y];
+  }
+
+  function extraerDatosPorAnio(variableData, year) {
+    if (!variableData || typeof variableData !== "object") return null;
+
+    for (const key of normalizarYearKeys(year)) {
+      if (variableData[key] != null) return variableData[key];
+    }
+    return null;
+  }
+
+  function tieneNivelYear(variableData) {
+    if (!variableData || typeof variableData !== "object") return false;
+
+    return Object.keys(variableData).some(k =>
+      ["2021", "2021.0", "2025", "2025.0"].includes(String(k))
+    );
+  }
+
+  function calcularInfluencia(objColseg) {
+    if (!objColseg) return 0;
+
+    const peor = +objColseg["Peor"] || 0;
+    const mejor = +objColseg["Mejor"] || 0;
+
+    return tipoInfluencia === "Peor" ? peor : mejor;
+  }
+
+  function construirRanking(year) {
+    const resultados = [];
+
+    for (const variableKey of Object.keys(dataHeatmap || {})) {
+      const variableData = dataHeatmap[variableKey];
+      const usaYear = tieneNivelYear(variableData);
+      const bloque = usaYear ? extraerDatosPorAnio(variableData, year) : variableData;
+
+      if (!bloque) continue;
+
+      for (const atributo of Object.keys(bloque)) {
+        const objColseg = bloque[atributo];
+        const valor = calcularInfluencia(objColseg);
+
+        resultados.push({
+          year,
+          variableKey,
+          variableLabel: diccionario?.[variableKey] || variableKey,
+          atributo,
+          valor,
+          detalle: {
+            Peor: +objColseg?.["Peor"] || 0,
+            Igual: +objColseg?.["Igual"] || 0,
+            Mejor: +objColseg?.["Mejor"] || 0
+          }
+        });
+      }
+    }
+
+    return resultados
+      .sort((a, b) => d3.descending(a.valor, b.valor))
+      .slice(0, topN)
+      .map((d, i) => ({
+        ...d,
+        xKey: `${d.variableKey}__${d.atributo}__${i}__${year}`
+      }));
+  }
+
+  function renderInfoBox(selection) {
+    const f = esRelativo === "Sí" ? d3.format(".3f") : d3.format(",");
+
+    if (!selection) {
+      return `
+        <div style="color:#555;">Haz click en una barra para ver el detalle.</div>
+      `;
+    }
+
+    return `
+      <div><strong>Año:</strong> ${selection.year}</div>
+      <div><strong>Variable:</strong> ${selection.variableLabel}</div>
+      <div><strong>Atributo:</strong> ${selection.atributo}</div>
+      <div><strong>${tipoInfluencia}:</strong> ${f(selection.valor)}</div>
+      <div style="margin-top:6px;"><strong>Detalle</strong></div>
+      <div>Peor: ${f(selection.detalle.Peor)}</div>
+      <div>Igual: ${f(selection.detalle.Igual)}</div>
+      <div>Mejor: ${f(selection.detalle.Mejor)}</div>
+    `;
+  }
+
+  function esSeleccionado(d) {
+    if (!selectedDatum) return false;
+
+    return (
+      d.year === selectedDatum.year &&
+      d.variableKey === selectedDatum.variableKey &&
+      d.atributo === selectedDatum.atributo
+    );
+  }
+
+  function render() {
+    const width = container.getBoundingClientRect().width;
+    if (!width) return;
+
+    if (lastWidth !== null && width === lastWidth) return;
+    lastWidth = width;
+
+    container.innerHTML = "";
+
+    const wrapper = d3.select(container)
+      .append("div")
+      .style("display", "grid")
+      .style("grid-template-columns", width < 900 ? "1fr" : "1fr 1fr")
+      .style("gap", "16px")
+      .style("width", "100%")
+      .style("margin-bottom", "14px");
+
+    const svgs = [];
+
+    years.forEach(year => {
+      const ranking = construirRanking(year);
+
+      const card = wrapper.append("div");
+
+      card.append("div")
+        .style("font-weight", "600")
+        .style("margin-bottom", "8px")
+        .text(`Top ${topN} (${tipoInfluencia}) — ${year}`);
+
+      const cardWidth =
+        card.node().getBoundingClientRect().width ||
+        (width < 900 ? width : width / 2);
+
+      const svgWidth = Math.max(cardWidth, 320);
+      const innerWidth = svgWidth - marginLeft - marginRight;
+      const innerHeight = height - marginTop - marginBottom;
+
+      const x = d3.scaleBand()
+        .domain(ranking.map(d => d.xKey))
+        .range([marginLeft, marginLeft + innerWidth])
+        .padding(0.15);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(ranking, d => d.valor) || 1])
+        .nice()
+        .range([marginTop + innerHeight, marginTop]);
+
+      const svg = card.append("svg")
+        .attr("width", svgWidth)
+        .attr("height", height)
+        .attr("viewBox", `0 0 ${svgWidth} ${height}`)
+        .style("width", "100%")
+        .style("height", "auto")
+        .style("display", "block");
+
+      const bars = svg.append("g")
+        .selectAll("rect")
+        .data(ranking)
+        .join("rect")
+        .attr("x", d => x(d.xKey))
+        .attr("y", d => y(d.valor))
+        .attr("width", x.bandwidth())
+        .attr("height", d => Math.max(0, y(0) - y(d.valor)))
+        .attr("fill", "currentColor")
+        .attr("opacity", d => {
+          if (!selectedDatum) return 0.8;
+          return esSeleccionado(d) ? 1 : 0.45;
+        })
+        .style("cursor", "pointer")
+        .style("pointer-events", "all");
+
+      svg.append("g")
+        .attr("transform", `translate(0,${marginTop + innerHeight})`)
+        .call(
+          d3.axisBottom(x)
+            .tickFormat(key => {
+              const datum = ranking.find(d => d.xKey === key);
+              return datum ? datum.variableLabel : key;
+            })
+        )
+        .call(g => g.selectAll("text")
+          .attr("transform", "rotate(-35)")
+          .style("text-anchor", "end")
+          .style("font-size", "10px"));
+
+      svg.append("g")
+        .attr("transform", `translate(${marginLeft},0)`)
+        .call(
+          d3.axisLeft(y)
+            .ticks(6)
+            .tickFormat(esRelativo === "Sí" ? d3.format(".2f") : d3.format(","))
+        );
+
+      svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -(marginTop + innerHeight / 2))
+        .attr("y", 16)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 12)
+        .text(tipoInfluencia);
+
+      svgs.push({ svg, bars });
+    });
+
+    const infoBox = d3.select(container)
+      .append("div")
+      .style("padding", "10px 12px")
+      .style("border", "1px solid #ddd")
+      .style("border-radius", "8px")
+      .style("min-height", "48px")
+      .style("font-size", "14px")
+      .html(renderInfoBox(selectedDatum));
+
+    function actualizarSeleccionVisual() {
+      infoBox.html(renderInfoBox(selectedDatum));
+
+      svgs.forEach(({ bars }) => {
+        bars.attr("opacity", d => {
+          if (!selectedDatum) return 0.8;
+          return esSeleccionado(d) ? 1 : 0.45;
+        });
+      });
+    }
+
+    svgs.forEach(({ bars }) => {
+      bars.on("click", function(event, d) {
+        event.preventDefault();
+        event.stopPropagation();
+        selectedDatum = d;
+        actualizarSeleccionVisual();
+      });
+    });
+  }
+
+  const resizeTarget = container.parentElement || container;
+
+  const resizeObserver = new ResizeObserver(entries => {
+    const newWidth = entries[0]?.contentRect?.width;
+    if (!newWidth) return;
+
+    if (lastWidth === null || newWidth !== lastWidth) {
+      lastWidth = null;
+      render();
+    }
+  });
+
+  resizeObserver.observe(resizeTarget);
+
+  if (typeof invalidation !== "undefined") {
+    invalidation.then(() => resizeObserver.disconnect());
+  }
+
+  render();
+  return container;
+}
+
+```
+
+```js
+topAtributosInfluyentes({
+  dataHeatmapRelativo: data_heatmap_relativo,
+  dataHeatmapAbsoluto: data_heatmap_absoluto,
+  esRelativo,
+  tipoInfluencia,
+  diccionario: data_dicc
+})
+
+```
 
