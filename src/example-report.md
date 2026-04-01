@@ -50,244 +50,6 @@ console.log(data_heatmap_relativo)
 
 ```
 
-
-<!-- FUNCIÓN Histogramas por año -->
-```js
-
-function panelDistribucionesPorAnio(data, yearSeleccionado, {
-  diccionario = null,
-  height = 260,
-  binsCount = 16,
-  maxCategorias = 10,
-  columnasExcluir = [],
-  marginTop = 28,
-  marginRight = 18,
-  marginBottom = 58,
-  marginLeft = 48
-} = {}) {
-
-  
-
-  const container = html`<div style="width: 100%;"></div>`;
-
-  function valorValido(v) {
-    return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
-  }
-
-  function esNumero(v) {
-    return valorValido(v) && !isNaN(+v);
-  }
-
-  function detectarTipoVariable(valores) {
-    const validos = valores.filter(valorValido);
-    if (!validos.length) return "categorica";
-    const nNumericos = validos.filter(esNumero).length;
-    return (nNumericos / validos.length) > 0.9 ? "numerica" : "categorica";
-  }
-
-  function render() {
-    const width = container.getBoundingClientRect().width;
-    if (!width) return;
-
-    container.innerHTML = "";
-
-    const yearNum = +yearSeleccionado;
-    const datosAnio = data
-      .map(d => ({...d, year: +d.year}))
-      .filter(d => d.year === yearNum);
-
-    if (!datosAnio.length) {
-      d3.select(container)
-        .append("div")
-        .style("padding", "12px")
-        .text(`No se quiere ver los histogramas.`);
-      return;
-    }
-
-    const columnas = Object.keys(datosAnio[0]).filter(c =>
-      !columnasExcluir.includes(c) && c !== "year"
-    );
-
-    d3.select(container)
-      .append("div")
-      .style("font-weight", "600")
-      .style("margin-bottom", "14px")
-      .text(`Distribuciones para ${yearSeleccionado}`);
-
-    const grid = d3.select(container)
-      .append("div")
-      .style("display", "grid")
-      .style("grid-template-columns",
-        width < 700 ? "1fr" :
-        width < 1100 ? "1fr 1fr" :
-        "1fr 1fr 1fr"
-      )
-      .style("gap", "16px")
-      .style("width", "100%");
-
-    columnas.forEach(variableKey => {
-      const titulo = diccionario?.[variableKey] || variableKey;
-      const valores = datosAnio.map(d => d[variableKey]);
-      const tipo = detectarTipoVariable(valores);
-
-      const card = grid.append("div")
-        .style("width", "100%")
-        .style("border", "1px solid #ddd")
-        .style("border-radius", "10px")
-        .style("padding", "10px")
-        .style("box-sizing", "border-box");
-
-      card.append("div")
-        .style("font-size", "14px")
-        .style("font-weight", "600")
-        .style("margin-bottom", "8px")
-        .text(titulo);
-
-      const cardWidth = card.node().getBoundingClientRect().width;
-      const svgWidth = Math.max(cardWidth - 2, 260);
-      const innerWidth = svgWidth - marginLeft - marginRight;
-      const innerHeight = height - marginTop - marginBottom;
-
-      const svg = card.append("svg")
-        .attr("width", svgWidth)
-        .attr("height", height)
-        .attr("viewBox", `0 0 ${svgWidth} ${height}`)
-        .style("width", "100%")
-        .style("height", "auto")
-        .style("display", "block");
-
-      if (tipo === "numerica") {
-        const datosNum = valores
-          .map(v => +v)
-          .filter(v => !isNaN(v));
-
-        if (!datosNum.length) {
-          card.append("div")
-            .style("padding", "8px")
-            .text("Sin datos válidos.");
-          return;
-        }
-
-        const xDomain = d3.extent(datosNum);
-        const bins = d3.bin()
-          .domain(xDomain)
-          .thresholds(binsCount)(datosNum);
-
-        const yMax = d3.max(bins, d => d.length) || 1;
-
-        const x = d3.scaleLinear()
-          .domain(xDomain)
-          .nice()
-          .range([marginLeft, marginLeft + innerWidth]);
-
-        const y = d3.scaleLinear()
-          .domain([0, yMax])
-          .nice()
-          .range([marginTop + innerHeight, marginTop]);
-
-        svg.append("g")
-          .selectAll("rect")
-          .data(bins)
-          .join("rect")
-          .attr("x", d => x(d.x0) + 1)
-          .attr("y", d => y(d.length))
-          .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-          .attr("height", d => y(0) - y(d.length))
-          .attr("fill", "currentColor")
-          .attr("opacity", 0.75);
-
-        svg.append("g")
-          .attr("transform", `translate(0,${marginTop + innerHeight})`)
-          .call(d3.axisBottom(x).ticks(5));
-
-        svg.append("g")
-          .attr("transform", `translate(${marginLeft},0)`)
-          .call(d3.axisLeft(y).ticks(5));
-      } else {
-        const datosCat = valores
-          .filter(valorValido)
-          .map(v => String(v).trim());
-
-        if (!datosCat.length) {
-          card.append("div")
-            .style("padding", "8px")
-            .text("Sin datos válidos.");
-          return;
-        }
-
-        const freq = d3.rollups(
-          datosCat,
-          v => v.length,
-          d => d
-        ).sort((a, b) => d3.descending(a[1], b[1]));
-
-        const top = freq.slice(0, maxCategorias);
-        const resto = freq.slice(maxCategorias);
-        const datosGrafica = top.map(([categoria, valor]) => ({categoria, valor}));
-
-        if (resto.length) {
-          datosGrafica.push({
-            categoria: "Otros",
-            valor: d3.sum(resto, d => d[1])
-          });
-        }
-
-        const x = d3.scaleBand()
-          .domain(datosGrafica.map(d => d.categoria))
-          .range([marginLeft, marginLeft + innerWidth])
-          .padding(0.15);
-
-        const y = d3.scaleLinear()
-          .domain([0, d3.max(datosGrafica, d => d.valor) || 1])
-          .nice()
-          .range([marginTop + innerHeight, marginTop]);
-
-        svg.append("g")
-          .selectAll("rect")
-          .data(datosGrafica)
-          .join("rect")
-          .attr("x", d => x(d.categoria))
-          .attr("y", d => y(d.valor))
-          .attr("width", x.bandwidth())
-          .attr("height", d => y(0) - y(d.valor))
-          .attr("fill", "currentColor")
-          .attr("opacity", 0.75);
-
-        svg.append("g")
-          .attr("transform", `translate(0,${marginTop + innerHeight})`)
-          .call(d3.axisBottom(x))
-          .call(g => g.selectAll("text")
-            .attr("transform", "rotate(-35)")
-            .style("text-anchor", "end")
-            .style("font-size", "10px"));
-
-        svg.append("g")
-          .attr("transform", `translate(${marginLeft},0)`)
-          .call(d3.axisLeft(y).ticks(5));
-      }
-    });
-  }
-
-  const resizeObserver = new ResizeObserver(render);
-  resizeObserver.observe(container);
-  invalidation.then(() => resizeObserver.disconnect());
-
-  render();
-  return container;
-}
-
-```
-
-
-```js
-// panelDistribucionesPorAnio(data, anioSeleccionado, {
-//   diccionario: data_dicc
-// })
-
-```
-
-
-
 <!-- Pedir variable -->
 
 ```js
@@ -319,7 +81,6 @@ esRelativo;
 <!-- FUNCIÓN Histogramas individuales -->
 
 ```js
-
 function distribucionPorAnio(data, variableKey, {
   years = [2021, 2025],
   height = 340,
@@ -352,6 +113,32 @@ function distribucionPorAnio(data, variableKey, {
     const proporcionNumerica = numericos / valores.length;
 
     return proporcionNumerica > 0.9 ? "numerica" : "categorica";
+  }
+
+  function crearTooltip(card) {
+    return card.append("div")
+      .style("margin-top", "8px")
+      .style("min-height", "20px")
+      .style("font-size", "13px")
+      .style("line-height", "1.3")
+      .style("padding", "6px 8px")
+      .style("border-radius", "6px")
+      .style("background", "rgba(255,255,255,0.08)")
+      .style("color", "white")
+      .style("visibility", "hidden");
+  }
+
+  function activarInteraccionBarras(selection, tooltip, formatearTexto) {
+    selection
+      .style("cursor", "pointer")
+      .on("click", function(event, d) {
+        selection.attr("opacity", 0.75);
+        d3.select(this).attr("opacity", 1);
+
+        tooltip
+          .style("visibility", "visible")
+          .text(formatearTexto(d));
+      });
   }
 
   function render() {
@@ -451,7 +238,9 @@ function distribucionPorAnio(data, variableKey, {
           .style("height", "auto")
           .style("display", "block");
 
-        svg.append("g")
+        const tooltip = crearTooltip(card);
+
+        const barras = svg.append("g")
           .selectAll("rect")
           .data(info.bins)
           .join("rect")
@@ -461,6 +250,12 @@ function distribucionPorAnio(data, variableKey, {
           .attr("height", d => y(0) - y(d.length))
           .attr("fill", "currentColor")
           .attr("opacity", 0.75);
+
+        activarInteraccionBarras(
+          barras,
+          tooltip,
+          d => `Rango: ${d.x0} a ${d.x1} | Frecuencia exacta: ${d.length}`
+        );
 
         svg.append("g")
           .attr("transform", `translate(0,${marginTop + innerHeight})`)
@@ -583,7 +378,9 @@ function distribucionPorAnio(data, variableKey, {
           .style("height", "auto")
           .style("display", "block");
 
-        svg.append("g")
+        const tooltip = crearTooltip(card);
+
+        const barras = svg.append("g")
           .selectAll("rect")
           .data(info.datosGrafica)
           .join("rect")
@@ -593,6 +390,12 @@ function distribucionPorAnio(data, variableKey, {
           .attr("height", d => y(0) - y(d.valor))
           .attr("fill", "currentColor")
           .attr("opacity", 0.75);
+
+        activarInteraccionBarras(
+          barras,
+          tooltip,
+          d => `Categoría: ${d.categoria} | Frecuencia exacta: ${d.valor}`
+        );
 
         svg.append("g")
           .attr("transform", `translate(0,${marginTop + innerHeight})`)
@@ -632,9 +435,7 @@ function distribucionPorAnio(data, variableKey, {
   render();
   return container;
 }
-
 ```
-
 
 ```js
 distribucionPorAnio(data, variableSeleccionada.key)
@@ -1011,12 +812,26 @@ function topAtributosInfluyentes({
       }));
   }
 
-  function renderInfoBox(selection) {
-    const f = esRelativo === "Sí" ? d3.format(".3f") : d3.format(",");
+  function formatValue(v) {
+    return esRelativo === "Sí" ? d3.format(".3f")(v) : d3.format(",")(v);
+  }
 
+  function crearTarjetaDetalle(parent) {
+    return parent.append("div")
+      .style("margin-top", "8px")
+      .style("min-height", "20px")
+      .style("font-size", "13px")
+      .style("line-height", "1.35")
+      .style("padding", "8px 10px")
+      .style("border-radius", "6px")
+      .style("background", "rgba(255,255,255,0.08)")
+      .style("color", "white");
+  }
+
+  function renderInfoBox(selection) {
     if (!selection) {
       return `
-        <div style="color:#555;">Haz click en una barra para ver el detalle.</div>
+        <div>Haz click en una barra para ver el detalle.</div>
       `;
     }
 
@@ -1024,11 +839,11 @@ function topAtributosInfluyentes({
       <div><strong>Año:</strong> ${selection.year}</div>
       <div><strong>Variable:</strong> ${selection.variableLabel}</div>
       <div><strong>Atributo:</strong> ${selection.atributo}</div>
-      <div><strong>${tipoInfluencia}:</strong> ${f(selection.valor)}</div>
+      <div><strong>${tipoInfluencia}:</strong> ${formatValue(selection.valor)}</div>
       <div style="margin-top:6px;"><strong>Detalle</strong></div>
-      <div>Peor: ${f(selection.detalle.Peor)}</div>
-      <div>Igual: ${f(selection.detalle.Igual)}</div>
-      <div>Mejor: ${f(selection.detalle.Mejor)}</div>
+      <div>Peor: ${formatValue(selection.detalle.Peor)}</div>
+      <div>Igual: ${formatValue(selection.detalle.Igual)}</div>
+      <div>Mejor: ${formatValue(selection.detalle.Mejor)}</div>
     `;
   }
 
@@ -1064,12 +879,20 @@ function topAtributosInfluyentes({
     years.forEach(year => {
       const ranking = construirRanking(year);
 
-      const card = wrapper.append("div");
+      const card = wrapper.append("div")
+        .style("width", "100%");
 
       card.append("div")
         .style("font-weight", "600")
         .style("margin-bottom", "8px")
         .text(`Top ${topN} (${tipoInfluencia}) — ${year}`);
+
+      if (!ranking.length) {
+        card.append("div")
+          .style("padding", "12px")
+          .text(`No hay datos para ${year}.`);
+        return;
+      }
 
       const cardWidth =
         card.node().getBoundingClientRect().width ||
@@ -1147,13 +970,7 @@ function topAtributosInfluyentes({
       svgs.push({ svg, bars });
     });
 
-    const infoBox = d3.select(container)
-      .append("div")
-      .style("padding", "10px 12px")
-      .style("border", "1px solid #ddd")
-      .style("border-radius", "8px")
-      .style("min-height", "48px")
-      .style("font-size", "14px")
+    const infoBox = crearTarjetaDetalle(d3.select(container))
       .html(renderInfoBox(selectedDatum));
 
     function actualizarSeleccionVisual() {
@@ -1200,7 +1017,6 @@ function topAtributosInfluyentes({
 }
 
 ```
-
 ```js
 topAtributosInfluyentes({
   dataHeatmapRelativo: data_heatmap_relativo,
@@ -1222,180 +1038,7 @@ const geojson = await FileAttachment("data/co.json").json();
 
 ```
 
-
-<!-- Mapa Colombia -->
-
-
-```js
-
-async function mapaColombiaRegiones({
-  width = 800,
-  height = 900,
-  stroke = "#ffffff",
-  strokeWidth = 1,
-  mostrarNombres = true
-} = {}) {
-
-const agrupacion = {
-  "COAMA": "Amazonía",
-  "COANT": "Central",
-  "COARA": "Oriental",
-  "COATL": "Atlántica",
-  "COBOL": "Atlántica",
-  "COBOY": "Oriental",
-  "COCAL": "Central",
-  "COCAQ": "Amazonía",
-  "COCAS": "Oriental",
-  "COCAU": "Pacífica",
-  "COCES": "Atlántica",
-  "COCHO": "Pacífica",
-  "COCOR": "Atlántica",
-  "COCUN": "Central",
-  "CODC": "Bogotá",
-  "COGUA": "Amazonía",
-  "COGUV": "Amazonía",
-  "COHUI": "Central",
-  "COLAG": "Atlántica",
-  "COMAG": "Atlántica",
-  "COMET": "Oriental",
-  "CONAR": "Pacífica",
-  "CONSA": "Oriental",
-  "COPUT": "Amazonía",
-  "COQUI": "Central",
-  "CORIS": "Central",
-  "COSAN": "Oriental",
-  "COSAP": "Atlántica",
-  "COSUC": "Atlántica",
-  "COTOL": "Central",
-  "COVAC": "Pacífica",
-  "COVAU": "Amazonía",
-  "COVID": "Oriental"
-};
-
-  const colores = {
-    "Oriental": "#4e79a7",
-    "Central": "#f28e2b",
-    "Amazonía": "#e15759",
-    "Atlántica": "#76b7b2",
-    "Pacífica": "#59a14f",
-    "Bogotá": "#edc948"
-  };
-
-  const svg = d3.create("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("viewBox", [0, 0, width, height]);
-
-  const projection = d3.geoMercator();
-  const path = d3.geoPath(projection);
-
-  projection.fitExtent(
-    [[20, 20], [width - 20, height - 20]],
-    geojson
-  );
-
-  const tooltip = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("background", "white")
-    .style("border", "1px solid #ccc")
-    .style("border-radius", "6px")
-    .style("padding", "6px 10px")
-    .style("font", "12px sans-serif")
-    .style("pointer-events", "none")
-    .style("opacity", 0);
-
-  svg.append("g")
-    .selectAll("path")
-    .data(geojson.features)
-    .join("path")
-    .attr("d", path)
-    .attr("fill", d => {
-      const region = agrupacion[d.properties.id];
-      return colores[region] || "#ccc";
-    })
-    .attr("stroke", stroke)
-    .attr("stroke-width", strokeWidth)
-    .on("mouseover", function (event, d) {
-      const codigo = d.properties.id;
-      const depto = d.properties.name;
-      const region = agrupacion[codigo] || "Sin región";
-
-      d3.select(this).attr("opacity", 0.8);
-
-      tooltip
-        .style("opacity", 1)
-        .html(`
-          <div><strong>${depto}</strong></div>
-          <div>Código: ${codigo}</div>
-          <div>Región: ${region}</div>
-        `);
-    })
-    .on("mousemove", function (event) {
-      tooltip
-        .style("left", `${event.pageX + 12}px`)
-        .style("top", `${event.pageY + 12}px`);
-    })
-    .on("mouseout", function () {
-      d3.select(this).attr("opacity", 1);
-      tooltip.style("opacity", 0);
-    });
-
-  if (mostrarNombres) {
-    svg.append("g")
-      .selectAll("text")
-      .data(geojson.features)
-      .join("text")
-      .attr("transform", d => {
-        const [x, y] = path.centroid(d);
-        return `translate(${x},${y})`;
-      })
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "middle")
-      .style("font-size", "8px")
-      .style("pointer-events", "none")
-      .style("fill", "black")
-      .text(d => d.properties.name);
-  }
-
-  const regiones = Object.keys(colores);
-
-  const legend = svg.append("g")
-    .attr("transform", `translate(20, 20)`);
-
-  regiones.forEach((region, i) => {
-    const g = legend.append("g")
-      .attr("transform", `translate(0, ${i * 22})`);
-
-    g.append("rect")
-      .attr("width", 14)
-      .attr("height", 14)
-      .attr("fill", colores[region])
-        .attr("stroke", "white")
-        .attr("stroke-width", 1);
-
-    g.append("text")
-      .attr("x", 20)
-      .attr("y", 11)
-      .style("font-size", "18px")
-      .style("fill", "white")
-      .text(region);
-  });
-
-  return svg.node();
-}
-
-```
-
-
-<!-- ```js
-mapaColombiaRegiones({
-  width: 850,
-  height: 950,
-  mostrarNombres: false
-})
-
-``` -->
+<!-- Controlador mapa  -->
 
 
 ```js
@@ -1459,6 +1102,8 @@ const selectorMapa = view(
   controlMapaGeograficoInput(data, variableSeleccionada, anioSeleccionado)
 );
 ```
+
+<!-- Mostrar Mapa -->
 
 ```js
 function mapaColombiaRegionesHeatmap({
@@ -1974,6 +1619,8 @@ function mapaColombiaRegionesHeatmap({
 }
 
 ```
+
+
 ```js
 mapaColombiaRegionesHeatmap({
   data,
