@@ -1218,6 +1218,8 @@ topAtributosInfluyentes({
 
 const anioSeleccionado = view(Inputs.select(["2021", "2025"], { label: "Elige un año:" }));
 anioSeleccionado;
+const geojson = await FileAttachment("data/co.json").json();
+
 ```
 
 
@@ -1233,7 +1235,6 @@ async function mapaColombiaRegiones({
   strokeWidth = 1,
   mostrarNombres = true
 } = {}) {
-  const geojson = await FileAttachment("data/co.json").json();
 
 const agrupacion = {
   "COAMA": "Amazonía",
@@ -1460,7 +1461,7 @@ const selectorMapa = view(
 ```
 
 ```js
-async function mapaColombiaRegionesHeatmap({
+function mapaColombiaRegionesHeatmap({
   data,
   anioSeleccionado,
   variableSeleccionada,
@@ -1475,7 +1476,7 @@ async function mapaColombiaRegionesHeatmap({
   colorInterpolator = d3.interpolateBlues,
   colorSinDatos = "#d9d9d9"
 } = {}) {
-  const geojson = await FileAttachment("data/co.json").json();
+  const container = html`<div style="width:100%;"></div>`;
 
   const agrupacion = {
     "COAMA": "Amazonía",
@@ -1513,6 +1514,9 @@ async function mapaColombiaRegionesHeatmap({
     "COVID": "Oriental"
   };
 
+  let geojsonCache = null;
+  let escalaPorcentualModo = "Auto";
+
   function valorValido(v) {
     return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
   }
@@ -1538,97 +1542,101 @@ async function mapaColombiaRegionesHeatmap({
 
   function normalizarRegion(region) {
     const r = normalizarTexto(region);
-
     if (r === "oriental") return "Oriental";
     if (r === "central") return "Central";
-    if (r === "amazonia" || r === "amazonia") return "Amazonía";
-    if (r === "atlantica" || r === "atlántica") return "Atlántica";
-    if (r === "pacifica" || r === "pacífica") return "Pacífica";
-    if (r === "bogota" || r === "bogotá") return "Bogotá";
-
+    if (r === "amazonia") return "Amazonía";
+    if (r === "atlantica") return "Atlántica";
+    if (r === "pacifica") return "Pacífica";
+    if (r === "bogota") return "Bogotá";
     return null;
   }
 
-  const svg = d3.create("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("viewBox", [0, 0, width, height]);
+  function formatearValor(v, tipoVariable) {
+    if (v === null || v === undefined || isNaN(v)) return "Sin datos";
+    return tipoVariable === "categorica"
+      ? d3.format(".1%")(v)
+      : d3.format(".2f")(v);
+  }
 
-  const projection = d3.geoMercator();
-  const path = d3.geoPath(projection);
+  function obtenerDatosBase() {
+    const yearNum = +anioSeleccionado;
+    const variableKey = variableSeleccionada?.key;
+    const variableLabel = variableSeleccionada?.label || diccionario?.[variableKey] || variableKey;
 
-  projection.fitExtent(
-    [[20, 20], [width - 20, height - 20]],
-    geojson
-  );
+    const datosAnio = data
+      .map(d => ({ ...d, year: +d.year }))
+      .filter(d => d.year === yearNum);
 
-  const yearNum = +anioSeleccionado;
-  const variableKey = variableSeleccionada?.key;
-  const variableLabel = variableSeleccionada?.label || diccionario?.[variableKey] || variableKey;
+    const valoresVariable = datosAnio.map(d => d[variableKey]);
+    const tipoVariable = detectarTipoVariable(valoresVariable);
 
-  const datosAnio = data
-    .map(d => ({ ...d, year: +d.year }))
-    .filter(d => d.year === yearNum);
+    return {
+      yearNum,
+      variableKey,
+      variableLabel,
+      datosAnio,
+      tipoVariable
+    };
+  }
 
-  const valoresVariable = datosAnio.map(d => d[variableKey]);
-  const tipoVariable = detectarTipoVariable(valoresVariable);
+  function construirResumenPorRegion(ctx) {
+    const { yearNum, variableKey, variableLabel, datosAnio, tipoVariable } = ctx;
 
-  let resumenPorRegion = {};
+    if (tipoVariable === "categorica") {
+      const atributoSeleccionado = selectorMapa;
 
-  if (tipoVariable === "categorica") {
-    const atributoSeleccionado = selectorMapa;
+      const datosValidos = datosAnio.filter(d =>
+        normalizarRegion(d.estratopri) &&
+        valorValido(d[variableKey])
+      );
 
-    const datosValidos = datosAnio.filter(d =>
-      normalizarRegion(d.estratopri) &&
-      valorValido(d[variableKey])
-    );
+      const totalNacionalAtributo = datosValidos.filter(d =>
+        String(d[variableKey]).trim() === String(atributoSeleccionado).trim()
+      ).length;
 
-    const totalNacionalAtributo = datosValidos.filter(d =>
-      String(d[variableKey]).trim() === String(atributoSeleccionado).trim()
-    ).length;
+      const regiones = Array.from(new Set(
+        datosValidos
+          .map(d => normalizarRegion(d.estratopri))
+          .filter(Boolean)
+      ));
 
-    const regiones = Array.from(new Set(
-      datosValidos
-        .map(d => normalizarRegion(d.estratopri))
-        .filter(Boolean)
-    ));
+      return Object.fromEntries(
+        regiones.map(region => {
+          const filasRegion = datosValidos.filter(d => normalizarRegion(d.estratopri) === region);
+          const nRegion = filasRegion.length;
 
-    resumenPorRegion = Object.fromEntries(
-      regiones.map(region => {
-        const filasRegion = datosValidos.filter(d => normalizarRegion(d.estratopri) === region);
-        const nRegion = filasRegion.length;
+          const nAtributoRegion = filasRegion.filter(d =>
+            String(d[variableKey]).trim() === String(atributoSeleccionado).trim()
+          ).length;
 
-        const nAtributoRegion = filasRegion.filter(d =>
-          String(d[variableKey]).trim() === String(atributoSeleccionado).trim()
-        ).length;
+          let valor = null;
+          let denominador = null;
 
-        let valor = null;
-        let denominador = null;
+          if (esRelativo === "Sí") {
+            denominador = nRegion;
+            valor = denominador > 0 ? nAtributoRegion / denominador : null;
+          } else {
+            denominador = totalNacionalAtributo;
+            valor = denominador > 0 ? nAtributoRegion / denominador : null;
+          }
 
-        if (esRelativo === "Sí") {
-          denominador = nRegion;
-          valor = denominador > 0 ? nAtributoRegion / denominador : null;
-        } else {
-          denominador = totalNacionalAtributo;
-          valor = denominador > 0 ? nAtributoRegion / denominador : null;
-        }
+          return [region, {
+            region,
+            year: yearNum,
+            variableKey,
+            variableLabel,
+            tipoVariable,
+            atributo: atributoSeleccionado,
+            valor,
+            numerador: nAtributoRegion,
+            denominador,
+            totalRegion: nRegion,
+            totalNacionalAtributo
+          }];
+        })
+      );
+    }
 
-        return [region, {
-          region,
-          year: yearNum,
-          variableKey,
-          variableLabel,
-          tipoVariable,
-          atributo: atributoSeleccionado,
-          valor,
-          numerador: nAtributoRegion,
-          denominador,
-          totalRegion: nRegion,
-          totalNacionalAtributo
-        }];
-      })
-    );
-  } else {
     const agregacionSeleccionada = selectorMapa;
 
     const datosValidos = datosAnio
@@ -1640,7 +1648,7 @@ async function mapaColombiaRegionesHeatmap({
 
     const regiones = Array.from(new Set(datosValidos.map(d => d.region)));
 
-    resumenPorRegion = Object.fromEntries(
+    return Object.fromEntries(
       regiones.map(region => {
         const valores = datosValidos
           .filter(d => d.region === region)
@@ -1668,202 +1676,304 @@ async function mapaColombiaRegionesHeatmap({
     );
   }
 
-  const valoresMapa = Object.values(resumenPorRegion)
-    .map(d => d.valor)
-    .filter(v => v !== null && v !== undefined && !isNaN(v));
-
-  const minValor = d3.min(valoresMapa);
-  const maxValor = d3.max(valoresMapa);
-
-  const color = (valoresMapa.length === 0 || minValor === undefined || maxValor === undefined)
-    ? () => colorSinDatos
-    : (minValor === maxValor
-        ? () => colorInterpolator(0.65)
-        : d3.scaleSequential(colorInterpolator).domain([minValor, maxValor])
-      );
-
-  const tooltip = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("background", "white")
-    .style("border", "1px solid #ccc")
-    .style("border-radius", "6px")
-    .style("padding", "8px 10px")
-    .style("font", "12px sans-serif")
-    .style("line-height", "1.4")
-    .style("pointer-events", "none")
-    .style("opacity", 0)
-    .style("z-index", 9999);
-
-  function formatearValor(v) {
-    if (v === null || v === undefined || isNaN(v)) return "Sin datos";
-    return tipoVariable === "categorica"
-      ? d3.format(".1%")(v)
-      : d3.format(".2f")(v);
+  function obtenerValoresMapa(resumenPorRegion) {
+    return Object.values(resumenPorRegion)
+      .map(d => d.valor)
+      .filter(v => v !== null && v !== undefined && !isNaN(v));
   }
 
-  svg.append("g")
-    .selectAll("path")
-    .data(geojson.features)
-    .join("path")
-    .attr("d", path)
-    .attr("fill", d => {
-      const region = agrupacion[d.properties.id];
-      const info = resumenPorRegion[region];
-      if (!info || info.valor === null || info.valor === undefined || isNaN(info.valor)) {
-        return colorSinDatos;
-      }
-      return color(info.valor);
-    })
-    .attr("stroke", stroke)
-    .attr("stroke-width", strokeWidth)
-    .on("mouseover", function (event, d) {
-      const codigo = d.properties.id;
-      const depto = d.properties.name;
-      const region = agrupacion[codigo] || "Sin región";
-      const info = resumenPorRegion[region];
+  function construirEscalaColor(tipoVariable, valoresMapa) {
+    const minValor = d3.min(valoresMapa);
+    const maxValor = d3.max(valoresMapa);
 
-      d3.select(this).attr("opacity", 0.85);
+    let domainMin = 0;
+    let domainMax = 1;
+    let color = () => colorSinDatos;
 
-      let htmlTooltip = `
-        <div><strong>${depto}</strong></div>
-        <div><strong>Región:</strong> ${region}</div>
-        <div><strong>Año:</strong> ${yearNum}</div>
-        <div><strong>Variable:</strong> ${variableLabel}</div>
+    if (valoresMapa.length === 0 || minValor === undefined || maxValor === undefined) {
+      return { color, domainMin, domainMax, minValor, maxValor };
+    }
+
+    if (tipoVariable === "categorica" && escalaPorcentualModo === "0–100%") {
+      color = d3.scaleSequential(colorInterpolator).domain([0, 1]);
+      domainMin = 0;
+      domainMax = 1;
+      return { color, domainMin, domainMax, minValor, maxValor };
+    }
+
+    if (minValor === maxValor) {
+      color = () => colorInterpolator(0.65);
+      domainMin = minValor;
+      domainMax = maxValor;
+      return { color, domainMin, domainMax, minValor, maxValor };
+    }
+
+    color = d3.scaleSequential(colorInterpolator).domain([minValor, maxValor]);
+    domainMin = minValor;
+    domainMax = maxValor;
+
+    return { color, domainMin, domainMax, minValor, maxValor };
+  }
+
+  function construirTooltipHTML(info, depto, region, ctx) {
+    const { yearNum, variableLabel, tipoVariable } = ctx;
+
+    let htmlTooltip = `
+      <div><strong>${depto}</strong></div>
+      <div><strong>Región:</strong> ${region}</div>
+      <div><strong>Año:</strong> ${yearNum}</div>
+      <div><strong>Variable:</strong> ${variableLabel}</div>
+    `;
+
+    if (!info || info.valor === null || info.valor === undefined || isNaN(info.valor)) {
+      htmlTooltip += `<div><strong>Valor:</strong> Sin datos</div>`;
+      return htmlTooltip;
+    }
+
+    if (tipoVariable === "categorica") {
+      htmlTooltip += `
+        <div><strong>Atributo:</strong> ${info.atributo}</div>
+        <div><strong>Valor:</strong> ${formatearValor(info.valor, tipoVariable)}</div>
+        <div><strong>Numerador:</strong> ${d3.format(",")(info.numerador)}</div>
+        <div><strong>Denominador:</strong> ${d3.format(",")(info.denominador)}</div>
+        <div><strong>Total región:</strong> ${d3.format(",")(info.totalRegion)}</div>
       `;
+    } else {
+      htmlTooltip += `
+        <div><strong>Agrupación:</strong> ${info.agregacion}</div>
+        <div><strong>Valor:</strong> ${formatearValor(info.valor, tipoVariable)}</div>
+        <div><strong>Observaciones válidas:</strong> ${d3.format(",")(info.cantidad)}</div>
+      `;
+    }
 
-      if (!info || info.valor === null || info.valor === undefined || isNaN(info.valor)) {
-        htmlTooltip += `<div><strong>Valor:</strong> Sin datos</div>`;
-      } else if (tipoVariable === "categorica") {
-        htmlTooltip += `
-          <div><strong>Atributo:</strong> ${info.atributo}</div>
-          <div><strong>Valor:</strong> ${formatearValor(info.valor)}</div>
-          <div><strong>Numerador:</strong> ${d3.format(",")(info.numerador)}</div>
-          <div><strong>Denominador:</strong> ${d3.format(",")(info.denominador)}</div>
-          <div><strong>Total región:</strong> ${d3.format(",")(info.totalRegion)}</div>
-        `;
-      } else {
-        htmlTooltip += `
-          <div><strong>Agrupación:</strong> ${info.agregacion}</div>
-          <div><strong>Valor:</strong> ${formatearValor(info.valor)}</div>
-          <div><strong>Observaciones válidas:</strong> ${d3.format(",")(info.cantidad)}</div>
-        `;
-      }
-
-      tooltip
-        .style("opacity", 1)
-        .html(htmlTooltip);
-    })
-    .on("mousemove", function (event) {
-      tooltip
-        .style("left", `${event.pageX + 12}px`)
-        .style("top", `${event.pageY + 12}px`);
-    })
-    .on("mouseout", function () {
-      d3.select(this).attr("opacity", 1);
-      tooltip.style("opacity", 0);
-    });
-
-  if (mostrarNombres) {
-    svg.append("g")
-      .selectAll("text")
-      .data(geojson.features)
-      .join("text")
-      .attr("transform", d => {
-        const [x, y] = path.centroid(d);
-        return `translate(${x},${y})`;
-      })
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "middle")
-      .style("font-size", "8px")
-      .style("pointer-events", "none")
-      .style("fill", "black")
-      .text(d => d.properties.name);
+    return htmlTooltip;
   }
 
-  const legendWidth = 220;
-  const legendHeight = 12;
-  const legendX = 24;
-  const legendY = 24;
+  function dibujarLeyenda(svg, ctx, escalaInfo, valoresMapa) {
+    const { variableKey, variableLabel, yearNum, tipoVariable } = ctx;
+    const { domainMin, domainMax, minValor, maxValor } = escalaInfo;
 
-  svg.append("text")
-    .attr("x", legendX)
-    .attr("y", legendY - 8)
-    .style("font-size", "12px")
-    .style("font-weight", "600")
-    .style("fill", "white")
-    .text(
-      tipoVariable === "categorica"
-        ? `${variableLabel} — ${selectorMapa}`
-        : `${variableLabel} — ${selectorMapa}`
-    );
+    const legendWidth = 220;
+    const legendHeight = 12;
+    const legendX = 24;
+    const legendY = 24;
 
-  if (valoresMapa.length > 0) {
-    const defs = svg.append("defs");
-    const gradientId = `legend-gradient-mapa-${variableKey}-${yearNum}`;
-
-    const gradient = defs.append("linearGradient")
-      .attr("id", gradientId)
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0%")
-      .attr("y2", "0%");
-
-    d3.range(0, 1.01, 0.1).forEach(t => {
-      gradient.append("stop")
-        .attr("offset", `${t * 100}%`)
-        .attr("stop-color", colorInterpolator(t));
-    });
-
-    svg.append("rect")
+    svg.append("text")
       .attr("x", legendX)
-      .attr("y", legendY)
-      .attr("width", legendWidth)
-      .attr("height", legendHeight)
-      .attr("fill", minValor === maxValor ? colorInterpolator(0.65) : `url(#${gradientId})`)
-      .attr("stroke", "white")
-      .attr("stroke-width", 0.5);
+      .attr("y", legendY - 8)
+      .style("font-size", "12px")
+      .style("font-weight", "600")
+      .style("fill", "white")
+      .text(`${variableLabel} — ${selectorMapa}`);
 
-    const legendScale = d3.scaleLinear()
-      .domain([minValor, maxValor])
-      .range([legendX, legendX + legendWidth]);
+    if (valoresMapa.length > 0) {
+      const defs = svg.append("defs");
+      const gradientId = `legend-gradient-mapa-${variableKey}-${yearNum}-${Math.random().toString(36).slice(2)}`;
 
-    const legendAxis = d3.axisBottom(legendScale)
-      .ticks(4)
-      .tickFormat(tipoVariable === "categorica" ? d3.format(".0%") : d3.format(".2f"));
+      const gradient = defs.append("linearGradient")
+        .attr("id", gradientId)
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0%")
+        .attr("y2", "0%");
 
-    svg.append("g")
-      .attr("transform", `translate(0, ${legendY + legendHeight})`)
-      .call(legendAxis)
-      .call(g => g.select(".domain").remove())
-      .call(g => g.selectAll("line").remove())
-      .call(g => g.selectAll("text").style("font-size", "10px"));
-  }
+      d3.range(0, 1.01, 0.1).forEach(t => {
+        gradient.append("stop")
+          .attr("offset", `${t * 100}%`)
+          .attr("stop-color", colorInterpolator(t));
+      });
 
-  svg.append("g")
-    .attr("transform", `translate(24, ${legendY + 42})`)
-    .call(g => {
-      g.append("rect")
-        .attr("width", 14)
-        .attr("height", 14)
-        .attr("fill", colorSinDatos)
+      svg.append("rect")
+        .attr("x", legendX)
+        .attr("y", legendY)
+        .attr("width", legendWidth)
+        .attr("height", legendHeight)
+        .attr("fill", domainMin === domainMax ? colorInterpolator(0.65) : `url(#${gradientId})`)
         .attr("stroke", "white")
         .attr("stroke-width", 0.5);
 
-      g.append("text")
-        .attr("x", 20)
-        .attr("y", 11)
-        .style("font-size", "11px")
-        .style("fill", "white")
-        .text("Sin datos");
-    });
+      const legendScale = d3.scaleLinear()
+        .domain([domainMin, domainMax])
+        .range([legendX, legendX + legendWidth]);
 
-  return svg.node();
+      const tickFormat = tipoVariable === "categorica"
+        ? d3.format(".0%")
+        : d3.format(".2f");
+
+      const legendAxis = d3.axisBottom(legendScale)
+        .ticks(4)
+        .tickFormat(tickFormat);
+
+      svg.append("g")
+        .attr("transform", `translate(0, ${legendY + legendHeight})`)
+        .call(legendAxis)
+        .call(g => g.select(".domain").remove())
+        .call(g => g.selectAll("line").remove())
+        .call(g => g.selectAll("text").style("font-size", "10px"));
+    }
+
+    svg.append("g")
+      .attr("transform", `translate(24, ${legendY + 42})`)
+      .call(g => {
+        g.append("rect")
+          .attr("width", 14)
+          .attr("height", 14)
+          .attr("fill", colorSinDatos)
+          .attr("stroke", "white")
+          .attr("stroke-width", 0.5);
+
+        g.append("text")
+          .attr("x", 20)
+          .attr("y", 11)
+          .style("font-size", "11px")
+          .style("fill", "white")
+          .text("Sin datos");
+      });
+  }
+
+  function dibujarMapa(svg, geojson, ctx, resumenPorRegion, escalaInfo, tooltip) {
+    const { color } = escalaInfo;
+
+    const projection = d3.geoMercator();
+    const path = d3.geoPath(projection);
+
+    projection.fitExtent(
+      [[20, 20], [width - 20, height - 20]],
+      geojson
+    );
+
+    svg.append("g")
+      .selectAll("path")
+      .data(geojson.features)
+      .join("path")
+      .attr("d", path)
+      .attr("fill", d => {
+        const region = agrupacion[d.properties.id];
+        const info = resumenPorRegion[region];
+        if (!info || info.valor === null || info.valor === undefined || isNaN(info.valor)) {
+          return colorSinDatos;
+        }
+        return color(info.valor);
+      })
+      .attr("stroke", stroke)
+      .attr("stroke-width", strokeWidth)
+      .on("mouseover", function (event, d) {
+        const codigo = d.properties.id;
+        const depto = d.properties.name;
+        const region = agrupacion[codigo] || "Sin región";
+        const info = resumenPorRegion[region];
+
+        d3.select(this).attr("opacity", 0.85);
+
+        tooltip
+          .style("opacity", 1)
+          .html(construirTooltipHTML(info, depto, region, ctx));
+      })
+      .on("mousemove", function (event) {
+        tooltip
+          .style("left", `${event.pageX + 12}px`)
+          .style("top", `${event.pageY + 12}px`);
+      })
+      .on("mouseout", function () {
+        d3.select(this).attr("opacity", 1);
+        tooltip.style("opacity", 0);
+      });
+
+    if (mostrarNombres) {
+      svg.append("g")
+        .selectAll("text")
+        .data(geojson.features)
+        .join("text")
+        .attr("transform", d => {
+          const [x, y] = path.centroid(d);
+          return `translate(${x},${y})`;
+        })
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", "8px")
+        .style("pointer-events", "none")
+        .style("fill", "black")
+        .text(d => d.properties.name);
+    }
+  }
+
+  function render() {
+    container.innerHTML = "";
+
+    const ctx = obtenerDatosBase();
+    const resumenPorRegion = construirResumenPorRegion(ctx);
+    const valoresMapa = obtenerValoresMapa(resumenPorRegion);
+    const escalaInfo = construirEscalaColor(ctx.tipoVariable, valoresMapa);
+
+    if (ctx.tipoVariable === "categorica") {
+      const controls = d3.select(container)
+        .append("div")
+        .style("display", "flex")
+        .style("justify-content", "flex-start")
+        .style("align-items", "center")
+        .style("margin-bottom", "10px")
+        .style("gap", "8px");
+
+      controls.append("label")
+        .style("font-size", "12px")
+        .style("font-weight", "600")
+        .text("Escala de color:");
+
+      const select = controls.append("select")
+        .style("font-size", "12px")
+        .style("padding", "4px 8px")
+        .style("border-radius", "6px")
+        .style("background", "var(--theme-background-alt, #222)")
+        .style("color", "currentColor")
+        .style("border", "1px solid #666");
+
+      select.selectAll("option")
+        .data(["Auto", "0–100%"])
+        .join("option")
+        .attr("value", d => d)
+        .property("selected", d => d === escalaPorcentualModo)
+        .text(d => d);
+
+      select.on("change", function () {
+        escalaPorcentualModo = this.value;
+        render();
+      });
+    }
+
+    const svg = d3.create("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", [0, 0, width, height]);
+
+    const tooltip = d3.select(container)
+      .append("div")
+      .style("position", "fixed")
+      .style("background", "white")
+      .style("border", "1px solid #ccc")
+      .style("border-radius", "6px")
+      .style("padding", "8px 10px")
+      .style("font", "12px sans-serif")
+      .style("line-height", "1.4")
+      .style("pointer-events", "none")
+      .style("opacity", 0)
+      .style("z-index", 9999)
+      .style("color", "#111")
+      .style("box-shadow", "0 2px 10px rgba(0,0,0,0.15)");
+
+    dibujarMapa(svg, geojsonCache, ctx, resumenPorRegion, escalaInfo, tooltip);
+    dibujarLeyenda(svg, ctx, escalaInfo, valoresMapa);
+
+    container.appendChild(svg.node());
+  }
+
+  return (async () => {
+    geojsonCache = await FileAttachment("data/co.json").json();
+    render();
+    return container;
+  })();
 }
 
 ```
-
-
 ```js
 mapaColombiaRegionesHeatmap({
   data,
