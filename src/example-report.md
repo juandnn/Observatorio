@@ -934,7 +934,7 @@ function topAtributosInfluyentes({
   height = 420,
   marginTop = 30,
   marginRight = 20,
-  marginBottom = 150,
+  marginBottom = 110,
   marginLeft = 70
 } = {}) {
   const container = html`<div style="width: 100%;"></div>`;
@@ -1144,6 +1144,7 @@ function topAtributosInfluyentes({
         .attr("y", 16)
         .attr("text-anchor", "middle")
         .attr("font-size", 12)
+        .attr("fill", "white")
         .text(tipoInfluencia);
 
       svgs.push({ svg, bars });
@@ -1213,4 +1214,177 @@ topAtributosInfluyentes({
 })
 
 ```
+<!-- Mapa Colombia -->
 
+
+```js
+
+async function mapaColombiaRegiones({
+  width = 800,
+  height = 900,
+  stroke = "#ffffff",
+  strokeWidth = 1,
+  mostrarNombres = true
+} = {}) {
+  const geojson = await FileAttachment("data/co.json").json();
+
+const agrupacion = {
+  "COAMA": "Amazonía",
+  "COANT": "Central",
+  "COARA": "Oriental",
+  "COATL": "Atlántica",
+  "COBOL": "Atlántica",
+  "COBOY": "Oriental",
+  "COCAL": "Central",
+  "COCAQ": "Amazonía",
+  "COCAS": "Oriental",
+  "COCAU": "Pacífica",
+  "COCES": "Atlántica",
+  "COCHO": "Pacífica",
+  "COCOR": "Atlántica",
+  "COCUN": "Central",
+  "CODC": "Bogotá",
+  "COGUA": "Amazonía",
+  "COGUV": "Amazonía",
+  "COHUI": "Central",
+  "COLAG": "Atlántica",
+  "COMAG": "Atlántica",
+  "COMET": "Oriental",
+  "CONAR": "Pacífica",
+  "CONSA": "Oriental",
+  "COPUT": "Amazonía",
+  "COQUI": "Central",
+  "CORIS": "Central",
+  "COSAN": "Oriental",
+  "COSAP": "Atlántica",
+  "COSUC": "Atlántica",
+  "COTOL": "Central",
+  "COVAC": "Pacífica",
+  "COVAU": "Amazonía",
+  "COVID": "Oriental"
+};
+
+  const colores = {
+    "Oriental": "#4e79a7",
+    "Central": "#f28e2b",
+    "Amazonía": "#e15759",
+    "Atlántica": "#76b7b2",
+    "Pacífica": "#59a14f",
+    "Bogotá": "#edc948"
+  };
+
+  const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("viewBox", [0, 0, width, height]);
+
+  const projection = d3.geoMercator();
+  const path = d3.geoPath(projection);
+
+  projection.fitExtent(
+    [[20, 20], [width - 20, height - 20]],
+    geojson
+  );
+
+  const tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("background", "white")
+    .style("border", "1px solid #ccc")
+    .style("border-radius", "6px")
+    .style("padding", "6px 10px")
+    .style("font", "12px sans-serif")
+    .style("pointer-events", "none")
+    .style("opacity", 0);
+
+  svg.append("g")
+    .selectAll("path")
+    .data(geojson.features)
+    .join("path")
+    .attr("d", path)
+    .attr("fill", d => {
+      const region = agrupacion[d.properties.id];
+      return colores[region] || "#ccc";
+    })
+    .attr("stroke", stroke)
+    .attr("stroke-width", strokeWidth)
+    .on("mouseover", function (event, d) {
+      const codigo = d.properties.id;
+      const depto = d.properties.name;
+      const region = agrupacion[codigo] || "Sin región";
+
+      d3.select(this).attr("opacity", 0.8);
+
+      tooltip
+        .style("opacity", 1)
+        .html(`
+          <div><strong>${depto}</strong></div>
+          <div>Código: ${codigo}</div>
+          <div>Región: ${region}</div>
+        `);
+    })
+    .on("mousemove", function (event) {
+      tooltip
+        .style("left", `${event.pageX + 12}px`)
+        .style("top", `${event.pageY + 12}px`);
+    })
+    .on("mouseout", function () {
+      d3.select(this).attr("opacity", 1);
+      tooltip.style("opacity", 0);
+    });
+
+  if (mostrarNombres) {
+    svg.append("g")
+      .selectAll("text")
+      .data(geojson.features)
+      .join("text")
+      .attr("transform", d => {
+        const [x, y] = path.centroid(d);
+        return `translate(${x},${y})`;
+      })
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .style("font-size", "8px")
+      .style("pointer-events", "none")
+      .style("fill", "black")
+      .text(d => d.properties.name);
+  }
+
+  const regiones = Object.keys(colores);
+
+  const legend = svg.append("g")
+    .attr("transform", `translate(20, 20)`);
+
+  regiones.forEach((region, i) => {
+    const g = legend.append("g")
+      .attr("transform", `translate(0, ${i * 22})`);
+
+    g.append("rect")
+      .attr("width", 14)
+      .attr("height", 14)
+      .attr("fill", colores[region])
+        .attr("stroke", "white")
+        .attr("stroke-width", 1);
+
+    g.append("text")
+      .attr("x", 20)
+      .attr("y", 11)
+      .style("font-size", "18px")
+      .style("fill", "white")
+      .text(region);
+  });
+
+  return svg.node();
+}
+
+```
+
+
+```js
+mapaColombiaRegiones({
+  width: 850,
+  height: 950,
+  mostrarNombres: false
+})
+
+```
