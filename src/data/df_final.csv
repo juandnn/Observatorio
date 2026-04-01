@@ -14,7 +14,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Crimen organizado,Peor,,,48.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Bogotá,Delincuentes comunes,Peor,,,43.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Central,,,,,40.0,,,,
-2021.0,Amazonas,,,,,30.0,,,,
+2021.0,Amazonia,,,,,30.0,,,,
 2021.0,Central,,,,,26.0,,,,
 2021.0,Oriental,Crimen organizado,Peor,,,39.0,Bueno,,,Derecha
 2021.0,Central,,,,,23.0,,,,
@@ -26,7 +26,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,50.0,,,,
 2021.0,Central,,,,,28.0,,,,
 2021.0,Oriental,,,,,23.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,45.0,"Ni bueno, ni malo (regular)",,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,45.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Atlántica,Crimen organizado,Igual,,,28.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,,,,20.0,,,,
 2021.0,Atlántica,,,,,41.0,,,,
@@ -34,9 +34,9 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Pacífica,Delincuentes comunes,Peor,,,30.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Oriental,Crimen organizado,Igual,,,58.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Oriental,Crimen organizado,Igual,,,33.0,Muy bueno,,,Derecha
-2021.0,Amazonas,Guerrillas,Peor,,,37.0,"Ni bueno, ni malo (regular)",,,Derecha
+2021.0,Amazonia,Guerrillas,Peor,,,37.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Pacífica,,,,,26.0,,,,
-2021.0,Amazonas,,,,,38.0,,,,
+2021.0,Amazonia,,,,,38.0,,,,
 2021.0,Bogotá,,,,,25.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,33.0,Muy malo (pésimo),,,Centro izquierda
 2021.0,Bogotá,,,,,58.0,,,,
@@ -93,7 +93,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Igual,,,38.0,Bueno,,,Derecha
 2021.0,Oriental,Delincuentes comunes,Peor,,,43.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Oriental,,,,,42.0,,,,
-2021.0,Amazonas,,,,,26.0,,,,
+2021.0,Amazonia,,,,,26.0,,,,
 2021.0,Central,,,,,51.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,49.0,Muy bueno,,,Centro derecha
 2021.0,Bogotá,Crimen organizado,Peor,,,42.0,Muy malo (pésimo),,,Centro
@@ -122,7 +122,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Delincuentes comunes,Peor,,,28.0,Malo,,,
 2021.0,Oriental,Guerrillas,Igual,,,39.0,Bueno,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,28.0,Muy malo (pésimo),,,Izquierda
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Oriental,,,,,49.0,,,,
 2021.0,Oriental,,,,,51.0,,,,
 2021.0,Bogotá,,,,,60.0,,,,
@@ -138,7 +138,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,,,,,47.0,,,,
 2021.0,Oriental,,,,,50.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,41.0,Muy malo (pésimo),,,Izquierda
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Atlántica,,,,,28.0,,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,36.0,Muy malo (pésimo),,,Centro izquierda
 2021.0,Pacífica,,,,,65.0,,,,
@@ -204,7 +204,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,,,,,29.0,,,,
 2021.0,Bogotá,,,,,47.0,,,,
 2021.0,Oriental,Guerrillas,Igual,,,30.0,Muy bueno,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,32.0,Bueno,,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,32.0,Bueno,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,29.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Atlántica,,,,,37.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,65.0,"Ni bueno, ni malo (regular)",,,Centro derecha
@@ -227,12 +227,12 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,42.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,48.0,Muy malo (pésimo),,,Centro derecha
 2021.0,Oriental,,,,,22.0,,,,
-2021.0,Amazonas,,,,,29.0,,,,
+2021.0,Amazonia,,,,,29.0,,,,
 2021.0,Oriental,,,,,18.0,,,,
 2021.0,Atlántica,,,,,19.0,,,,
 2021.0,Oriental,,,,,28.0,,,,
 2021.0,Oriental,,,,,38.0,,,,
-2021.0,Amazonas,Guerrillas,Peor,,,58.0,"Ni bueno, ni malo (regular)",,,Derecha
+2021.0,Amazonia,Guerrillas,Peor,,,58.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Bogotá,Crimen organizado,Igual,,,44.0,Malo,,,Izquierda
 2021.0,Atlántica,,,,,19.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,37.0,Bueno,,,Centro derecha
@@ -281,7 +281,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,Delincuentes comunes,Peor,,,39.0,Malo,,,Centro izquierda
 2021.0,Central,,,,,30.0,,,,
 2021.0,Central,Delincuentes comunes,Mejor,,,26.0,"Ni bueno, ni malo (regular)",,,Centro derecha
-2021.0,Amazonas,Delincuentes comunes,Igual,,,55.0,Bueno,,,
+2021.0,Amazonia,Delincuentes comunes,Igual,,,55.0,Bueno,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,50.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,,,,,59.0,,,,
 2021.0,Oriental,,,,,28.0,,,,
@@ -291,11 +291,11 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,,,,,30.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,38.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,,,,57.0,,,,
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Oriental,,,,,34.0,,,,
-2021.0,Amazonas,Crimen organizado,Mejor,,,40.0,Muy bueno,,,Derecha
+2021.0,Amazonia,Crimen organizado,Mejor,,,40.0,Muy bueno,,,Derecha
 2021.0,Oriental,,,,,32.0,,,,
-2021.0,Amazonas,,,,,40.0,,,,
+2021.0,Amazonia,,,,,40.0,,,,
 2021.0,Oriental,,,,,44.0,,,,
 2021.0,Central,Delincuentes comunes,Igual,,,21.0,Malo,,,
 2021.0,Oriental,,,,,37.0,,,,
@@ -307,10 +307,10 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Crimen organizado,Peor,,,49.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Oriental,Crimen organizado,Mejor,,,25.0,,,,Derecha
 2021.0,Pacífica,Crimen organizado,Mejor,,,37.0,Muy bueno,,,Derecha
-2021.0,Amazonas,,,,,45.0,,,,
+2021.0,Amazonia,,,,,45.0,,,,
 2021.0,Bogotá,,,,,28.0,,,,
 2021.0,Central,Delincuentes comunes,Peor,,,25.0,"Ni bueno, ni malo (regular)",,,
-2021.0,Amazonas,,,,,55.0,,,,
+2021.0,Amazonia,,,,,55.0,,,,
 2021.0,Oriental,,,,,26.0,,,,
 2021.0,Oriental,,,,,42.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,22.0,Malo,,,Izquierda
@@ -369,7 +369,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Delincuentes comunes,Peor,,,44.0,Malo,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,33.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Bogotá,,,,,31.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Igual,,,46.0,Muy bueno,,,Derecha
+2021.0,Amazonia,Delincuentes comunes,Igual,,,46.0,Muy bueno,,,Derecha
 2021.0,Bogotá,,,,,40.0,,,,
 2021.0,Central,Ninguno,Igual,,,53.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Bogotá,,,,,40.0,,,,
@@ -444,8 +444,8 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,,,,,22.0,,,,
 2021.0,Oriental,Crimen organizado,Igual,,,43.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,Crimen organizado,Peor,,,54.0,Malo,,,Izquierda
-2021.0,Amazonas,,,,,30.0,,,,
-2021.0,Amazonas,,,,,44.0,,,,
+2021.0,Amazonia,,,,,30.0,,,,
+2021.0,Amazonia,,,,,44.0,,,,
 2021.0,Atlántica,Guerrillas,Peor,,,49.0,Malo,,,
 2021.0,Central,,,,,60.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Igual,,,43.0,Bueno,,,Centro derecha
@@ -510,7 +510,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Guerrillas,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Oriental,Delincuentes comunes,Peor,,,34.0,Malo,,,
 2021.0,Central,,,,,43.0,,,,
-2021.0,Amazonas,,,,,33.0,,,,
+2021.0,Amazonia,,,,,33.0,,,,
 2021.0,Central,Delincuentes comunes,Peor,,,44.0,Muy bueno,,,Derecha
 2021.0,Oriental,Crimen organizado,Igual,,,24.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,35.0,Bueno,,,Derecha
@@ -603,7 +603,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Pacífica,,,,,36.0,,,,
 2021.0,Atlántica,Crimen organizado,Peor,,,69.0,Muy malo (pésimo),,,
 2021.0,Bogotá,,,,,27.0,,,,
-2021.0,Amazonas,,,,,35.0,,,,
+2021.0,Amazonia,,,,,35.0,,,,
 2021.0,Oriental,Otros,Peor,,,30.0,Muy malo (pésimo),,,
 2021.0,Oriental,Delincuentes comunes,Igual,,,23.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Central,,,,,38.0,,,,
@@ -697,7 +697,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,,,,,,40.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,41.0,Malo,,,Derecha
 2021.0,Bogotá,,,,,50.0,,,,
-2021.0,Amazonas,,,,,39.0,,,,
+2021.0,Amazonia,,,,,39.0,,,,
 2021.0,Oriental,,,,,53.0,,,,
 2021.0,Central,Delincuentes comunes,Peor,,,51.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Bogotá,,,,,43.0,,,,
@@ -754,7 +754,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Igual,,,23.0,Bueno,,,
 2021.0,Central,,,,,39.0,,,,
 2021.0,Atlántica,,,,,28.0,,,,
-2021.0,Amazonas,Guerrillas,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,Izquierda
+2021.0,Amazonia,Guerrillas,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Central,,,,,32.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,50.0,Bueno,,,Derecha
 2021.0,Oriental,,,,,33.0,,,,
@@ -771,7 +771,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Guerrillas,Peor,,,52.0,Malo,,,Izquierda
 2021.0,Central,,,,,27.0,,,,
 2021.0,Central,,,,,29.0,,,,
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,49.0,Bueno,,,Derecha
 2021.0,Oriental,,,,,28.0,,,,
 2021.0,Central,Guerrillas,Igual,,,51.0,Bueno,,,Izquierda
@@ -790,7 +790,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Delincuentes comunes,Peor,,,71.0,Muy malo (pésimo),,,Izquierda
 2021.0,Oriental,Delincuentes comunes,Peor,,,18.0,Bueno,,,
 2021.0,Atlántica,,,,,38.0,,,,
-2021.0,Amazonas,,,,,39.0,,,,
+2021.0,Amazonia,,,,,39.0,,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,26.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Bogotá,,,,,46.0,,,,
 2021.0,Atlántica,Crimen organizado,,,,42.0,"Ni bueno, ni malo (regular)",,,
@@ -803,8 +803,8 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,Delincuentes comunes,Peor,,,32.0,Muy malo (pésimo),,,Izquierda
 2021.0,Central,Crimen organizado,Peor,,,34.0,Malo,,,Centro
 2021.0,Pacífica,,,,,44.0,,,,
-2021.0,Amazonas,,,,,60.0,,,,
-2021.0,Amazonas,,,,,41.0,,,,
+2021.0,Amazonia,,,,,60.0,,,,
+2021.0,Amazonia,,,,,41.0,,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,23.0,Muy malo (pésimo),,,
 2021.0,Atlántica,Crimen organizado,Peor,,,38.0,Muy malo (pésimo),,,
 2021.0,Central,,Igual,,,40.0,Bueno,,,Centro
@@ -843,7 +843,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,50.0,,,,
 2021.0,Oriental,Crimen organizado,Peor,,,38.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Central,,,,,41.0,,,,
-2021.0,Amazonas,,,,,21.0,,,,
+2021.0,Amazonia,,,,,21.0,,,,
 2021.0,Atlántica,,Peor,,,60.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,19.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,Crimen organizado,Peor,,,81.0,Malo,,,Derecha
@@ -867,7 +867,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,,,,,25.0,,,,
 2021.0,Oriental,Crimen organizado,Peor,,,57.0,Bueno,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,40.0,"Ni bueno, ni malo (regular)",,,
-2021.0,Amazonas,,,,,46.0,,,,
+2021.0,Amazonia,,,,,46.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,30.0,Malo,,,Izquierda
 2021.0,Atlántica,,,,,31.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,52.0,"Ni bueno, ni malo (regular)",,,
@@ -906,7 +906,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Igual,,,19.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Bogotá,,,,,30.0,,,,
 2021.0,Central,,,,,38.0,,,,
-2021.0,Amazonas,,,,,26.0,,,,
+2021.0,Amazonia,,,,,26.0,,,,
 2021.0,Central,Delincuentes comunes,Peor,,,44.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,Guerrillas,Igual,,,47.0,Bueno,,,Centro derecha
 2021.0,Oriental,Crimen organizado,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,
@@ -919,7 +919,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Guerrillas,Peor,,,41.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Oriental,,,,,29.0,,,,
 2021.0,Oriental,Crimen organizado,Peor,,,32.0,Bueno,,,
-2021.0,Amazonas,,,,,38.0,,,,
+2021.0,Amazonia,,,,,38.0,,,,
 2021.0,Central,Crimen organizado,Peor,,,47.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Atlántica,,,,,20.0,,,,
 2021.0,Central,,,,,47.0,,,,
@@ -940,7 +940,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Mejor,,,23.0,Malo,,,Centro derecha
 2021.0,Oriental,Delincuentes comunes,Igual,,,28.0,Muy malo (pésimo),,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,48.0,"Ni bueno, ni malo (regular)",,,Derecha
-2021.0,Amazonas,Delincuentes comunes,Peor,,,30.0,Muy malo (pésimo),,,Derecha
+2021.0,Amazonia,Delincuentes comunes,Peor,,,30.0,Muy malo (pésimo),,,Derecha
 2021.0,Oriental,,,,,48.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,43.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,,,,,48.0,,,,
@@ -948,7 +948,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,40.0,,,,
 2021.0,Pacífica,,,,,32.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,55.0,Bueno,,,Derecha
-2021.0,Amazonas,,,,,38.0,,,,
+2021.0,Amazonia,,,,,38.0,,,,
 2021.0,Oriental,,,,,25.0,,,,
 2021.0,Oriental,,,,,39.0,,,,
 2021.0,Bogotá,,,,,41.0,,,,
@@ -959,23 +959,23 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,42.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Oriental,Delincuentes comunes,Peor,,,21.0,"Ni bueno, ni malo (regular)",,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,53.0,Muy bueno,,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,53.0,Muy bueno,,,
 2021.0,Oriental,,,,,40.0,,,,
 2021.0,Oriental,,,,,57.0,,,,
 2021.0,Central,,,,,30.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,30.0,Muy malo (pésimo),,,
-2021.0,Amazonas,,Mejor,,,56.0,"Ni bueno, ni malo (regular)",,,Derecha
+2021.0,Amazonia,,Mejor,,,56.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Bogotá,,,,,32.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,50.0,Bueno,,,
 2021.0,Bogotá,Crimen organizado,Igual,,,59.0,Bueno,,,Centro derecha
 2021.0,Central,Crimen organizado,Peor,,,55.0,Muy bueno,,,
-2021.0,Amazonas,Guerrillas,Peor,,,48.0,"Ni bueno, ni malo (regular)",,,Derecha
+2021.0,Amazonia,Guerrillas,Peor,,,48.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Central,,,,,75.0,,,,
 2021.0,Central,Delincuentes comunes,Peor,,,40.0,Muy malo (pésimo),,,Centro izquierda
 2021.0,Bogotá,,,,,29.0,,,,
 2021.0,Central,Guerrillas,Igual,,,58.0,Bueno,,,Centro derecha
 2021.0,Central,,,,,35.0,,,,
-2021.0,Amazonas,,,,,37.0,,,,
+2021.0,Amazonia,,,,,37.0,,,,
 2021.0,Pacífica,,,,,44.0,,,,
 2021.0,Pacífica,,,,,41.0,,,,
 2021.0,Central,,,,,37.0,,,,
@@ -992,7 +992,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,57.0,Muy malo (pésimo),,,Izquierda
 2021.0,Central,Delincuentes comunes,Peor,,,34.0,Bueno,,,Derecha
 2021.0,Central,,,,,41.0,,,,
-2021.0,Amazonas,Crimen organizado,Peor,,,43.0,Muy malo (pésimo),,,
+2021.0,Amazonia,Crimen organizado,Peor,,,43.0,Muy malo (pésimo),,,
 2021.0,Atlántica,,,,,44.0,,,,
 2021.0,Bogotá,,,,,28.0,,,,
 2021.0,Pacífica,,,,,43.0,,,,
@@ -1000,7 +1000,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Crimen organizado,Peor,,,49.0,Muy malo (pésimo),,,Izquierda
 2021.0,Atlántica,,,,,29.0,,,,
 2021.0,Central,Crimen organizado,Igual,,,59.0,"Ni bueno, ni malo (regular)",,,
-2021.0,Amazonas,Guerrillas,Peor,,,20.0,Muy malo (pésimo),,,Centro derecha
+2021.0,Amazonia,Guerrillas,Peor,,,20.0,Muy malo (pésimo),,,Centro derecha
 2021.0,Central,Crimen organizado,Peor,,,62.0,Muy malo (pésimo),,,
 2021.0,Oriental,Crimen organizado,Peor,,,37.0,Malo,,,Derecha
 2021.0,Oriental,,,,,31.0,,,,
@@ -1031,7 +1031,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,42.0,Bueno,,,Izquierda
 2021.0,Oriental,,,,,23.0,,,,
 2021.0,Pacífica,,,,,41.0,,,,
-2021.0,Amazonas,,Igual,,,31.0,Bueno,,,Derecha
+2021.0,Amazonia,,Igual,,,31.0,Bueno,,,Derecha
 2021.0,Central,Delincuentes comunes,Peor,,,19.0,Muy malo (pésimo),,,Centro derecha
 2021.0,Oriental,,,,,46.0,,,,
 2021.0,Central,Delincuentes comunes,Mejor,,,38.0,"Ni bueno, ni malo (regular)",,,
@@ -1128,7 +1128,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,Delincuentes comunes,Peor,,,42.0,Malo,,,Centro
 2021.0,Bogotá,,,,,23.0,,,,
 2021.0,Central,,,,,23.0,,,,
-2021.0,Amazonas,Ninguno,Peor,,,36.0,,,,
+2021.0,Amazonia,Ninguno,Peor,,,36.0,,,,
 2021.0,Atlántica,Crimen organizado,Peor,,,56.0,Muy malo (pésimo),,,Derecha
 2021.0,Atlántica,,,,,30.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,38.0,Muy malo (pésimo),,,Centro derecha
@@ -1174,9 +1174,9 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,31.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,39.0,Muy malo (pésimo),,,Derecha
 2021.0,Bogotá,,,,,64.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,35.0,"Ni bueno, ni malo (regular)",,,Centro
+2021.0,Amazonia,Delincuentes comunes,Peor,,,35.0,"Ni bueno, ni malo (regular)",,,Centro
 2021.0,Bogotá,,,,,49.0,,,,
-2021.0,Amazonas,,,,,26.0,,,,
+2021.0,Amazonia,,,,,26.0,,,,
 2021.0,Atlántica,,,,,33.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,32.0,Muy malo (pésimo),,,Centro izquierda
 2021.0,Central,Ninguno,Peor,,,37.0,Muy malo (pésimo),,,
@@ -1207,7 +1207,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Pacífica,Crimen organizado,Peor,,,54.0,Muy malo (pésimo),,,
 2021.0,Bogotá,,,,,37.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,36.0,"Ni bueno, ni malo (regular)",,,Centro derecha
-2021.0,Amazonas,Guerrillas,Igual,,,37.0,Muy bueno,,,Derecha
+2021.0,Amazonia,Guerrillas,Igual,,,37.0,Muy bueno,,,Derecha
 2021.0,Central,Delincuentes comunes,Peor,,,41.0,Malo,,,Centro derecha
 2021.0,Oriental,,,,,25.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,62.0,Malo,,,Centro izquierda
@@ -1241,7 +1241,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,43.0,,,,
 2021.0,Bogotá,,Peor,,,33.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,,,,37.0,,,,
-2021.0,Amazonas,,,,,35.0,,,,
+2021.0,Amazonia,,,,,35.0,,,,
 2021.0,Atlántica,Crimen organizado,Peor,,,46.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Bogotá,Crimen organizado,Peor,,,37.0,Muy malo (pésimo),,,Izquierda
@@ -1249,7 +1249,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,35.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,36.0,Muy malo (pésimo),,,
 2021.0,Central,Crimen organizado,Peor,,,29.0,Muy malo (pésimo),,,Centro izquierda
-2021.0,Amazonas,Delincuentes comunes,Peor,,,46.0,Muy malo (pésimo),,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,46.0,Muy malo (pésimo),,,
 2021.0,Oriental,Crimen organizado,Peor,,,19.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,,,,,49.0,,,,
 2021.0,Atlántica,,,,,54.0,,,,
@@ -1273,7 +1273,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,29.0,Muy malo (pésimo),,,Centro derecha
 2021.0,Oriental,,,,,38.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,35.0,Muy malo (pésimo),,,
-2021.0,Amazonas,,,,,36.0,,,,
+2021.0,Amazonia,,,,,36.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,23.0,Malo,,,
 2021.0,Central,Delincuentes comunes,Igual,,,31.0,Muy bueno,,,Derecha
 2021.0,Oriental,Ninguno,Peor,,,67.0,"Ni bueno, ni malo (regular)",,,
@@ -1292,13 +1292,13 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,49.0,,,,
 2021.0,Oriental,Delincuentes comunes,Igual,,,20.0,Malo,,,Centro derecha
 2021.0,Atlántica,Crimen organizado,Peor,,,36.0,"Ni bueno, ni malo (regular)",,,Derecha
-2021.0,Amazonas,Crimen organizado,Peor,,,32.0,Malo,,,Centro derecha
+2021.0,Amazonia,Crimen organizado,Peor,,,32.0,Malo,,,Centro derecha
 2021.0,Oriental,,,,,37.0,,,,
 2021.0,Oriental,,,,,25.0,,,,
 2021.0,Atlántica,,,,,62.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,30.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Oriental,Guerrillas,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,Centro derecha
-2021.0,Amazonas,Ninguno,Peor,,,67.0,Muy malo (pésimo),,,
+2021.0,Amazonia,Ninguno,Peor,,,67.0,Muy malo (pésimo),,,
 2021.0,Oriental,Guerrillas,Igual,,,21.0,Muy malo (pésimo),,,Centro
 2021.0,Bogotá,Delincuentes comunes,Peor,,,49.0,Malo,,,Izquierda
 2021.0,Atlántica,,,,,33.0,,,,
@@ -1308,7 +1308,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Pacífica,,,,,23.0,,,,
 2021.0,Oriental,,,,,50.0,,,,
 2021.0,Bogotá,Crimen organizado,Igual,,,29.0,Bueno,,,Centro
-2021.0,Amazonas,Delincuentes comunes,Igual,,,48.0,Malo,,,Derecha
+2021.0,Amazonia,Delincuentes comunes,Igual,,,48.0,Malo,,,Derecha
 2021.0,Atlántica,Crimen organizado,Peor,,,29.0,Muy malo (pésimo),,,Centro izquierda
 2021.0,Pacífica,Delincuentes comunes,Igual,,,59.0,Malo,,,
 2021.0,Central,,,,,65.0,,,,
@@ -1335,7 +1335,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,46.0,Bueno,,,
 2021.0,Central,,,,,32.0,,,,
 2021.0,Pacífica,,,,,47.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,37.0,"Ni bueno, ni malo (regular)",,,Derecha
+2021.0,Amazonia,Delincuentes comunes,Peor,,,37.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Oriental,Guerrillas,Peor,,,37.0,Bueno,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,47.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Bogotá,,,,,28.0,,,,
@@ -1346,7 +1346,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,57.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,33.0,Muy malo (pésimo),,,Centro
 2021.0,Atlántica,,,,,41.0,,,,
-2021.0,Amazonas,,,,,28.0,,,,
+2021.0,Amazonia,,,,,28.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,54.0,Muy bueno,,,Derecha
 2021.0,Oriental,Crimen organizado,Peor,,,70.0,Malo,,,Derecha
 2021.0,Bogotá,Delincuentes comunes,Peor,,,50.0,Muy malo (pésimo),,,Centro
@@ -1355,7 +1355,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,28.0,,,,
 2021.0,Bogotá,,,,,39.0,,,,
 2021.0,Central,,,,,42.0,,,,
-2021.0,Amazonas,,,,,53.0,,,,
+2021.0,Amazonia,,,,,53.0,,,,
 2021.0,Oriental,Crimen organizado,Peor,,,49.0,Malo,,,Izquierda
 2021.0,Bogotá,,,,,26.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,48.0,"Ni bueno, ni malo (regular)",,,
@@ -1413,7 +1413,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,40.0,Muy malo (pésimo),,,
 2021.0,Atlántica,,,,,23.0,,,,
 2021.0,Atlántica,Crimen organizado,Peor,,,48.0,"Ni bueno, ni malo (regular)",,,Centro derecha
-2021.0,Amazonas,,,,,28.0,,,,
+2021.0,Amazonia,,,,,28.0,,,,
 2021.0,Atlántica,Delincuentes comunes,,,,53.0,Bueno,,,
 2021.0,Pacífica,Crimen organizado,Peor,,,57.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Oriental,Guerrillas,Peor,,,47.0,Muy bueno,,,
@@ -1460,7 +1460,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Crimen organizado,Peor,,,30.0,Malo,,,Izquierda
 2021.0,Atlántica,Delincuentes comunes,Peor,,,35.0,Muy bueno,,,
 2021.0,Pacífica,,,,,38.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,33.0,Muy malo (pésimo),,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,33.0,Muy malo (pésimo),,,
 2021.0,Central,Guerrillas,Peor,,,47.0,Bueno,,,Derecha
 2021.0,Oriental,,,,,36.0,,,,
 2021.0,Pacífica,Crimen organizado,Igual,,,46.0,Bueno,,,Izquierda
@@ -1481,8 +1481,8 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Delincuentes comunes,Peor,,,53.0,Malo,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,44.0,Muy malo (pésimo),,,Centro
 2021.0,Atlántica,,,,,43.0,,,,
-2021.0,Amazonas,,Peor,,,18.0,Muy malo (pésimo),,,Centro
-2021.0,Amazonas,Delincuentes comunes,Peor,,,46.0,Muy malo (pésimo),,,Derecha
+2021.0,Amazonia,,Peor,,,18.0,Muy malo (pésimo),,,Centro
+2021.0,Amazonia,Delincuentes comunes,Peor,,,46.0,Muy malo (pésimo),,,Derecha
 2021.0,Atlántica,,,,,21.0,,,,
 2021.0,Oriental,,,,,25.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Igual,,,33.0,"Ni bueno, ni malo (regular)",,,
@@ -1516,7 +1516,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,,,,,26.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,41.0,Bueno,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,46.0,Muy malo (pésimo),,,Centro
-2021.0,Amazonas,,,,,56.0,,,,
+2021.0,Amazonia,,,,,56.0,,,,
 2021.0,Pacífica,,,,,38.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,20.0,Muy malo (pésimo),,,Izquierda
 2021.0,Oriental,Delincuentes comunes,Peor,,,74.0,"Ni bueno, ni malo (regular)",,,
@@ -1524,7 +1524,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,30.0,Muy malo (pésimo),,,Centro derecha
 2021.0,Bogotá,Delincuentes comunes,Peor,,,53.0,Malo,,,Centro
 2021.0,Pacífica,Crimen organizado,Peor,,,26.0,Bueno,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,50.0,Malo,,,Centro izquierda
+2021.0,Amazonia,Delincuentes comunes,Peor,,,50.0,Malo,,,Centro izquierda
 2021.0,Central,Delincuentes comunes,Peor,,,56.0,Malo,,,
 2021.0,Oriental,Crimen organizado,Peor,,,40.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,,,,42.0,,,,
@@ -1536,7 +1536,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,Crimen organizado,Peor,,,28.0,Muy malo (pésimo),,,
 2021.0,Oriental,Crimen organizado,Peor,,,38.0,Malo,,,Centro
 2021.0,Central,Crimen organizado,Igual,,,30.0,Malo,,,Centro
-2021.0,Amazonas,,,,,28.0,,,,
+2021.0,Amazonia,,,,,28.0,,,,
 2021.0,Oriental,,,,,54.0,,,,
 2021.0,Oriental,Crimen organizado,Peor,,,22.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Oriental,,,,,32.0,,,,
@@ -1569,7 +1569,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Guerrillas,Peor,,,28.0,Malo,,,Centro izquierda
 2021.0,Atlántica,,,,,38.0,,,,
 2021.0,Central,,,,,29.0,,,,
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Bogotá,,,,,34.0,,,,
 2021.0,Central,Crimen organizado,Igual,,,47.0,Bueno,,,Derecha
 2021.0,Oriental,Crimen organizado,Peor,,,49.0,Muy malo (pésimo),,,Centro derecha
@@ -1622,7 +1622,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,69.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,31.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,,,,,34.0,,,,
-2021.0,Amazonas,,,,,55.0,,,,
+2021.0,Amazonia,,,,,55.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Igual,,,38.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Oriental,Delincuentes comunes,Igual,,,20.0,Malo,,,Centro izquierda
 2021.0,Atlántica,,,,,24.0,,,,
@@ -1724,7 +1724,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,42.0,,,,
 2021.0,Oriental,Delincuentes comunes,Igual,,,54.0,"Ni bueno, ni malo (regular)",,,Centro
 2021.0,Pacífica,,,,,20.0,,,,
-2021.0,Amazonas,Crimen organizado,Peor,,,30.0,Muy malo (pésimo),,,Centro
+2021.0,Amazonia,Crimen organizado,Peor,,,30.0,Muy malo (pésimo),,,Centro
 2021.0,Oriental,Ninguno,Mejor,,,78.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,,,,53.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,37.0,Malo,,,Centro
@@ -1754,7 +1754,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,31.0,Muy malo (pésimo),,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,29.0,Malo,,,
 2021.0,Bogotá,,,,,20.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,37.0,Bueno,,,Centro
+2021.0,Amazonia,Delincuentes comunes,Peor,,,37.0,Bueno,,,Centro
 2021.0,Pacífica,Crimen organizado,Igual,,,53.0,Malo,,,
 2021.0,Oriental,,,,,50.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,50.0,"Ni bueno, ni malo (regular)",,,Izquierda
@@ -1784,7 +1784,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Pacífica,,,,,68.0,,,,
 2021.0,Central,,,,,30.0,,,,
 2021.0,Oriental,Ninguno,,,,28.0,Bueno,,,Centro derecha
-2021.0,Amazonas,,,,,36.0,,,,
+2021.0,Amazonia,,,,,36.0,,,,
 2021.0,Bogotá,,,,,28.0,,,,
 2021.0,Central,Delincuentes comunes,Peor,,,39.0,Muy malo (pésimo),,,Izquierda
 2021.0,Bogotá,,,,,40.0,,,,
@@ -1803,7 +1803,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Igual,,,49.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,Peor,,,55.0,Muy bueno,,,
 2021.0,Bogotá,,,,,25.0,,,,
-2021.0,Amazonas,,,,,90.0,,,,
+2021.0,Amazonia,,,,,90.0,,,,
 2021.0,Central,,,,,44.0,,,,
 2021.0,Pacífica,Crimen organizado,Peor,,,39.0,Malo,,,Centro izquierda
 2021.0,Pacífica,,,,,40.0,,,,
@@ -1815,7 +1815,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,49.0,,,,
 2021.0,Atlántica,,,,,44.0,,,,
 2021.0,Oriental,,,,,40.0,,,,
-2021.0,Amazonas,,,,,23.0,,,,
+2021.0,Amazonia,,,,,23.0,,,,
 2021.0,Oriental,,,,,28.0,,,,
 2021.0,Central,,,,,51.0,,,,
 2021.0,Oriental,Ninguno,Peor,,,43.0,Malo,,,
@@ -1904,7 +1904,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,41.0,,,,
 2021.0,Oriental,,,,,59.0,,,,
 2021.0,Central,,,,,42.0,,,,
-2021.0,Amazonas,Crimen organizado,Peor,,,37.0,Bueno,,,
+2021.0,Amazonia,Crimen organizado,Peor,,,37.0,Bueno,,,
 2021.0,Oriental,,,,,19.0,,,,
 2021.0,Central,,,,,37.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,29.0,Muy malo (pésimo),,,Centro derecha
@@ -1979,7 +1979,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,Crimen organizado,Peor,,,24.0,Malo,,,
 2021.0,Oriental,,,,,35.0,,,,
 2021.0,Pacífica,,,,,51.0,,,,
-2021.0,Amazonas,,,,,27.0,,,,
+2021.0,Amazonia,,,,,27.0,,,,
 2021.0,Oriental,,,,,52.0,,,,
 2021.0,Atlántica,Crimen organizado,Peor,,,54.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Bogotá,Crimen organizado,Peor,,,50.0,Malo,,,Derecha
@@ -2011,7 +2011,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,37.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,20.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Atlántica,Guerrillas,Peor,,,52.0,"Ni bueno, ni malo (regular)",,,Centro
-2021.0,Amazonas,,Peor,,,65.0,,,,
+2021.0,Amazonia,,Peor,,,65.0,,,,
 2021.0,Oriental,,,,,38.0,,,,
 2021.0,Central,Otros,Peor,,,64.0,Malo,,,
 2021.0,Atlántica,,,,,44.0,,,,
@@ -2026,7 +2026,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,48.0,,,,
 2021.0,Atlántica,Guerrillas,Igual,,,19.0,Muy bueno,,,Izquierda
 2021.0,Atlántica,,,,,37.0,,,,
-2021.0,Amazonas,,,,,28.0,,,,
+2021.0,Amazonia,,,,,28.0,,,,
 2021.0,Central,,,,,31.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,44.0,Bueno,,,Derecha
 2021.0,Bogotá,Delincuentes comunes,Igual,,,48.0,Malo,,,Centro
@@ -2044,7 +2044,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,48.0,,,,
 2021.0,Oriental,,,,,41.0,,,,
 2021.0,Atlántica,Crimen organizado,Peor,,,32.0,Malo,,,
-2021.0,Amazonas,Delincuentes comunes,Igual,,,32.0,"Ni bueno, ni malo (regular)",,,
+2021.0,Amazonia,Delincuentes comunes,Igual,,,32.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,,,,,78.0,,,,
 2021.0,Oriental,,,,,42.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,53.0,Malo,,,Centro derecha
@@ -2055,14 +2055,14 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Crimen organizado,Mejor,,,18.0,Muy bueno,,,Derecha
 2021.0,Central,,,,,63.0,,,,
 2021.0,Central,Delincuentes comunes,Peor,,,55.0,Muy bueno,,,Derecha
-2021.0,Amazonas,Crimen organizado,Mejor,,,27.0,Muy malo (pésimo),,,Centro derecha
+2021.0,Amazonia,Crimen organizado,Mejor,,,27.0,Muy malo (pésimo),,,Centro derecha
 2021.0,Atlántica,,,,,41.0,,,,
 2021.0,Bogotá,,,,,55.0,,,,
 2021.0,Central,Delincuentes comunes,Igual,,,19.0,Bueno,,,Centro
 2021.0,Atlántica,,,,,30.0,,,,
 2021.0,Pacífica,,,,,21.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,37.0,Malo,,,Derecha
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Oriental,,,,,30.0,,,,
 2021.0,Pacífica,,,,,58.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,49.0,Malo,,,Izquierda
@@ -2099,7 +2099,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Delincuentes comunes,Peor,,,38.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Pacífica,,,,,43.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,43.0,"Ni bueno, ni malo (regular)",,,
-2021.0,Amazonas,Guerrillas,Peor,,,18.0,"Ni bueno, ni malo (regular)",,,Centro derecha
+2021.0,Amazonia,Guerrillas,Peor,,,18.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Atlántica,,,,,33.0,,,,
 2021.0,Central,,,,,24.0,,,,
 2021.0,Oriental,,,,,46.0,,,,
@@ -2132,7 +2132,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Crimen organizado,Peor,,,36.0,Muy malo (pésimo),,,Izquierda
 2021.0,Bogotá,Crimen organizado,Peor,,,21.0,Muy malo (pésimo),,,Izquierda
 2021.0,Atlántica,,,,,19.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,29.0,"Ni bueno, ni malo (regular)",,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,29.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Bogotá,Otros,Peor,,,39.0,Muy malo (pésimo),,,
 2021.0,Oriental,Guerrillas,Peor,,,23.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Atlántica,,,,,32.0,,,,
@@ -2143,7 +2143,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,,Peor,,,26.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Atlántica,,,,,70.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,43.0,Malo,,,Centro
-2021.0,Amazonas,Delincuentes comunes,Peor,,,31.0,Bueno,,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,31.0,Bueno,,,
 2021.0,Pacífica,,,,,40.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Peor,,,38.0,Malo,,,
 2021.0,Central,,,,,61.0,,,,
@@ -2169,7 +2169,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,Delincuentes comunes,Peor,,,37.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Bogotá,Delincuentes comunes,Peor,,,54.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Atlántica,,,,,29.0,,,,
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Oriental,,,,,27.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,52.0,Bueno,,,Centro derecha
 2021.0,Oriental,Crimen organizado,Peor,,,70.0,Malo,,,
@@ -2183,7 +2183,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,,,,,40.0,,,,
 2021.0,Oriental,,,,,36.0,,,,
 2021.0,Atlántica,,,,,33.0,,,,
-2021.0,Amazonas,,,,,26.0,,,,
+2021.0,Amazonia,,,,,26.0,,,,
 2021.0,Bogotá,,,,,45.0,,,,
 2021.0,Oriental,,,,,47.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,23.0,Muy malo (pésimo),,,Centro izquierda
@@ -2232,16 +2232,16 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,33.0,,,,
 2021.0,Central,Crimen organizado,Peor,,,45.0,Malo,,,
 2021.0,Oriental,,,,,29.0,,,,
-2021.0,Amazonas,,,,,44.0,,,,
+2021.0,Amazonia,,,,,44.0,,,,
 2021.0,,,Peor,,,53.0,Bueno,,,Derecha
 2021.0,Oriental,Crimen organizado,Peor,,,23.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Bogotá,Delincuentes comunes,Peor,,,63.0,"Ni bueno, ni malo (regular)",,,
-2021.0,Amazonas,,,,,26.0,,,,
+2021.0,Amazonia,,,,,26.0,,,,
 2021.0,Central,Otros,Peor,,,51.0,Muy malo (pésimo),,,Centro
 2021.0,Bogotá,,,,,68.0,,,,
-2021.0,Amazonas,,,,,38.0,,,,
+2021.0,Amazonia,,,,,38.0,,,,
 2021.0,Oriental,,,,,37.0,,,,
-2021.0,Amazonas,Ninguno,Peor,,,34.0,"Ni bueno, ni malo (regular)",,,
+2021.0,Amazonia,Ninguno,Peor,,,34.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Atlántica,,,,,31.0,,,,
 2021.0,Oriental,,,,,27.0,,,,
 2021.0,Bogotá,,,,,28.0,,,,
@@ -2279,7 +2279,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,23.0,,,,
 2021.0,Oriental,Guerrillas,,,,52.0,Muy bueno,,,Centro derecha
 2021.0,Pacífica,,,,,32.0,,,,
-2021.0,Amazonas,Crimen organizado,Peor,,,52.0,Muy malo (pésimo),,,Derecha
+2021.0,Amazonia,Crimen organizado,Peor,,,52.0,Muy malo (pésimo),,,Derecha
 2021.0,Atlántica,,,,,65.0,,,,
 2021.0,Atlántica,,,,,35.0,,,,
 2021.0,Central,,,,,38.0,,,,
@@ -2395,7 +2395,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Central,,,,,40.0,,,,
 2021.0,Atlántica,,,,,46.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,40.0,"Ni bueno, ni malo (regular)",,,Derecha
-2021.0,Amazonas,,,,,21.0,,,,
+2021.0,Amazonia,,,,,21.0,,,,
 2021.0,Oriental,,,,,31.0,,,,
 2021.0,Bogotá,,,,,23.0,,,,
 2021.0,Central,,,,,40.0,,,,
@@ -2419,7 +2419,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,20.0,,,,
 2021.0,Oriental,,,,,25.0,,,,
 2021.0,Bogotá,,,,,54.0,,,,
-2021.0,Amazonas,,,,,24.0,,,,
+2021.0,Amazonia,,,,,24.0,,,,
 2021.0,Bogotá,Otros,Peor,,,30.0,Muy malo (pésimo),,,
 2021.0,Bogotá,Crimen organizado,Peor,,,37.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Bogotá,,,,,34.0,,,,
@@ -2458,7 +2458,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,38.0,,,,
 2021.0,Pacífica,Delincuentes comunes,Peor,,,35.0,Muy bueno,,,
 2021.0,Pacífica,,,,,50.0,,,,
-2021.0,Amazonas,,,,,59.0,,,,
+2021.0,Amazonia,,,,,59.0,,,,
 2021.0,Bogotá,,Peor,,,56.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,,,,40.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,23.0,Muy malo (pésimo),,,Centro
@@ -2570,7 +2570,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,,,,,37.0,,,,
 2021.0,Atlántica,,,,,46.0,,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,48.0,,,,
-2021.0,Amazonas,,,,,53.0,,,,
+2021.0,Amazonia,,,,,53.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,47.0,"Ni bueno, ni malo (regular)",,,Centro
 2021.0,Atlántica,Delincuentes comunes,Peor,,,39.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,,,,,47.0,,,,
@@ -2599,7 +2599,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,78.0,,,,
 2021.0,Oriental,Guerrillas,Peor,,,45.0,"Ni bueno, ni malo (regular)",,,Izquierda
 2021.0,Oriental,Guerrillas,Peor,,,30.0,"Ni bueno, ni malo (regular)",,,
-2021.0,Amazonas,,,,,38.0,,,,
+2021.0,Amazonia,,,,,38.0,,,,
 2021.0,Oriental,Crimen organizado,Peor,,,21.0,"Ni bueno, ni malo (regular)",,,Centro izquierda
 2021.0,Central,Crimen organizado,Peor,,,33.0,"Ni bueno, ni malo (regular)",,,Centro izquierda
 2021.0,Bogotá,,,,,52.0,,,,
@@ -2607,7 +2607,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,,,,,38.0,,,,
 2021.0,Atlántica,,,,,93.0,,,,
 2021.0,Bogotá,Delincuentes comunes,Peor,,,30.0,Muy malo (pésimo),,,Izquierda
-2021.0,Amazonas,,,,,71.0,,,,
+2021.0,Amazonia,,,,,71.0,,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,33.0,Muy malo (pésimo),,,Centro izquierda
 2021.0,Atlántica,,,,,25.0,,,,
 2021.0,Atlántica,,,,,34.0,,,,
@@ -2618,7 +2618,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,Delincuentes comunes,Peor,,,18.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,,,,,37.0,,,,
 2021.0,Atlántica,Delincuentes comunes,Mejor,,,47.0,"Ni bueno, ni malo (regular)",,,Derecha
-2021.0,Amazonas,,,,,34.0,,,,
+2021.0,Amazonia,,,,,34.0,,,,
 2021.0,Bogotá,,,,,56.0,,,,
 2021.0,Atlántica,,,,,69.0,,,,
 2021.0,Atlántica,Guerrillas,Peor,,,25.0,Malo,,,Izquierda
@@ -2679,13 +2679,13 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,,,,,34.0,,,,
 2021.0,Atlántica,,,,,34.0,,,,
 2021.0,Bogotá,,,,,25.0,,,,
-2021.0,Amazonas,Guerrillas,Igual,,,55.0,"Ni bueno, ni malo (regular)",,,
+2021.0,Amazonia,Guerrillas,Igual,,,55.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Central,,,,,34.0,,,,
 2021.0,Oriental,,,,,48.0,,,,
 2021.0,Pacífica,Crimen organizado,Peor,,,18.0,Muy malo (pésimo),,,Derecha
 2021.0,Central,,Peor,,,28.0,Malo,,,
 2021.0,Bogotá,,,,,22.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,37.0,Muy malo (pésimo),,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,37.0,Muy malo (pésimo),,,
 2021.0,Oriental,,,,,29.0,,,,
 2021.0,Oriental,Crimen organizado,Igual,,,51.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Atlántica,,,,,37.0,,,,
@@ -2716,7 +2716,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,Delincuentes comunes,Peor,,,42.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Atlántica,,,,,19.0,,,,
 2021.0,Central,,,,,66.0,,,,
-2021.0,Amazonas,,Peor,,,40.0,"Ni bueno, ni malo (regular)",,,Derecha
+2021.0,Amazonia,,Peor,,,40.0,"Ni bueno, ni malo (regular)",,,Derecha
 2021.0,Bogotá,Delincuentes comunes,Peor,,,22.0,Muy malo (pésimo),,,Derecha
 2021.0,Bogotá,Crimen organizado,Peor,,,18.0,Muy malo (pésimo),,,Centro derecha
 2021.0,Oriental,,,,,32.0,,,,
@@ -2812,7 +2812,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,,,,,18.0,,,,
 2021.0,Bogotá,,,,,30.0,,,,
 2021.0,Bogotá,Guerrillas,Peor,,,34.0,"Ni bueno, ni malo (regular)",,,Centro izquierda
-2021.0,Amazonas,,,,,40.0,,,,
+2021.0,Amazonia,,,,,40.0,,,,
 2021.0,Atlántica,,,,,45.0,,,,
 2021.0,Central,,,,,71.0,,,,
 2021.0,Bogotá,,,,,21.0,,,,
@@ -2865,7 +2865,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Bogotá,,,,,29.0,,,,
 2021.0,Oriental,,,,,20.0,,,,
 2021.0,Pacífica,Crimen organizado,Igual,,,23.0,Bueno,,,Centro derecha
-2021.0,Amazonas,Crimen organizado,Peor,,,45.0,Malo,,,
+2021.0,Amazonia,Crimen organizado,Peor,,,45.0,Malo,,,
 2021.0,Bogotá,,,,,21.0,,,,
 2021.0,Bogotá,,,,,27.0,,,,
 2021.0,Oriental,,,,,34.0,,,,
@@ -2900,7 +2900,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Oriental,Crimen organizado,Peor,,,35.0,"Ni bueno, ni malo (regular)",,,Centro izquierda
 2021.0,Bogotá,Crimen organizado,Peor,,,29.0,Muy malo (pésimo),,,
 2021.0,Oriental,,,,,33.0,,,,
-2021.0,Amazonas,Delincuentes comunes,Peor,,,31.0,Muy malo (pésimo),,,
+2021.0,Amazonia,Delincuentes comunes,Peor,,,31.0,Muy malo (pésimo),,,
 2021.0,Oriental,Crimen organizado,Peor,,,51.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,56.0,"Ni bueno, ni malo (regular)",,,Centro derecha
 2021.0,Pacífica,Otros,Peor,,,27.0,Muy malo (pésimo),,,Izquierda
@@ -2920,7 +2920,7 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Atlántica,,,,,53.0,,,,
 2021.0,Atlántica,,,,,36.0,,,,
 2021.0,Atlántica,,,,,35.0,,,,
-2021.0,Amazonas,,,,,56.0,,,,
+2021.0,Amazonia,,,,,56.0,,,,
 2021.0,Bogotá,,,,,55.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,31.0,Malo,,,
 2021.0,Oriental,Delincuentes comunes,Igual,,,57.0,Muy malo (pésimo),,,Centro derecha
@@ -2954,12 +2954,12 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2021.0,Pacífica,Guerrillas,Peor,,,42.0,Bueno,,,Centro derecha
 2021.0,Oriental,Otros,Peor,,,40.0,Muy malo (pésimo),,,
 2021.0,Central,,Peor,,,73.0,Malo,,,
-2021.0,Amazonas,Crimen organizado,Peor,,,50.0,Malo,,,
+2021.0,Amazonia,Crimen organizado,Peor,,,50.0,Malo,,,
 2021.0,Atlántica,,,,,43.0,,,,
 2021.0,Bogotá,Crimen organizado,Peor,,,28.0,Muy malo (pésimo),,,Centro izquierda
 2021.0,Pacífica,Crimen organizado,Peor,,,43.0,Muy malo (pésimo),,,
 2021.0,Central,,,,,56.0,,,,
-2021.0,Amazonas,,,,,35.0,,,,
+2021.0,Amazonia,,,,,35.0,,,,
 2021.0,Oriental,,,,,18.0,,,,
 2021.0,Oriental,Delincuentes comunes,Peor,,,53.0,"Ni bueno, ni malo (regular)",,,
 2021.0,Atlántica,,,,,23.0,,,,
@@ -3794,30 +3794,30 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2025.0,Central,Delincuentes comunes,Peor,Urbano,Mujer,52.0,Malo,7.0,7.0,Derecha
 2025.0,Central,Ninguno,Peor,Urbano,Mujer,41.0,"Ni bueno, ni malo (regular)",7.0,7.0,Izquierda
 2025.0,Central,Delincuentes comunes,Peor,Urbano,Mujer,33.0,Malo,7.0,4.0,Centro
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Hombre,20.0,Malo,4.0,4.0,Centro derecha
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Hombre,73.0,Malo,5.0,4.0,Derecha
-2025.0,Amazonas,Crimen organizado,Peor,Urbano,Hombre,37.0,"Ni bueno, ni malo (regular)",6.0,2.0,Centro izquierda
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Mujer,21.0,Muy bueno,5.0,3.0,Centro
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Mujer,80.0,Muy malo (pésimo),7.0,7.0,Izquierda
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Mujer,35.0,"Ni bueno, ni malo (regular)",2.0,1.0,Centro
-2025.0,Amazonas,Crimen organizado,Mejor,Urbano,Hombre,55.0,Bueno,5.0,4.0,Izquierda
-2025.0,Amazonas,Guerrillas,Igual,Urbano,Mujer,63.0,"Ni bueno, ni malo (regular)",6.0,4.0,Centro derecha
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Hombre,34.0,"Ni bueno, ni malo (regular)",5.0,4.0,Centro izquierda
-2025.0,Amazonas,Crimen organizado,Peor,Urbano,Mujer,30.0,Muy malo (pésimo),2.0,2.0,Derecha
-2025.0,Amazonas,Ninguno,Peor,Urbano,Hombre,42.0,Malo,3.0,4.0,Derecha
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Hombre,18.0,"Ni bueno, ni malo (regular)",7.0,5.0,Centro
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Hombre,35.0,Malo,7.0,5.0,Centro derecha
-2025.0,Amazonas,Fuerzas de seguridad,Peor,Urbano,Hombre,83.0,Muy malo (pésimo),1.0,1.0,Derecha
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Hombre,18.0,Bueno,2.0,4.0,Centro
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Hombre,47.0,Malo,5.0,5.0,Centro derecha
-2025.0,Amazonas,Ninguno,Igual,Urbano,Mujer,27.0,"Ni bueno, ni malo (regular)",3.0,3.0,Centro izquierda
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Mujer,63.0,"Ni bueno, ni malo (regular)",3.0,3.0,Derecha
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Mujer,41.0,Malo,5.0,7.0,Derecha
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Mujer,33.0,"Ni bueno, ni malo (regular)",1.0,1.0,Izquierda
-2025.0,Amazonas,Crimen organizado,Peor,Urbano,Mujer,18.0,"Ni bueno, ni malo (regular)",6.0,5.0,Centro derecha
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Mujer,41.0,,1.0,1.0,Izquierda
-2025.0,Amazonas,Guerrillas,Igual,Urbano,Hombre,28.0,"Ni bueno, ni malo (regular)",1.0,2.0,Centro derecha
-2025.0,Amazonas,Crimen organizado,Peor,Urbano,Mujer,63.0,"Ni bueno, ni malo (regular)",7.0,6.0,Derecha
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Hombre,20.0,Malo,4.0,4.0,Centro derecha
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Hombre,73.0,Malo,5.0,4.0,Derecha
+2025.0,Amazonia,Crimen organizado,Peor,Urbano,Hombre,37.0,"Ni bueno, ni malo (regular)",6.0,2.0,Centro izquierda
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Mujer,21.0,Muy bueno,5.0,3.0,Centro
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Mujer,80.0,Muy malo (pésimo),7.0,7.0,Izquierda
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Mujer,35.0,"Ni bueno, ni malo (regular)",2.0,1.0,Centro
+2025.0,Amazonia,Crimen organizado,Mejor,Urbano,Hombre,55.0,Bueno,5.0,4.0,Izquierda
+2025.0,Amazonia,Guerrillas,Igual,Urbano,Mujer,63.0,"Ni bueno, ni malo (regular)",6.0,4.0,Centro derecha
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Hombre,34.0,"Ni bueno, ni malo (regular)",5.0,4.0,Centro izquierda
+2025.0,Amazonia,Crimen organizado,Peor,Urbano,Mujer,30.0,Muy malo (pésimo),2.0,2.0,Derecha
+2025.0,Amazonia,Ninguno,Peor,Urbano,Hombre,42.0,Malo,3.0,4.0,Derecha
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Hombre,18.0,"Ni bueno, ni malo (regular)",7.0,5.0,Centro
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Hombre,35.0,Malo,7.0,5.0,Centro derecha
+2025.0,Amazonia,Fuerzas de seguridad,Peor,Urbano,Hombre,83.0,Muy malo (pésimo),1.0,1.0,Derecha
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Hombre,18.0,Bueno,2.0,4.0,Centro
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Hombre,47.0,Malo,5.0,5.0,Centro derecha
+2025.0,Amazonia,Ninguno,Igual,Urbano,Mujer,27.0,"Ni bueno, ni malo (regular)",3.0,3.0,Centro izquierda
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Mujer,63.0,"Ni bueno, ni malo (regular)",3.0,3.0,Derecha
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Mujer,41.0,Malo,5.0,7.0,Derecha
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Mujer,33.0,"Ni bueno, ni malo (regular)",1.0,1.0,Izquierda
+2025.0,Amazonia,Crimen organizado,Peor,Urbano,Mujer,18.0,"Ni bueno, ni malo (regular)",6.0,5.0,Centro derecha
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Mujer,41.0,,1.0,1.0,Izquierda
+2025.0,Amazonia,Guerrillas,Igual,Urbano,Hombre,28.0,"Ni bueno, ni malo (regular)",1.0,2.0,Centro derecha
+2025.0,Amazonia,Crimen organizado,Peor,Urbano,Mujer,63.0,"Ni bueno, ni malo (regular)",7.0,6.0,Derecha
 2025.0,Pacífica,Ninguno,Igual,Urbano,Mujer,29.0,"Ni bueno, ni malo (regular)",1.0,,Centro derecha
 2025.0,Pacífica,Delincuentes comunes,Peor,Urbano,Mujer,66.0,"Ni bueno, ni malo (regular)",6.0,6.0,Centro
 2025.0,Pacífica,Delincuentes comunes,Peor,Urbano,Mujer,60.0,Bueno,5.0,5.0,Centro
@@ -4176,32 +4176,32 @@ year,estratopri,aoj21,colseg,ur,q1,q2,m1,trust,pr5,ideologia
 2025.0,Central,Ninguno,Peor,Urbano,Hombre,84.0,Muy malo (pésimo),6.0,4.0,Derecha
 2025.0,Central,Delincuentes comunes,Peor,Urbano,Mujer,30.0,Bueno,6.0,4.0,Derecha
 2025.0,Central,Crimen organizado,Peor,Urbano,Hombre,45.0,Malo,7.0,3.0,Derecha
-2025.0,Amazonas,,Peor,Urbano,Mujer,18.0,,2.0,1.0,Centro
-2025.0,Amazonas,Delincuentes comunes,Igual,Rural,Hombre,30.0,Muy bueno,3.0,3.0,Centro izquierda
-2025.0,Amazonas,Crimen organizado,Peor,Rural,Hombre,45.0,Malo,6.0,5.0,Derecha
-2025.0,Amazonas,Crimen organizado,Igual,Urbano,Hombre,23.0,"Ni bueno, ni malo (regular)",4.0,4.0,Centro
-2025.0,Amazonas,Ninguno,Mejor,Urbano,Hombre,49.0,Bueno,4.0,3.0,Centro izquierda
-2025.0,Amazonas,Otros,Peor,Urbano,Mujer,46.0,Bueno,6.0,4.0,Centro
-2025.0,Amazonas,Crimen organizado,Mejor,Urbano,Hombre,40.0,Bueno,6.0,3.0,Izquierda
-2025.0,Amazonas,,Igual,Urbano,Hombre,30.0,Bueno,4.0,4.0,Izquierda
-2025.0,Amazonas,,Peor,Urbano,Mujer,25.0,"Ni bueno, ni malo (regular)",1.0,1.0,Derecha
-2025.0,Amazonas,,Peor,Urbano,Mujer,43.0,Muy malo (pésimo),1.0,2.0,Centro derecha
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Mujer,47.0,Muy malo (pésimo),7.0,4.0,Centro
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Hombre,,Bueno,4.0,5.0,Centro
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Hombre,67.0,Bueno,7.0,1.0,Derecha
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Mujer,42.0,Bueno,5.0,7.0,Derecha
-2025.0,Amazonas,Guerrillas,Igual,Urbano,Hombre,28.0,Bueno,5.0,4.0,Centro
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Hombre,45.0,Malo,6.0,6.0,Derecha
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Mujer,25.0,"Ni bueno, ni malo (regular)",2.0,4.0,Centro derecha
-2025.0,Amazonas,Crimen organizado,Igual,Urbano,Mujer,68.0,Bueno,5.0,4.0,Centro
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Mujer,18.0,Malo,2.0,3.0,Centro
-2025.0,Amazonas,Crimen organizado,Peor,Urbano,Hombre,49.0,Bueno,4.0,6.0,Centro derecha
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Hombre,45.0,Bueno,7.0,6.0,Derecha
-2025.0,Amazonas,Delincuentes comunes,Igual,Urbano,Mujer,34.0,Muy bueno,4.0,5.0,Centro
-2025.0,Amazonas,,Peor,Urbano,Hombre,47.0,,2.0,5.0,Centro
-2025.0,Amazonas,Delincuentes comunes,Peor,Urbano,Mujer,32.0,"Ni bueno, ni malo (regular)",1.0,1.0,Centro
-2025.0,Amazonas,Guerrillas,Peor,Urbano,Mujer,33.0,Muy bueno,5.0,4.0,Centro derecha
-2025.0,Amazonas,,Peor,Urbano,Mujer,70.0,Bueno,2.0,1.0,Izquierda
+2025.0,Amazonia,,Peor,Urbano,Mujer,18.0,,2.0,1.0,Centro
+2025.0,Amazonia,Delincuentes comunes,Igual,Rural,Hombre,30.0,Muy bueno,3.0,3.0,Centro izquierda
+2025.0,Amazonia,Crimen organizado,Peor,Rural,Hombre,45.0,Malo,6.0,5.0,Derecha
+2025.0,Amazonia,Crimen organizado,Igual,Urbano,Hombre,23.0,"Ni bueno, ni malo (regular)",4.0,4.0,Centro
+2025.0,Amazonia,Ninguno,Mejor,Urbano,Hombre,49.0,Bueno,4.0,3.0,Centro izquierda
+2025.0,Amazonia,Otros,Peor,Urbano,Mujer,46.0,Bueno,6.0,4.0,Centro
+2025.0,Amazonia,Crimen organizado,Mejor,Urbano,Hombre,40.0,Bueno,6.0,3.0,Izquierda
+2025.0,Amazonia,,Igual,Urbano,Hombre,30.0,Bueno,4.0,4.0,Izquierda
+2025.0,Amazonia,,Peor,Urbano,Mujer,25.0,"Ni bueno, ni malo (regular)",1.0,1.0,Derecha
+2025.0,Amazonia,,Peor,Urbano,Mujer,43.0,Muy malo (pésimo),1.0,2.0,Centro derecha
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Mujer,47.0,Muy malo (pésimo),7.0,4.0,Centro
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Hombre,,Bueno,4.0,5.0,Centro
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Hombre,67.0,Bueno,7.0,1.0,Derecha
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Mujer,42.0,Bueno,5.0,7.0,Derecha
+2025.0,Amazonia,Guerrillas,Igual,Urbano,Hombre,28.0,Bueno,5.0,4.0,Centro
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Hombre,45.0,Malo,6.0,6.0,Derecha
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Mujer,25.0,"Ni bueno, ni malo (regular)",2.0,4.0,Centro derecha
+2025.0,Amazonia,Crimen organizado,Igual,Urbano,Mujer,68.0,Bueno,5.0,4.0,Centro
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Mujer,18.0,Malo,2.0,3.0,Centro
+2025.0,Amazonia,Crimen organizado,Peor,Urbano,Hombre,49.0,Bueno,4.0,6.0,Centro derecha
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Hombre,45.0,Bueno,7.0,6.0,Derecha
+2025.0,Amazonia,Delincuentes comunes,Igual,Urbano,Mujer,34.0,Muy bueno,4.0,5.0,Centro
+2025.0,Amazonia,,Peor,Urbano,Hombre,47.0,,2.0,5.0,Centro
+2025.0,Amazonia,Delincuentes comunes,Peor,Urbano,Mujer,32.0,"Ni bueno, ni malo (regular)",1.0,1.0,Centro
+2025.0,Amazonia,Guerrillas,Peor,Urbano,Mujer,33.0,Muy bueno,5.0,4.0,Centro derecha
+2025.0,Amazonia,,Peor,Urbano,Mujer,70.0,Bueno,2.0,1.0,Izquierda
 2025.0,Oriental,Guerrillas,Peor,Urbano,Mujer,45.0,Malo,2.0,2.0,Derecha
 2025.0,Oriental,Guerrillas,Peor,Urbano,Hombre,37.0,Malo,1.0,3.0,Centro
 2025.0,Oriental,Delincuentes comunes,Igual,Urbano,Hombre,45.0,Bueno,4.0,5.0,Centro derecha

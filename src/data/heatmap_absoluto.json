@@ -17,6 +17,11 @@
   },
   "estratopri": {
     "2021": {
+      "Amazonas": {
+        "Peor": 34,
+        "Igual": 7,
+        "Mejor": 3
+      },
       "Atlántica": {
         "Peor": 193,
         "Igual": 51,
@@ -26,11 +31,6 @@
         "Peor": 275,
         "Igual": 35,
         "Mejor": 5
-      },
-      "Caribe": {
-        "Peor": 34,
-        "Igual": 7,
-        "Mejor": 3
       },
       "Central": {
         "Peor": 192,
@@ -49,6 +49,11 @@
       }
     },
     "2025": {
+      "Amazonas": {
+        "Peor": 31,
+        "Igual": 16,
+        "Mejor": 3
+      },
       "Atlántica": {
         "Peor": 162,
         "Igual": 107,
@@ -58,11 +63,6 @@
         "Peor": 175,
         "Igual": 107,
         "Mejor": 10
-      },
-      "Caribe": {
-        "Peor": 31,
-        "Igual": 16,
-        "Mejor": 3
       },
       "Central": {
         "Peor": 242,
