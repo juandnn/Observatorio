@@ -1353,7 +1353,7 @@ function topAtributosInfluyentes({
     ? dataHeatmapRelativo
     : dataHeatmapAbsoluto;
 
-  let selectedDatum = null;
+  const selectedDatumByYear = new Map();
   let lastWidth = null;
 
   function normalizarYearKeys(y) {
@@ -1459,13 +1459,13 @@ function topAtributosInfluyentes({
     `;
   }
 
-  function esSeleccionado(d) {
-    if (!selectedDatum) return false;
+  function esSeleccionado(d, selection) {
+    if (!selection) return false;
 
     return (
-      d.year === selectedDatum.year &&
-      d.variableKey === selectedDatum.variableKey &&
-      d.atributo === selectedDatum.atributo
+      d.year === selection.year &&
+      d.variableKey === selection.variableKey &&
+      d.atributo === selection.atributo
     );
   }
 
@@ -1486,7 +1486,7 @@ function topAtributosInfluyentes({
       .style("width", "100%")
       .style("margin-bottom", "14px");
 
-    const svgs = [];
+    const cards = [];
 
     years.forEach(year => {
       const ranking = construirRanking(year);
@@ -1542,8 +1542,9 @@ function topAtributosInfluyentes({
         .attr("height", d => Math.max(0, y(0) - y(d.valor)))
         .attr("fill", "currentColor")
         .attr("opacity", d => {
-          if (!selectedDatum) return 0.8;
-          return esSeleccionado(d) ? 1 : 0.45;
+          const selection = selectedDatumByYear.get(year);
+          if (!selection) return 0.8;
+          return esSeleccionado(d, selection) ? 1 : 0.45;
         })
         .style("cursor", "pointer")
         .style("pointer-events", "all");
@@ -1579,28 +1580,28 @@ function topAtributosInfluyentes({
         .attr("fill", "white")
         .text(tipoInfluencia);
 
-      svgs.push({ svg, bars });
+      const infoBox = crearTarjetaDetalle(card)
+        .html(renderInfoBox(selectedDatumByYear.get(year) || null));
+
+      cards.push({ year, bars, infoBox });
     });
 
-    const infoBox = crearTarjetaDetalle(d3.select(container))
-      .html(renderInfoBox(selectedDatum));
-
     function actualizarSeleccionVisual() {
-      infoBox.html(renderInfoBox(selectedDatum));
-
-      svgs.forEach(({ bars }) => {
+      cards.forEach(({ year, bars, infoBox }) => {
+        const selection = selectedDatumByYear.get(year) || null;
+        infoBox.html(renderInfoBox(selection));
         bars.attr("opacity", d => {
-          if (!selectedDatum) return 0.8;
-          return esSeleccionado(d) ? 1 : 0.45;
+          if (!selection) return 0.8;
+          return esSeleccionado(d, selection) ? 1 : 0.45;
         });
       });
     }
 
-    svgs.forEach(({ bars }) => {
+    cards.forEach(({ year, bars }) => {
       bars.on("click", function(event, d) {
         event.preventDefault();
         event.stopPropagation();
-        selectedDatum = d;
+        selectedDatumByYear.set(year, d);
         actualizarSeleccionVisual();
       });
     });
