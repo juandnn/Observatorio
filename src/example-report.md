@@ -1322,7 +1322,7 @@ mapaColombiaRegionesHeatmap({
 
 ```js
 const tipoInfluencia = view(
-  Inputs.select(["Peor", "Mejor"], {
+  Inputs.select(["Peor", "Igual", "Mejor"], {
     label: "¿Qué define influencia?"
   })
 );
@@ -1381,9 +1381,12 @@ function topAtributosInfluyentes({
     if (!objColseg) return 0;
 
     const peor = +objColseg["Peor"] || 0;
+    const igual = +objColseg["Igual"] || 0;
     const mejor = +objColseg["Mejor"] || 0;
 
-    return tipoInfluencia === "Peor" ? peor : mejor;
+    if (tipoInfluencia === "Peor") return peor;
+    if (tipoInfluencia === "Igual") return igual;
+    return mejor;
   }
 
   function construirRanking(year) {
@@ -1487,9 +1490,16 @@ function topAtributosInfluyentes({
       .style("margin-bottom", "14px");
 
     const cards = [];
+    const rankingPorAnio = years.map(year => ({
+      year,
+      ranking: construirRanking(year)
+    }));
 
-    years.forEach(year => {
-      const ranking = construirRanking(year);
+    const yMaxCompartido = esRelativo === "Sí"
+      ? 1
+      : d3.max(rankingPorAnio.flatMap(({ ranking }) => ranking), d => d.valor) || 1;
+
+    rankingPorAnio.forEach(({ year, ranking }) => {
 
       const card = wrapper.append("div")
         .style("width", "100%");
@@ -1520,7 +1530,7 @@ function topAtributosInfluyentes({
         .padding(0.15);
 
       const y = d3.scaleLinear()
-        .domain([0, d3.max(ranking, d => d.valor) || 1])
+        .domain([0, yMaxCompartido])
         .nice()
         .range([marginTop + innerHeight, marginTop]);
 
