@@ -489,14 +489,102 @@ function heatmapsColsegPorAnio({
     return keys.some(k => ["2021", "2021.0", "2025", "2025.0"].includes(String(k)));
   }
 
-  function convertirAMatriz(attributeMap) {
-    if (!attributeMap || typeof attributeMap !== "object") return [];
+  function valorValido(v) {
+    return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
+  }
 
-    const atributos = Object.keys(attributeMap);
+  function construirMapaColsegConColseg(year) {
+    if (typeof data === "undefined" || !Array.isArray(data)) return null;
+
+    const filasAnio = data.filter(d => +d.year === +year && valorValido(d.colseg));
+    if (!filasAnio.length) return null;
+
+    const total = filasAnio.length;
+    const conteos = d3.rollup(
+      filasAnio,
+      v => v.length,
+      d => String(d.colseg).trim()
+    );
+
+    return Object.fromEntries(
+      colsegOrden.map(categoriaFila => [
+        categoriaFila,
+        Object.fromEntries(
+          colsegOrden.map(categoriaColumna => {
+            const conteo = categoriaFila === categoriaColumna
+              ? (conteos.get(categoriaFila) || 0)
+              : 0;
+
+            return [
+              categoriaColumna,
+              esRelativo === "Sí" ? (total ? conteo / total : 0) : conteo
+            ];
+          })
+        )
+      ])
+    );
+  }
+
+  function obtenerDatosAnio(variableData, year, hayNivelYear) {
+    if (variableKey === "colseg") {
+      const matrizColseg = construirMapaColsegConColseg(year);
+      if (matrizColseg) return matrizColseg;
+    }
+
+    if (hayNivelYear) return extraerDatosPorAnio(variableData, year);
+    return variableData;
+  }
+
+  function construirOrdenAtributos(datosPorAnio) {
+    const orden = [];
+    const vistos = new Set();
+
+    datosPorAnio.forEach(({ attributeMap }) => {
+      if (!attributeMap || typeof attributeMap !== "object") return;
+
+      Object.keys(attributeMap).forEach(atributo => {
+        if (!vistos.has(atributo)) {
+          vistos.add(atributo);
+          orden.push(atributo);
+        }
+      });
+    });
+
+    return orden;
+  }
+
+  function obtenerOrdenColumnas(datosPorAnio) {
+    const columnasDetectadas = [];
+    const vistas = new Set();
+
+    datosPorAnio.forEach(({ attributeMap }) => {
+      if (!attributeMap || typeof attributeMap !== "object") return;
+
+      Object.values(attributeMap).forEach(valoresColseg => {
+        if (!valoresColseg || typeof valoresColseg !== "object") return;
+
+        Object.keys(valoresColseg).forEach(columna => {
+          if (!vistas.has(columna)) {
+            vistas.add(columna);
+            columnasDetectadas.push(columna);
+          }
+        });
+      });
+    });
+
+    const columnasPrioritarias = colsegOrden.filter(col => vistas.has(col));
+    const columnasRestantes = columnasDetectadas.filter(col => !colsegOrden.includes(col));
+    return [...columnasPrioritarias, ...columnasRestantes];
+  }
+
+  function convertirAMatriz(attributeMap, atributos, columnas) {
+    if (!attributeMap || typeof attributeMap !== "object" || !atributos.length || !columnas.length) {
+      return [];
+    }
 
     return atributos.flatMap(atributo => {
       const valoresColseg = attributeMap[atributo] || {};
-      return colsegOrden.map(colseg => ({
+      return columnas.map(colseg => ({
         atributo,
         colseg,
         valor: +valoresColseg[colseg] || 0
@@ -512,7 +600,7 @@ function heatmapsColsegPorAnio({
 
     const variableData = dataHeatmap?.[variableKey];
 
-    if (!variableData) {
+    if (!variableData && variableKey !== "colseg") {
       d3.select(container)
         .append("div")
         .style("padding", "12px")
@@ -527,18 +615,28 @@ function heatmapsColsegPorAnio({
       .style("gap", "16px")
       .style("width", "100%");
 
-    const hayNivelYear = tieneNivelYear(variableData);
+    const hayNivelYear = variableKey === "colseg" ? false : tieneNivelYear(variableData);
+    const datosPorAnio = years.map(year => ({
+      year,
+      attributeMap: obtenerDatosAnio(variableData, year, hayNivelYear)
+    }));
+    const atributosCompartidos = construirOrdenAtributos(datosPorAnio);
+    const columnasCompartidas = obtenerOrdenColumnas(datosPorAnio);
 
-    years.forEach(year => {
-      let datosAnio;
+    if (!atributosCompartidos.length || !columnasCompartidas.length) {
+      d3.select(container)
+        .append("div")
+        .style("padding", "12px")
+        .text(`No hay datos para mostrar en "${tituloVariable}".`);
+      return;
+    }
 
-      if (hayNivelYear) {
-        datosAnio = extraerDatosPorAnio(variableData, year);
-      } else {
-        datosAnio = variableData;
-      }
+    const matricesPorAnio = datosPorAnio.map(({ year, attributeMap }) => ({
+      year,
+      matriz: convertirAMatriz(attributeMap, atributosCompartidos, columnasCompartidas)
+    }));
 
-      const matriz = convertirAMatriz(datosAnio);
+    matricesPorAnio.forEach(({ year, matriz }) => {
 
       const card = wrapper.append("div")
         .style("width", "100%")
@@ -556,19 +654,18 @@ function heatmapsColsegPorAnio({
         return;
       }
 
-      const atributos = Array.from(new Set(matriz.map(d => d.atributo)));
       const cardWidth = card.node().getBoundingClientRect().width;
       const svgWidth = Math.max(cardWidth, 320);
       const innerWidth = svgWidth - marginLeft - marginRight;
       const innerHeight = height - marginTop - marginBottom;
 
       const x = d3.scaleBand()
-        .domain(colsegOrden)
+        .domain(columnasCompartidas)
         .range([marginLeft, marginLeft + innerWidth])
         .padding(0.05);
 
       const y = d3.scaleBand()
-        .domain(atributos)
+        .domain(atributosCompartidos)
         .range([marginTop, marginTop + innerHeight])
         .padding(0.05);
 
