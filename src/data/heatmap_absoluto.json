@@ -17,7 +17,7 @@
   },
   "estratopri": {
     "2021": {
-      "Amazonas": {
+      "Amazonia": {
         "Peor": 34,
         "Igual": 7,
         "Mejor": 3
@@ -49,7 +49,7 @@
       }
     },
     "2025": {
-      "Amazonas": {
+      "Amazonia": {
         "Peor": 31,
         "Igual": 16,
         "Mejor": 3
@@ -275,57 +275,37 @@
   },
   "m1": {
     "2021": {
-      "Bueno": {
-        "Peor": 159,
-        "Igual": 83,
-        "Mejor": 22
+      "Negativa": {
+        "Peor": 587,
+        "Igual": 66,
+        "Mejor": 7
       },
-      "Malo": {
-        "Peor": 206,
-        "Igual": 45,
-        "Mejor": 2
-      },
-      "Muy bueno": {
-        "Peor": 45,
-        "Igual": 15,
-        "Mejor": 8
-      },
-      "Muy malo (pésimo)": {
-        "Peor": 381,
-        "Igual": 21,
-        "Mejor": 5
-      },
-      "Ni bueno, ni malo (regular)": {
+      "Neutra": {
         "Peor": 329,
         "Igual": 81,
         "Mejor": 19
+      },
+      "Positiva": {
+        "Peor": 204,
+        "Igual": 98,
+        "Mejor": 30
       }
     },
     "2025": {
-      "Bueno": {
-        "Peor": 137,
-        "Igual": 156,
-        "Mejor": 40
+      "Negativa": {
+        "Peor": 482,
+        "Igual": 89,
+        "Mejor": 9
       },
-      "Malo": {
-        "Peor": 214,
-        "Igual": 63,
-        "Mejor": 3
-      },
-      "Muy bueno": {
-        "Peor": 33,
-        "Igual": 51,
-        "Mejor": 27
-      },
-      "Muy malo (pésimo)": {
-        "Peor": 268,
-        "Igual": 26,
-        "Mejor": 6
-      },
-      "Ni bueno, ni malo (regular)": {
+      "Neutra": {
         "Peor": 296,
         "Igual": 189,
         "Mejor": 25
+      },
+      "Positiva": {
+        "Peor": 170,
+        "Igual": 207,
+        "Mejor": 67
       }
     }
   },

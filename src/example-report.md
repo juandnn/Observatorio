@@ -670,11 +670,11 @@ function heatmapsColsegPorAnio({
         .padding(0.05);
 
       const valores = matriz.map(d => d.valor);
-      const valorMax = d3.max(valores) || 1;
+      const valorMax = esRelativo === "Sí"
+        ? 1
+        : (d3.max(valores) || 1);
 
-      const color = esRelativo === "Sí"
-        ? d3.scaleSequential(d3.interpolateBlues).domain([0, valorMax])
-        : d3.scaleSequential(d3.interpolateBlues).domain([0, valorMax]);
+      const color = d3.scaleSequential(d3.interpolateBlues).domain([0, valorMax]);
 
       const svg = card.append("svg")
         .attr("width", svgWidth)
