@@ -880,6 +880,8 @@ const selectorMapa = view(
 <!-- Mostrar Mapa -->
 
 ```js
+let escalaPorcentualModoMapa = "Auto";
+
 function mapaColombiaRegionesHeatmap({
   data,
   anioSeleccionado,
@@ -934,7 +936,6 @@ function mapaColombiaRegionesHeatmap({
   };
 
   let geojsonCache = null;
-  let escalaPorcentualModo = "Auto";
 
   function valorValido(v) {
     return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
@@ -1113,7 +1114,7 @@ function mapaColombiaRegionesHeatmap({
       return { color, domainMin, domainMax, minValor, maxValor };
     }
 
-    if (tipoVariable === "categorica" && escalaPorcentualModo === "0–100%") {
+    if (tipoVariable === "categorica" && escalaPorcentualModoMapa === "0–100%") {
       color = d3.scaleSequential(colorInterpolator).domain([0, 1]);
       domainMin = 0;
       domainMax = 1;
@@ -1341,7 +1342,9 @@ function mapaColombiaRegionesHeatmap({
         .text("Escala de color:");
 
       const select = controls.append("select")
-        .style("font-size", "12px")
+        .style("font-family", "inherit")
+        .style("font-size", "inherit")
+        .style("line-height", "inherit")
         .style("padding", "4px 8px")
         .style("border-radius", "6px")
         .style("background", "var(--theme-background-alt, #222)")
@@ -1352,11 +1355,11 @@ function mapaColombiaRegionesHeatmap({
         .data(["Auto", "0–100%"])
         .join("option")
         .attr("value", d => d)
-        .property("selected", d => d === escalaPorcentualModo)
+        .property("selected", d => d === escalaPorcentualModoMapa)
         .text(d => d);
 
       select.on("change", function () {
-        escalaPorcentualModo = this.value;
+        escalaPorcentualModoMapa = this.value;
         render();
       });
     }
