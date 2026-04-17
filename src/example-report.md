@@ -1,9 +1,10 @@
----
+﻿---
 title: Exploración de datos
 ---
 
+
 <div class="hero">
-  <h1> Análisis exploratorio </h1>
+  <h1> ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025? </h1>
 </div>
 
 
@@ -441,6 +442,7 @@ function distribucionPorAnio(data, variableKey, {
 distribucionPorAnio(data, variableSeleccionada.key)
 ```
 
+# Heatmap 
 <!-- FUNCIÓN Heatmap por variables compartiendo año -->
 
 ```js
@@ -458,14 +460,17 @@ function heatmapsColsegPorAnio({
   marginBottom = 90,
   marginLeft = 140
 } = {}) {
-  const container = html`<div style="width: 100%;"></div>`;
-
-  const dataHeatmap = esRelativo === "Sí"
-    ? dataHeatmapRelativo
-    : dataHeatmapAbsoluto;
+  const container = html`<div style="width: 100%; position: relative;"></div>`;
+  const selectedDatumByYear = new Map();
+  let lastWidth = null;
 
   const tituloVariable = diccionario?.[variableKey] || variableKey;
   const colsegOrden = ["Peor", "Igual", "Mejor"];
+  const paletasColseg = {
+    Peor: ["#fee5d9", "#cb181d"],
+    Igual: ["#fff7bc", "#d9a404"],
+    Mejor: ["#e5f5e0", "#238b45"]
+  };
 
   function normalizarYearKey(y) {
     return [String(y), `${y}.0`, +y];
@@ -493,13 +498,12 @@ function heatmapsColsegPorAnio({
     return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
   }
 
-  function construirMapaColsegConColseg(year) {
+  function construirMapaColsegConColseg(year, modo = "absoluto") {
     if (typeof data === "undefined" || !Array.isArray(data)) return null;
 
     const filasAnio = data.filter(d => +d.year === +year && valorValido(d.colseg));
     if (!filasAnio.length) return null;
 
-    const total = filasAnio.length;
     const conteos = d3.rollup(
       filasAnio,
       v => v.length,
@@ -514,10 +518,11 @@ function heatmapsColsegPorAnio({
             const conteo = categoriaFila === categoriaColumna
               ? (conteos.get(categoriaFila) || 0)
               : 0;
+            const totalFila = conteos.get(categoriaFila) || 0;
 
             return [
               categoriaColumna,
-              esRelativo === "Sí" ? (total ? conteo / total : 0) : conteo
+              modo === "relativo" ? (totalFila ? conteo / totalFila : 0) : conteo
             ];
           })
         )
@@ -525,9 +530,9 @@ function heatmapsColsegPorAnio({
     );
   }
 
-  function obtenerDatosAnio(variableData, year, hayNivelYear) {
+  function obtenerDatosAnio(variableData, year, hayNivelYear, modo = "absoluto") {
     if (variableKey === "colseg") {
-      const matrizColseg = construirMapaColsegConColseg(year);
+      const matrizColseg = construirMapaColsegConColseg(year, modo);
       if (matrizColseg) return matrizColseg;
     }
 
@@ -577,30 +582,159 @@ function heatmapsColsegPorAnio({
     return [...columnasPrioritarias, ...columnasRestantes];
   }
 
-  function convertirAMatriz(attributeMap, atributos, columnas) {
-    if (!attributeMap || typeof attributeMap !== "object" || !atributos.length || !columnas.length) {
+  function convertirAMatriz({
+    year,
+    displayMap,
+    absoluteMap,
+    relativeMap,
+    atributos,
+    columnas
+  }) {
+    if (!displayMap || typeof displayMap !== "object" || !atributos.length || !columnas.length) {
       return [];
     }
 
     return atributos.flatMap(atributo => {
-      const valoresColseg = attributeMap[atributo] || {};
-      return columnas.map(colseg => ({
-        atributo,
-        colseg,
-        valor: +valoresColseg[colseg] || 0
-      }));
+      const valoresDisplay = displayMap[atributo] || {};
+      const valoresAbsolutos = absoluteMap?.[atributo] || {};
+      const valoresRelativos = relativeMap?.[atributo] || {};
+      const totalAtributo = d3.sum(columnas, colseg => +valoresAbsolutos[colseg] || 0);
+
+      return columnas.map(colseg => {
+        const totalAtributoColseg = +valoresAbsolutos[colseg] || 0;
+        const valorRelativo = valoresRelativos[colseg] != null
+          ? (+valoresRelativos[colseg] || 0)
+          : (totalAtributo ? totalAtributoColseg / totalAtributo : 0);
+
+        return {
+          year,
+          atributo,
+          colseg,
+          valor: +valoresDisplay[colseg] || 0,
+          valorAbsoluto: totalAtributoColseg,
+          valorRelativo,
+          totalAtributo
+        };
+      });
     });
+  }
+
+  function formatValue(v) {
+    return esRelativo === "Sí" ? d3.format(".2f")(v) : d3.format(",")(v);
+  }
+
+  function formatAbsolute(v) {
+    return d3.format(",")(v);
+  }
+
+  function formatRelative(v) {
+    return d3.format(".1%")(v);
+  }
+
+  function crearEscalaColor(colseg, valorMax) {
+    const rango = paletasColseg[colseg] || ["#edf2f7", "#4a5568"];
+    return d3.scaleLinear()
+      .domain([0, Math.max(valorMax, 1e-9)])
+      .range(rango)
+      .interpolate(d3.interpolateRgb);
+  }
+
+  function colorTextoCelda(fill) {
+    const color = d3.color(fill);
+    if (!color) return "black";
+
+    const luminancia = (0.299 * color.r + 0.587 * color.g + 0.114 * color.b) / 255;
+    return luminancia > 0.62 ? "black" : "white";
+  }
+
+  function crearTooltipFlotante(parent) {
+    return d3.select(parent)
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("pointer-events", "none")
+      .style("opacity", "0")
+      .style("visibility", "hidden")
+      .style("background", "rgba(20,20,20,0.92)")
+      .style("color", "white")
+      .style("padding", "8px 10px")
+      .style("border-radius", "6px")
+      .style("font-size", "12px")
+      .style("line-height", "1.35")
+      .style("box-shadow", "0 6px 18px rgba(0,0,0,0.25)")
+      .style("max-width", "240px");
+  }
+
+  function moverTooltip(tooltip, event) {
+    const [x, y] = d3.pointer(event, container);
+    tooltip
+      .style("left", `${x + 14}px`)
+      .style("top", `${y + 14}px`);
+  }
+
+  function crearTarjetaDetalle(parent) {
+    return parent.append("div")
+      .style("margin-top", "8px")
+      .style("min-height", "20px")
+      .style("font-size", "13px")
+      .style("line-height", "1.35")
+      .style("padding", "8px 10px")
+      .style("border-radius", "6px")
+      .style("background", "rgba(255,255,255,0.08)")
+      .style("color", "white");
+  }
+
+  function renderInfoBox(selection) {
+    if (!selection) {
+      return `
+        <div>Haz click en un cuadro para ver el detalle.</div>
+      `;
+    }
+
+    return `
+      <div><strong>Año:</strong> ${selection.year}</div>
+      <div><strong>Atributo:</strong> ${selection.atributo}</div>
+      <div><strong>Categoría colseg:</strong> ${selection.colseg}</div>
+      <div><strong>Valor mostrado en el heatmap:</strong> ${formatValue(selection.valor)}</div>
+      <div style="margin-top:6px;"><strong>Detalle</strong></div>
+      <div>Total de personas que votaron por ese atributo: ${formatAbsolute(selection.totalAtributo)}</div>
+      <div>Total de personas que votaron por ese atributo y esa categoría de colseg: ${formatAbsolute(selection.valorAbsoluto)}</div>
+      <div>Total de personas relativas que votaron: ${formatRelative(selection.valorRelativo)}</div>
+    `;
+  }
+
+  function renderTooltip(selection) {
+    return `
+      <div><strong>${selection.atributo}</strong></div>
+      <div>${selection.colseg}: ${formatValue(selection.valor)}</div>
+      <div>Haz click para ver más información.</div>
+    `;
+  }
+
+  function esSeleccionado(d, selection) {
+    if (!selection) return false;
+
+    return (
+      d.year === selection.year &&
+      d.atributo === selection.atributo &&
+      d.colseg === selection.colseg
+    );
   }
 
   function render() {
     const width = container.getBoundingClientRect().width;
     if (!width) return;
 
+    if (lastWidth !== null && width === lastWidth) return;
+    lastWidth = width;
+
     container.innerHTML = "";
+    const tooltip = crearTooltipFlotante(container);
 
-    const variableData = dataHeatmap?.[variableKey];
+    const variableDataAbsoluto = dataHeatmapAbsoluto?.[variableKey];
+    const variableDataRelativo = dataHeatmapRelativo?.[variableKey];
 
-    if (!variableData && variableKey !== "colseg") {
+    if (!variableDataAbsoluto && !variableDataRelativo && variableKey !== "colseg") {
       d3.select(container)
         .append("div")
         .style("padding", "12px")
@@ -615,13 +749,22 @@ function heatmapsColsegPorAnio({
       .style("gap", "16px")
       .style("width", "100%");
 
-    const hayNivelYear = variableKey === "colseg" ? false : tieneNivelYear(variableData);
+    const hayNivelYearAbsoluto = variableKey === "colseg" ? false : tieneNivelYear(variableDataAbsoluto);
+    const hayNivelYearRelativo = variableKey === "colseg" ? false : tieneNivelYear(variableDataRelativo);
     const datosPorAnio = years.map(year => ({
       year,
-      attributeMap: obtenerDatosAnio(variableData, year, hayNivelYear)
+      displayMap: esRelativo === "Sí"
+        ? obtenerDatosAnio(variableDataRelativo, year, hayNivelYearRelativo, "relativo")
+        : obtenerDatosAnio(variableDataAbsoluto, year, hayNivelYearAbsoluto, "absoluto"),
+      absoluteMap: obtenerDatosAnio(variableDataAbsoluto, year, hayNivelYearAbsoluto, "absoluto"),
+      relativeMap: obtenerDatosAnio(variableDataRelativo, year, hayNivelYearRelativo, "relativo")
     }));
-    const atributosCompartidos = construirOrdenAtributos(datosPorAnio);
-    const columnasCompartidas = obtenerOrdenColumnas(datosPorAnio);
+    const atributosCompartidos = construirOrdenAtributos(
+      datosPorAnio.map(d => ({ attributeMap: d.displayMap || d.absoluteMap || d.relativeMap }))
+    );
+    const columnasCompartidas = obtenerOrdenColumnas(
+      datosPorAnio.map(d => ({ attributeMap: d.displayMap || d.absoluteMap || d.relativeMap }))
+    );
 
     if (!atributosCompartidos.length || !columnasCompartidas.length) {
       d3.select(container)
@@ -631,10 +774,19 @@ function heatmapsColsegPorAnio({
       return;
     }
 
-    const matricesPorAnio = datosPorAnio.map(({ year, attributeMap }) => ({
+    const matricesPorAnio = datosPorAnio.map(({ year, displayMap, absoluteMap, relativeMap }) => ({
       year,
-      matriz: convertirAMatriz(attributeMap, atributosCompartidos, columnasCompartidas)
+      matriz: convertirAMatriz({
+        year,
+        displayMap,
+        absoluteMap,
+        relativeMap,
+        atributos: atributosCompartidos,
+        columnas: columnasCompartidas
+      })
     }));
+
+    const cards = [];
 
     matricesPorAnio.forEach(({ year, matriz }) => {
 
@@ -670,11 +822,13 @@ function heatmapsColsegPorAnio({
         .padding(0.05);
 
       const valores = matriz.map(d => d.valor);
-      const valorMax = esRelativo === "Sí"
+      const valorMaxCompartido = esRelativo === "Sí"
         ? 1
         : (d3.max(valores) || 1);
 
-      const color = d3.scaleSequential(d3.interpolateBlues).domain([0, valorMax]);
+      const escalasColor = new Map(
+        columnasCompartidas.map(colseg => [colseg, crearEscalaColor(colseg, valorMaxCompartido)])
+      );
 
       const svg = card.append("svg")
         .attr("width", svgWidth)
@@ -684,7 +838,7 @@ function heatmapsColsegPorAnio({
         .style("height", "auto")
         .style("display", "block");
 
-      svg.append("g")
+      const cells = svg.append("g")
         .selectAll("rect")
         .data(matriz)
         .join("rect")
@@ -694,7 +848,16 @@ function heatmapsColsegPorAnio({
         .attr("height", y.bandwidth())
         .attr("rx", 3)
         .attr("ry", 3)
-        .attr("fill", d => color(d.valor));
+        .attr("fill", d => escalasColor.get(d.colseg)?.(d.valor) || "#cccccc")
+        .attr("stroke", d => {
+          const selection = selectedDatumByYear.get(year);
+          return esSeleccionado(d, selection) ? "white" : "rgba(255,255,255,0.18)";
+        })
+        .attr("stroke-width", d => {
+          const selection = selectedDatumByYear.get(year);
+          return esSeleccionado(d, selection) ? 2.5 : 0.8;
+        })
+        .style("cursor", "pointer");
 
       svg.append("g")
         .selectAll("text.cell")
@@ -706,7 +869,7 @@ function heatmapsColsegPorAnio({
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
         .attr("font-size", 11)
-        .attr("fill", d => d.valor > valorMax * 0.55 ? "white" : "black")
+        .attr("fill", d => colorTextoCelda(escalasColor.get(d.colseg)?.(d.valor)))
         .text(d => {
           if (esRelativo === "Sí") return d3.format(".2f")(d.valor);
           return d3.format(",")(d.valor);
@@ -732,55 +895,133 @@ function heatmapsColsegPorAnio({
         .attr("fill", "white")
         .text("Situación de seguridad");
 
-      const legendWidth = Math.min(180, innerWidth * 0.5);
-      const legendHeight = 10;
-      const legendX = marginLeft + innerWidth - legendWidth;
-      const legendY = 12;
-
       const defs = svg.append("defs");
-      const gradientId = `legend-gradient-${variableKey}-${year}-${esRelativo}`;
-
-      const gradient = defs.append("linearGradient")
-        .attr("id", gradientId)
-        .attr("x1", "0%")
-        .attr("x2", "100%")
-        .attr("y1", "0%")
-        .attr("y2", "0%");
-
+      const legendStartX = Math.max(marginLeft, svgWidth - marginRight - 210);
+      const legendY = 8;
+      const legendBarWidth = 48;
+      const legendBarHeight = 8;
+      const legendGap = 68;
       const stops = d3.range(0, 1.01, 0.1);
-      gradient.selectAll("stop")
-        .data(stops)
-        .join("stop")
-        .attr("offset", d => `${d * 100}%`)
-        .attr("stop-color", d => color(d * valorMax));
 
-      svg.append("rect")
-        .attr("x", legendX)
-        .attr("y", legendY)
-        .attr("width", legendWidth)
-        .attr("height", legendHeight)
-        .attr("fill", `url(#${gradientId})`);
+      columnasCompartidas
+        .filter(colseg => colsegOrden.includes(colseg))
+        .forEach((colseg, index) => {
+          const gradientId = `legend-gradient-${variableKey}-${year}-${colseg}-${esRelativo}`;
+          const gradient = defs.append("linearGradient")
+            .attr("id", gradientId)
+            .attr("x1", "0%")
+            .attr("x2", "100%")
+            .attr("y1", "0%")
+            .attr("y2", "0%");
 
-      const legendScale = d3.scaleLinear()
-        .domain([0, valorMax])
-        .range([legendX, legendX + legendWidth]);
+          gradient.selectAll("stop")
+            .data(stops)
+            .join("stop")
+            .attr("offset", d => `${d * 100}%`)
+            .attr("stop-color", d => escalasColor.get(colseg)?.(d * valorMaxCompartido));
 
-      const legendAxis = d3.axisBottom(legendScale)
-        .ticks(4)
-        .tickFormat(esRelativo === "Sí" ? d3.format(".2f") : d3.format(","));
+          const legendX = legendStartX + index * legendGap;
 
-      svg.append("g")
-        .attr("transform", `translate(0,${legendY + legendHeight})`)
-        .call(legendAxis)
-        .call(g => g.select(".domain").remove())
-        .call(g => g.selectAll("line").remove())
-        .call(g => g.selectAll("text").style("font-size", "10px"));
+          svg.append("text")
+            .attr("x", legendX)
+            .attr("y", legendY + 1)
+            .attr("font-size", "10px")
+            .attr("fill", "white")
+            .text(colseg);
+
+          svg.append("rect")
+            .attr("x", legendX)
+            .attr("y", legendY + 6)
+            .attr("width", legendBarWidth)
+            .attr("height", legendBarHeight)
+            .attr("rx", 3)
+            .attr("fill", `url(#${gradientId})`);
+
+          svg.append("text")
+            .attr("x", legendX)
+            .attr("y", legendY + 26)
+            .attr("font-size", "9px")
+            .attr("fill", "white")
+            .text("0");
+
+          svg.append("text")
+            .attr("x", legendX + legendBarWidth)
+            .attr("y", legendY + 26)
+            .attr("text-anchor", "end")
+            .attr("font-size", "9px")
+            .attr("fill", "white")
+            .text(esRelativo === "Sí"
+              ? d3.format(".2f")(valorMaxCompartido)
+              : d3.format(",")(valorMaxCompartido));
+        });
+
+      const infoBox = crearTarjetaDetalle(card)
+        .html(renderInfoBox(selectedDatumByYear.get(year) || null));
+
+      cards.push({ year, cells, infoBox });
     });
+
+    function actualizarSeleccionVisual() {
+      cards.forEach(({ year, cells, infoBox }) => {
+        const selection = selectedDatumByYear.get(year) || null;
+
+        cells
+          .attr("stroke", d => esSeleccionado(d, selection) ? "white" : "rgba(255,255,255,0.18)")
+          .attr("stroke-width", d => esSeleccionado(d, selection) ? 2.5 : 0.8)
+          .attr("opacity", d => {
+            if (!selection) return 1;
+            return esSeleccionado(d, selection) ? 1 : 0.55;
+          });
+
+        infoBox.html(renderInfoBox(selection));
+      });
+    }
+
+    cards.forEach(({ year, cells }) => {
+      cells
+        .on("mouseenter", function(event, d) {
+          tooltip
+            .style("visibility", "visible")
+            .style("opacity", "1")
+            .html(renderTooltip(d));
+
+          moverTooltip(tooltip, event);
+        })
+        .on("mousemove", function(event) {
+          moverTooltip(tooltip, event);
+        })
+        .on("mouseleave", function() {
+          tooltip
+            .style("opacity", "0")
+            .style("visibility", "hidden");
+        })
+        .on("click", function(event, d) {
+          event.preventDefault();
+          event.stopPropagation();
+          selectedDatumByYear.set(year, d);
+          actualizarSeleccionVisual();
+        });
+    });
+
+    actualizarSeleccionVisual();
   }
 
-  const resizeObserver = new ResizeObserver(() => render());
-  resizeObserver.observe(container);
-  invalidation.then(() => resizeObserver.disconnect());
+  const resizeTarget = container.parentElement || container;
+  const resizeObserver = new ResizeObserver(entries => {
+    const newWidth = entries[0]?.contentRect?.width;
+    if (!newWidth) return;
+
+    if (lastWidth === null || newWidth !== lastWidth) {
+      lastWidth = null;
+      render();
+    }
+  });
+
+  resizeObserver.observe(resizeTarget);
+
+  if (typeof invalidation !== "undefined") {
+    invalidation.then(() => resizeObserver.disconnect());
+  }
 
   render();
   return container;
