@@ -179,97 +179,47 @@
   },
   "q2": {
     "2021": {
-      "Entre 10 y 19": {
-        "Peor": 24,
-        "Igual": 11,
-        "Mejor": 1
+      "Jóvenes": {
+        "Peor": 192,
+        "Igual": 68,
+        "Mejor": 8
       },
-      "Entre 20 y 29": {
-        "Peor": 201,
-        "Igual": 60,
-        "Mejor": 7
+      "Adultez temprana": {
+        "Peor": 511,
+        "Igual": 85,
+        "Mejor": 25
       },
-      "Entre 30 y 39": {
+      "Adultez media": {
         "Peor": 339,
-        "Igual": 62,
-        "Mejor": 13
+        "Igual": 74,
+        "Mejor": 20
       },
-      "Entre 40 y 49": {
-        "Peor": 263,
-        "Igual": 46,
-        "Mejor": 19
-      },
-      "Entre 50 y 59": {
-        "Peor": 215,
-        "Igual": 48,
-        "Mejor": 13
-      },
-      "Entre 60 y 69": {
-        "Peor": 66,
-        "Igual": 12,
-        "Mejor": 3
-      },
-      "Entre 70 y 79": {
-        "Peor": 22,
-        "Igual": 8,
-        "Mejor": 1
-      },
-      "Entre 80 y 89": {
-        "Peor": 4,
-        "Igual": 0,
-        "Mejor": 0
+      "Adultos mayores": {
+        "Peor": 92,
+        "Igual": 20,
+        "Mejor": 4
       }
     },
     "2025": {
-      "Entre 10 y 19": {
-        "Peor": 43,
-        "Igual": 37,
-        "Mejor": 3
+      "Jóvenes": {
+        "Peor": 225,
+        "Igual": 158,
+        "Mejor": 25
       },
-      "Entre 20 y 29": {
-        "Peor": 219,
-        "Igual": 133,
-        "Mejor": 26
+      "Adultez temprana": {
+        "Peor": 337,
+        "Igual": 175,
+        "Mejor": 33
       },
-      "Entre 30 y 39": {
-        "Peor": 199,
-        "Igual": 129,
-        "Mejor": 19
+      "Adultez media": {
+        "Peor": 230,
+        "Igual": 96,
+        "Mejor": 25
       },
-      "Entre 40 y 49": {
-        "Peor": 222,
-        "Igual": 97,
-        "Mejor": 15
-      },
-      "Entre 50 y 59": {
-        "Peor": 109,
-        "Igual": 33,
-        "Mejor": 20
-      },
-      "Entre 60 y 69": {
-        "Peor": 97,
-        "Igual": 28,
-        "Mejor": 13
-      },
-      "Entre 70 y 79": {
-        "Peor": 57,
-        "Igual": 21,
-        "Mejor": 5
-      },
-      "Entre 80 y 89": {
-        "Peor": 16,
-        "Igual": 2,
-        "Mejor": 0
-      },
-      "Entre 90 y 99": {
-        "Peor": 1,
-        "Igual": 0,
-        "Mejor": 0
-      },
-      "Entre <NA> y <NA>": {
-        "Peor": 4,
-        "Igual": 8,
-        "Mejor": 1
+      "Adultos mayores": {
+        "Peor": 171,
+        "Igual": 51,
+        "Mejor": 18
       }
     }
   },
