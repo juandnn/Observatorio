@@ -1506,7 +1506,7 @@ function mapaColombiaRegionesHeatmap({
       .style("font-size", "12px")
       .style("font-weight", "600")
       .style("fill", "white")
-      .text(`${variableLabel} — ${selectorMapa}`);
+      .text(`${variableLabel} - ${selectorMapa}`);
 
     if (valoresMapa.length > 0) {
       const defs = svg.append("defs");
@@ -1743,13 +1743,14 @@ mapaColombiaRegionesHeatmap({
 <!-- Variable influencia -->
 
 ```js
-const tipoInfluencia = view(
-  Inputs.select(["Peor", "Igual", "Mejor"], {
-    label: "¿Qué define influencia?"
+const categoriasInfluencia = view(
+  Inputs.checkbox(["Peor", "Igual", "Mejor"], {
+    label: "¿Qué categorías quieres mostrar?",
+    value: ["Peor", "Igual", "Mejor"]
   })
 );
 
-tipoInfluencia;
+categoriasInfluencia;
 
 ```
 
@@ -1759,7 +1760,7 @@ function topAtributosInfluyentes({
   dataHeatmapRelativo,
   dataHeatmapAbsoluto,
   esRelativo,
-  tipoInfluencia,
+  categoriasInfluencia,
   diccionario = null,
   years = [2021, 2025],
   topN = 10,
@@ -1770,13 +1771,14 @@ function topAtributosInfluyentes({
   marginLeft = 70
 } = {}) {
   const container = html`<div style="width: 100%;"></div>`;
-
-  const dataHeatmap = esRelativo === "Sí"
-    ? dataHeatmapRelativo
-    : dataHeatmapAbsoluto;
-
   const selectedDatumByYear = new Map();
   let lastWidth = null;
+  const todasLasCategorias = ["Peor", "Igual", "Mejor"];
+  const coloresCategorias = {
+    Peor: "#d73027",
+    Igual: "#f2c94c",
+    Mejor: "#1a9850"
+  };
 
   function normalizarYearKeys(y) {
     return [String(y), `${y}.0`, +y];
@@ -1799,20 +1801,16 @@ function topAtributosInfluyentes({
     );
   }
 
-  function calcularInfluencia(objColseg) {
-    if (!objColseg) return 0;
-
-    const peor = +objColseg["Peor"] || 0;
-    const igual = +objColseg["Igual"] || 0;
-    const mejor = +objColseg["Mejor"] || 0;
-
-    if (tipoInfluencia === "Peor") return peor;
-    if (tipoInfluencia === "Igual") return igual;
-    return mejor;
+  function obtenerCategoriasActivas() {
+    const seleccion = Array.isArray(categoriasInfluencia) ? categoriasInfluencia : [];
+    return seleccion.length ? seleccion : todasLasCategorias;
   }
 
-  function construirRanking(year) {
+  function construirSeries(year, categoriasActivas) {
     const resultados = [];
+    const dataHeatmap = esRelativo === "Sí"
+      ? dataHeatmapRelativo
+      : dataHeatmapAbsoluto;
 
     for (const variableKey of Object.keys(dataHeatmap || {})) {
       const variableData = dataHeatmap[variableKey];
@@ -1823,30 +1821,39 @@ function topAtributosInfluyentes({
 
       for (const atributo of Object.keys(bloque)) {
         const objColseg = bloque[atributo];
-        const valor = calcularInfluencia(objColseg);
+        const detalle = {
+          Peor: +objColseg?.["Peor"] || 0,
+          Igual: +objColseg?.["Igual"] || 0,
+          Mejor: +objColseg?.["Mejor"] || 0
+        };
 
-        resultados.push({
-          year,
-          variableKey,
-          variableLabel: diccionario?.[variableKey] || variableKey,
-          atributo,
-          valor,
-          detalle: {
-            Peor: +objColseg?.["Peor"] || 0,
-            Igual: +objColseg?.["Igual"] || 0,
-            Mejor: +objColseg?.["Mejor"] || 0
-          }
+        categoriasActivas.forEach(categoria => {
+          resultados.push({
+            year,
+            categoria,
+            variableKey,
+            variableLabel: diccionario?.[variableKey] || variableKey,
+            atributo,
+            valor: detalle[categoria] || 0,
+            detalle
+          });
         });
       }
     }
 
-    return resultados
-      .sort((a, b) => d3.descending(a.valor, b.valor))
-      .slice(0, topN)
-      .map((d, i) => ({
-        ...d,
-        xKey: `${d.variableKey}__${d.atributo}__${i}__${year}`
-      }));
+    return categoriasActivas.map(categoria => {
+      const puntos = resultados
+        .filter(d => d.categoria === categoria)
+        .sort((a, b) => d3.ascending(a.valor, b.valor))
+        .slice(-topN)
+        .map((d, i) => ({
+          ...d,
+          orden: i + 1,
+          pointKey: `${year}__${categoria}__${d.variableKey}__${d.atributo}__${i}`
+        }));
+
+      return { categoria, puntos };
+    });
   }
 
   function formatValue(v) {
@@ -1868,15 +1875,16 @@ function topAtributosInfluyentes({
   function renderInfoBox(selection) {
     if (!selection) {
       return `
-        <div>Haz click en una barra para ver el detalle.</div>
+        <div>Haz click en un punto para ver el detalle.</div>
       `;
     }
 
     return `
       <div><strong>Año:</strong> ${selection.year}</div>
+      <div><strong>Categoría:</strong> ${selection.categoria}</div>
       <div><strong>Variable:</strong> ${selection.variableLabel}</div>
       <div><strong>Atributo:</strong> ${selection.atributo}</div>
-      <div><strong>${tipoInfluencia}:</strong> ${formatValue(selection.valor)}</div>
+      <div><strong>${selection.categoria}:</strong> ${formatValue(selection.valor)}</div>
       <div style="margin-top:6px;"><strong>Detalle</strong></div>
       <div>Peor: ${formatValue(selection.detalle.Peor)}</div>
       <div>Igual: ${formatValue(selection.detalle.Igual)}</div>
@@ -1889,6 +1897,7 @@ function topAtributosInfluyentes({
 
     return (
       d.year === selection.year &&
+      d.categoria === selection.categoria &&
       d.variableKey === selection.variableKey &&
       d.atributo === selection.atributo
     );
@@ -1902,6 +1911,7 @@ function topAtributosInfluyentes({
     lastWidth = width;
 
     container.innerHTML = "";
+    const categoriasActivas = obtenerCategoriasActivas();
 
     const wrapper = d3.select(container)
       .append("div")
@@ -1912,16 +1922,23 @@ function topAtributosInfluyentes({
       .style("margin-bottom", "14px");
 
     const cards = [];
-    const rankingPorAnio = years.map(year => ({
+    const seriesPorAnio = years.map(year => ({
       year,
-      ranking: construirRanking(year)
+      series: construirSeries(year, categoriasActivas)
     }));
 
     const yMaxCompartido = esRelativo === "Sí"
       ? 1
-      : d3.max(rankingPorAnio.flatMap(({ ranking }) => ranking), d => d.valor) || 1;
+      : d3.max(
+        seriesPorAnio.flatMap(({ series }) => series.flatMap(({ puntos }) => puntos)),
+        d => d.valor
+      ) || 1;
 
-    rankingPorAnio.forEach(({ year, ranking }) => {
+    const maxPuntos = d3.max(
+      seriesPorAnio.flatMap(({ series }) => series.map(({ puntos }) => puntos.length))
+    ) || topN;
+
+    seriesPorAnio.forEach(({ year, series }) => {
 
       const card = wrapper.append("div")
         .style("width", "100%");
@@ -1929,9 +1946,9 @@ function topAtributosInfluyentes({
       card.append("div")
         .style("font-weight", "600")
         .style("margin-bottom", "8px")
-        .text(`Top ${topN} (${tipoInfluencia}) — ${year}`);
+        .text(`Top ${topN} por categoría - ${year}`);
 
-      if (!ranking.length) {
+      if (!series.some(({ puntos }) => puntos.length)) {
         card.append("div")
           .style("padding", "12px")
           .text(`No hay datos para ${year}.`);
@@ -1946,10 +1963,10 @@ function topAtributosInfluyentes({
       const innerWidth = svgWidth - marginLeft - marginRight;
       const innerHeight = height - marginTop - marginBottom;
 
-      const x = d3.scaleBand()
-        .domain(ranking.map(d => d.xKey))
+      const x = d3.scalePoint()
+        .domain(d3.range(1, maxPuntos + 1))
         .range([marginLeft, marginLeft + innerWidth])
-        .padding(0.15);
+        .padding(0.5);
 
       const y = d3.scaleLinear()
         .domain([0, yMaxCompartido])
@@ -1964,18 +1981,43 @@ function topAtributosInfluyentes({
         .style("height", "auto")
         .style("display", "block");
 
-      const bars = svg.append("g")
-        .selectAll("rect")
-        .data(ranking)
-        .join("rect")
-        .attr("x", d => x(d.xKey))
-        .attr("y", d => y(d.valor))
-        .attr("width", x.bandwidth())
-        .attr("height", d => Math.max(0, y(0) - y(d.valor)))
-        .attr("fill", "currentColor")
+      const line = d3.line()
+        .x(d => x(d.orden))
+        .y(d => y(d.valor));
+
+      const lines = svg.append("g")
+        .selectAll("path")
+        .data(series.filter(({ puntos }) => puntos.length))
+        .join("path")
+        .attr("fill", "none")
+        .attr("stroke", d => coloresCategorias[d.categoria])
+        .attr("stroke-width", 2.5)
         .attr("opacity", d => {
           const selection = selectedDatumByYear.get(year);
-          if (!selection) return 0.8;
+          if (!selection) return 0.9;
+          return selection.categoria === d.categoria ? 1 : 0.35;
+        })
+        .attr("d", d => line(d.puntos));
+
+      const points = svg.append("g")
+        .selectAll("circle")
+        .data(series.flatMap(({ puntos }) => puntos))
+        .join("circle")
+        .attr("cx", d => x(d.orden))
+        .attr("cy", d => y(d.valor))
+        .attr("r", d => {
+          const selection = selectedDatumByYear.get(year);
+          return esSeleccionado(d, selection) ? 6.5 : 4.5;
+        })
+        .attr("fill", d => coloresCategorias[d.categoria])
+        .attr("stroke", "white")
+        .attr("stroke-width", d => {
+          const selection = selectedDatumByYear.get(year);
+          return esSeleccionado(d, selection) ? 2 : 1;
+        })
+        .attr("opacity", d => {
+          const selection = selectedDatumByYear.get(year);
+          if (!selection) return 0.95;
           return esSeleccionado(d, selection) ? 1 : 0.45;
         })
         .style("cursor", "pointer")
@@ -1985,14 +2027,9 @@ function topAtributosInfluyentes({
         .attr("transform", `translate(0,${marginTop + innerHeight})`)
         .call(
           d3.axisBottom(x)
-            .tickFormat(key => {
-              const datum = ranking.find(d => d.xKey === key);
-              return datum ? datum.variableLabel : key;
-            })
+            .tickFormat(d => d)
         )
         .call(g => g.selectAll("text")
-          .attr("transform", "rotate(-35)")
-          .style("text-anchor", "end")
           .style("font-size", "10px"));
 
       svg.append("g")
@@ -2010,27 +2047,75 @@ function topAtributosInfluyentes({
         .attr("text-anchor", "middle")
         .attr("font-size", 12)
         .attr("fill", "white")
-        .text(tipoInfluencia);
+        .text("Influencia");
+
+      svg.append("text")
+        .attr("x", marginLeft + innerWidth / 2)
+        .attr("y", height - 12)
+        .attr("text-anchor", "middle")
+        .attr("font-size", 12)
+        .attr("fill", "white")
+        .text("Posición en el orden ascendente");
+
+      const legend = svg.append("g")
+        .attr("transform", `translate(${marginLeft},${marginTop - 10})`);
+
+      categoriasActivas.forEach((categoria, index) => {
+        const legendItem = legend.append("g")
+          .attr("transform", `translate(${index * 82},0)`);
+
+        legendItem.append("line")
+          .attr("x1", 0)
+          .attr("x2", 18)
+          .attr("y1", 0)
+          .attr("y2", 0)
+          .attr("stroke", coloresCategorias[categoria])
+          .attr("stroke-width", 2.5);
+
+        legendItem.append("circle")
+          .attr("cx", 9)
+          .attr("cy", 0)
+          .attr("r", 4)
+          .attr("fill", coloresCategorias[categoria])
+          .attr("stroke", "white")
+          .attr("stroke-width", 1);
+
+        legendItem.append("text")
+          .attr("x", 24)
+          .attr("y", 4)
+          .attr("font-size", 11)
+          .attr("fill", "white")
+          .text(categoria);
+      });
 
       const infoBox = crearTarjetaDetalle(card)
         .html(renderInfoBox(selectedDatumByYear.get(year) || null));
 
-      cards.push({ year, bars, infoBox });
+      cards.push({ year, lines, points, infoBox });
     });
 
     function actualizarSeleccionVisual() {
-      cards.forEach(({ year, bars, infoBox }) => {
+      cards.forEach(({ year, lines, points, infoBox }) => {
         const selection = selectedDatumByYear.get(year) || null;
         infoBox.html(renderInfoBox(selection));
-        bars.attr("opacity", d => {
-          if (!selection) return 0.8;
-          return esSeleccionado(d, selection) ? 1 : 0.45;
+
+        lines.attr("opacity", d => {
+          if (!selection) return 0.9;
+          return selection.categoria === d.categoria ? 1 : 0.35;
         });
+
+        points
+          .attr("r", d => esSeleccionado(d, selection) ? 6.5 : 4.5)
+          .attr("stroke-width", d => esSeleccionado(d, selection) ? 2 : 1)
+          .attr("opacity", d => {
+            if (!selection) return 0.95;
+            return esSeleccionado(d, selection) ? 1 : 0.45;
+          });
       });
     }
 
-    cards.forEach(({ year, bars }) => {
-      bars.on("click", function(event, d) {
+    cards.forEach(({ year, points }) => {
+      points.on("click", function(event, d) {
         event.preventDefault();
         event.stopPropagation();
         selectedDatumByYear.set(year, d);
@@ -2067,7 +2152,7 @@ topAtributosInfluyentes({
   dataHeatmapRelativo: data_heatmap_relativo,
   dataHeatmapAbsoluto: data_heatmap_absoluto,
   esRelativo,
-  tipoInfluencia,
+  categoriasInfluencia,
   diccionario: data_dicc
 })
 
