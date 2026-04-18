@@ -28,7 +28,7 @@ title: Exploración de datos
 
 <div class="hero">
   <h1> ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025? </h1>
-  <p> ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025? ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025?  </p>
+
 </div>
 
 
@@ -69,10 +69,339 @@ const data_dicc = await FileAttachment("data/diccionario_nombres.json").json();
 const data = await FileAttachment("data/df_final.csv").csv();
 const data_heatmap_relativo = await FileAttachment("/data/heatmap_relativo.json").json();
 const data_heatmap_absoluto = await FileAttachment("/data/heatmap_absoluto.json").json();
+const geojson_colombia = await FileAttachment("data/co.json").json();
 
 console.log(data_heatmap_relativo)
 
 ```
+
+<!-- Mapas primer insight-->
+---
+# Mapas con Heatmap de percepción
+
+A continuación se muestran unos mapas que muestran por cada región el porcentaje de personas de esa región que votaron que sentián que Colombia iba a peor.
+
+```js
+function mapaPrimerInsightColsegPeor({
+  data,
+  geojson,
+  years = [2021, 2025],
+  width = 900,
+  height = 520,
+  colorInterpolator = d3.interpolateReds,
+  colorSinDatos = "#d9d9d9",
+  stroke = "#ffffff",
+  strokeWidth = 1
+} = {}) {
+  const container = html`<div style="width:100%; position:relative;"></div>`;
+
+  const agrupacion = {
+    "COAMA": "Amazonía",
+    "COANT": "Central",
+    "COARA": "Oriental",
+    "COATL": "Atlántica",
+    "COBOL": "Atlántica",
+    "COBOY": "Oriental",
+    "COCAL": "Central",
+    "COCAQ": "Amazonía",
+    "COCAS": "Oriental",
+    "COCAU": "Pacífica",
+    "COCES": "Atlántica",
+    "COCHO": "Pacífica",
+    "COCOR": "Atlántica",
+    "COCUN": "Central",
+    "CODC": "Bogotá",
+    "COGUA": "Amazonía",
+    "COGUV": "Amazonía",
+    "COHUI": "Central",
+    "COLAG": "Atlántica",
+    "COMAG": "Atlántica",
+    "COMET": "Oriental",
+    "CONAR": "Pacífica",
+    "CONSA": "Oriental",
+    "COPUT": "Amazonía",
+    "COQUI": "Central",
+    "CORIS": "Central",
+    "COSAN": "Oriental",
+    "COSAP": "Atlántica",
+    "COSUC": "Atlántica",
+    "COTOL": "Central",
+    "COVAC": "Pacífica",
+    "COVAU": "Amazonía",
+    "COVID": "Oriental"
+  };
+
+  function valorValido(v) {
+    return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
+  }
+
+  function normalizarTexto(s) {
+    return String(s ?? "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function normalizarRegion(region) {
+    const r = normalizarTexto(region);
+    if (r === "oriental") return "Oriental";
+    if (r === "central") return "Central";
+    if (r === "amazonia") return "Amazonía";
+    if (r === "atlantica") return "Atlántica";
+    if (r === "pacifica") return "Pacífica";
+    if (r === "bogota") return "Bogotá";
+    return null;
+  }
+
+  function construirResumenPorRegion(yearNum) {
+    const datosAnio = data
+      .map(d => ({ ...d, year: +d.year }))
+      .filter(d => d.year === +yearNum);
+
+    const datosValidos = datosAnio.filter(d =>
+      normalizarRegion(d.estratopri) &&
+      valorValido(d.colseg)
+    );
+
+    const regiones = Array.from(new Set(
+      datosValidos
+        .map(d => normalizarRegion(d.estratopri))
+        .filter(Boolean)
+    ));
+
+    return Object.fromEntries(
+      regiones.map(region => {
+        const filasRegion = datosValidos.filter(d => normalizarRegion(d.estratopri) === region);
+        const totalRegion = filasRegion.length;
+        const numerador = filasRegion.filter(d => String(d.colseg).trim() === "Peor").length;
+        const valor = totalRegion > 0 ? numerador / totalRegion : null;
+
+        return [region, {
+          region,
+          year: yearNum,
+          variableKey: "colseg",
+          variableLabel: data_dicc?.colseg || "colseg",
+          tipoVariable: "categorica",
+          atributo: "Peor",
+          valor,
+          numerador,
+          denominador: totalRegion,
+          totalRegion
+        }];
+      })
+    );
+  }
+
+  function construirTooltipHTML(info, depto, region, yearNum) {
+    let htmlTooltip = `
+      <div><strong>${depto}</strong></div>
+      <div><strong>Región:</strong> ${region}</div>
+      <div><strong>Año:</strong> ${yearNum}</div>
+      <div><strong>Variable:</strong> ${data_dicc?.colseg || "colseg"}</div>
+    `;
+
+    if (!info || info.valor === null || info.valor === undefined || isNaN(info.valor)) {
+      htmlTooltip += `<div><strong>Valor:</strong> Sin datos</div>`;
+      return htmlTooltip;
+    }
+
+    htmlTooltip += `
+      <div><strong>Atributo:</strong> Peor</div>
+      <div><strong>Valor:</strong> ${d3.format(".1%")(info.valor)}</div>
+      <div><strong>Numerador:</strong> ${d3.format(",")(info.numerador)}</div>
+      <div><strong>Denominador:</strong> ${d3.format(",")(info.denominador)}</div>
+      <div><strong>Total región:</strong> ${d3.format(",")(info.totalRegion)}</div>
+    `;
+
+    return htmlTooltip;
+  }
+
+  function dibujarLeyenda(svg, domainMin, domainMax, mapWidth) {
+    const legendWidth = Math.min(180, mapWidth - 70);
+    const legendHeight = 12;
+    const legendX = 24;
+    const legendY = 26;
+    const defs = svg.append("defs");
+    const gradientId = `legend-primer-insight-${Math.random().toString(36).slice(2)}`;
+
+    const gradient = defs.append("linearGradient")
+      .attr("id", gradientId)
+      .attr("x1", "0%")
+      .attr("x2", "100%")
+      .attr("y1", "0%")
+      .attr("y2", "0%");
+
+    d3.range(0, 1.01, 0.1).forEach(t => {
+      gradient.append("stop")
+        .attr("offset", `${t * 100}%`)
+        .attr("stop-color", colorInterpolator(t));
+    });
+
+    svg.append("text")
+      .attr("x", legendX)
+      .attr("y", legendY - 8)
+      .style("font-size", "12px")
+      .style("font-weight", "600")
+      .style("fill", "white")
+      .text('Proporción relativa de "Peor"');
+
+    svg.append("rect")
+      .attr("x", legendX)
+      .attr("y", legendY)
+      .attr("width", legendWidth)
+      .attr("height", legendHeight)
+      .attr("fill", `url(#${gradientId})`)
+      .attr("stroke", "white")
+      .attr("stroke-width", 0.5);
+
+    const legendScale = d3.scaleLinear()
+      .domain([domainMin, domainMax])
+      .range([legendX, legendX + legendWidth]);
+
+    svg.append("g")
+      .attr("transform", `translate(0, ${legendY + legendHeight})`)
+      .call(d3.axisBottom(legendScale).ticks(4).tickFormat(d3.format(".0%")))
+      .call(g => g.select(".domain").remove())
+      .call(g => g.selectAll("line").remove())
+      .call(g => g.selectAll("text").style("font-size", "10px"));
+  }
+
+  function render() {
+    const containerWidth = container.getBoundingClientRect().width || width;
+    container.innerHTML = "";
+
+    const wrapper = d3.select(container)
+      .append("div")
+      .style("display", "grid")
+      .style("grid-template-columns", containerWidth < 900 ? "1fr" : "1fr 1fr")
+      .style("gap", "16px")
+      .style("width", "100%");
+
+    const tooltip = d3.select(container)
+      .append("div")
+      .style("position", "fixed")
+      .style("left", "0px")
+      .style("top", "0px")
+      .style("background", "white")
+      .style("border", "1px solid #ccc")
+      .style("border-radius", "6px")
+      .style("padding", "8px 10px")
+      .style("font", "12px sans-serif")
+      .style("line-height", "1.4")
+      .style("pointer-events", "none")
+      .style("opacity", 0)
+      .style("z-index", 9999)
+      .style("color", "#111")
+      .style("box-shadow", "0 2px 10px rgba(0,0,0,0.15)");
+
+    const resumenes = years.map(year => ({
+      year,
+      resumenPorRegion: construirResumenPorRegion(year)
+    }));
+
+    const valoresMapa = resumenes.flatMap(({ resumenPorRegion }) =>
+      Object.values(resumenPorRegion)
+        .map(d => d.valor)
+        .filter(v => v !== null && v !== undefined && !isNaN(v))
+    );
+
+    const domainMin = 0;
+    const domainMax = d3.max(valoresMapa) || 1;
+    const color = d3.scaleSequential(colorInterpolator).domain([domainMin, domainMax]);
+
+    resumenes.forEach(({ year, resumenPorRegion }) => {
+      const card = wrapper.append("div")
+        .style("width", "100%");
+
+      card.append("div")
+        .style("font-weight", "600")
+        .style("margin-bottom", "8px")
+        .text(`Percepción de que la situación va a peor en el año ${year}`);
+
+      const cardWidth = card.node().getBoundingClientRect().width || (containerWidth < 900 ? containerWidth : containerWidth / 2);
+      const mapWidth = Math.max(cardWidth, 320);
+      const mapHeight = height;
+
+      const svg = d3.create("svg")
+        .attr("width", mapWidth)
+        .attr("height", mapHeight)
+        .attr("viewBox", [0, 0, mapWidth, mapHeight])
+        .style("width", "100%")
+        .style("height", "auto")
+        .style("display", "block");
+
+      const projection = d3.geoMercator();
+      const path = d3.geoPath(projection);
+
+      projection.fitExtent([[20, 60], [mapWidth - 20, mapHeight - 20]], geojson);
+
+      svg.append("g")
+        .selectAll("path")
+        .data(geojson.features)
+        .join("path")
+        .attr("d", path)
+        .attr("fill", d => {
+          const region = agrupacion[d.properties.id];
+          const info = resumenPorRegion[region];
+          if (!info || info.valor === null || info.valor === undefined || isNaN(info.valor)) {
+            return colorSinDatos;
+          }
+          return color(info.valor);
+        })
+        .attr("stroke", stroke)
+        .attr("stroke-width", strokeWidth)
+        .on("mouseover", function(event, d) {
+          const codigo = d.properties.id;
+          const depto = d.properties.name;
+          const region = agrupacion[codigo] || "Sin región";
+          const info = resumenPorRegion[region];
+
+          d3.select(this).attr("opacity", 0.85);
+
+          tooltip
+            .html(construirTooltipHTML(info, depto, region, year))
+            .style("left", `${event.clientX + 12}px`)
+            .style("top", `${event.clientY + 12}px`)
+            .style("opacity", 1);
+        })
+        .on("mousemove", function(event) {
+          tooltip
+            .style("left", `${event.clientX + 12}px`)
+            .style("top", `${event.clientY + 12}px`);
+        })
+        .on("mouseout", function() {
+          d3.select(this).attr("opacity", 1);
+          tooltip.style("opacity", 0);
+        });
+
+      dibujarLeyenda(svg, domainMin, domainMax, mapWidth);
+      card.node().appendChild(svg.node());
+    });
+  }
+
+  const resizeObserver = new ResizeObserver(() => render());
+  resizeObserver.observe(container);
+
+  if (typeof invalidation !== "undefined") {
+    invalidation.then(() => resizeObserver.disconnect());
+  }
+
+  render();
+  return container;
+}
+```
+
+```js
+mapaPrimerInsightColsegPeor({
+  data,
+  geojson: geojson_colombia
+})
+```
+
+---
+
+El siguiente filtro es la selección de la variable que se va a ver tanto en el histograma, como en el heatmap. 
 
 <!-- Pedir variable -->
 
@@ -93,14 +422,13 @@ const variableSeleccionada = view(
 variableSeleccionada;
 ```
 
-<!-- Pedir si relativo -->
+--- 
 
-```js
 
-const esRelativo = view(Inputs.select(["Sí", "No"], {label: "Elige si el manejo de variables será relativo:"}));
-esRelativo;
 
-```
+# Histogramas
+
+A continuación se muestra un histograma de la variable escogida. A la izquierda está para 2021, a la derecha para 2025. Si no hay datos para ese año se específicará.
 
 <!-- FUNCIÓN Histogramas individuales -->
 
@@ -519,12 +847,30 @@ function distribucionPorAnio(data, variableKey, {
 }
 ```
 
+
+
+
 ```js
 distribucionPorAnio(data, variableSeleccionada.key)
 ```
 
+---
+<!-- Pedir si relativo -->
+
+El siguiente selector va a afectar a las siguientes variables de tal manera que no se tiene la cuenta en terminos absolutos sino en relativos dependiendo del porcentaje de votos en esa categoría:
+
+```js
+
+const esRelativo = view(Inputs.select(["Sí", "No"], {label: "Elige si el manejo de variables será relativo:"}));
+esRelativo;
+
+```
+---
 # Heatmap 
+
+A continuación se presenta un heatmap que reacciona con el selector de variable del punto anterior. Para cada variable muestra la cantidad de personas que votaron por cada categoría de la percepción de seguridad. Si el selector está en relativo, muestra el porcentaje dentro de esa categoría; de lo contrario muestra el valor absoluto de votos. Se puede apreciar una codificación de colores en escala de rojo, amarillo y verde que dependiendo de la escala representan un mayor o menor valor. Al hacer click se puede ver el detalle específico de ese recuadro. 
 <!-- FUNCIÓN Heatmap por variables compartiendo año -->
+
 
 ```js
 
@@ -1123,21 +1469,21 @@ heatmapsColsegPorAnio({
 
 ```
 
-
+---
 <!-- Filtro año -->
 
-```js
+<!-- ```js
 
 const anioSeleccionado = view(Inputs.select(["2021", "2025"], { label: "Elige un año:" }));
 anioSeleccionado;
 const geojson = await FileAttachment("data/co.json").json();
 
-```
+``` -->
 
-<!-- Controlador mapa  -->
+<!-- Controlador mapa DEPRECIADO  -->
 
 
-```js
+<!-- ```js
 function controlMapaGeograficoInput(data, variableSeleccionada, anioSeleccionado) {
   function valorValido(v) {
     return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
@@ -1197,11 +1543,11 @@ function controlMapaGeograficoInput(data, variableSeleccionada, anioSeleccionado
 const selectorMapa = view(
   controlMapaGeograficoInput(data, variableSeleccionada, anioSeleccionado)
 );
-```
+``` -->
 
-<!-- Mostrar Mapa -->
+<!-- Mostrar Mapa DEPRECIADO -->
 
-```js
+<!-- ```js
 let escalaPorcentualModoMapa = "Auto";
 
 function mapaColombiaRegionesHeatmap({
@@ -1721,10 +2067,10 @@ function mapaColombiaRegionesHeatmap({
   })();
 }
 
-```
+``` -->
 
 
-```js
+<!-- ```js
 mapaColombiaRegionesHeatmap({
   data,
   anioSeleccionado,
@@ -1737,8 +2083,11 @@ mapaColombiaRegionesHeatmap({
   mostrarNombres: false
 })
 
-```
+``` -->
 
+# Top influencia
+
+Esta grafica permite visualizar las diez categorías qué más influyen en las diferentes categorías de percepción. En verde se puede ver las que influyen en "Mejor", en amarillo las que influyen en "Igual" y en rojo las que indican que "Peor". Estas gráficas tienen en cuenta el filtro anterior de si es relativo o no con el fin de manejar la información sobre el total de votos o sobre el porcentaje por categoría. Al hacer click en cada punto se puede ver el detalle de ese atributo en específico, incluyendo el valor para las demás metricas de percepción de ese mismo atributo. También es posible elegir que categorías de percepción se quieren ver mediante el siguiente checkbox:
 
 <!-- Variable influencia -->
 
