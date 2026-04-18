@@ -4,36 +4,35 @@ title: Exploración de datos
 
 
 <style>
-.observablehq {
-  max-width: 200%;
+.observablehq,
+.observablehq main,
+.observablehq-center,
+.observablehq article {
+  width: 100%;
+  max-width: calc(100%) !important;
 }
 
-.observablehq main {
-  max-width: 100%;
+.observablehq p,
+.observablehq h1,
+.observablehq h2,
+.observablehq h3,
+.observablehq ul,
+.observablehq ol,
+.observablehq li,
+.observablehq blockquote,
+.observablehq table,
+.observablehq pre {
+  width: 100%;
+  max-width: none !important;
+  box-sizing: border-box;
 }
 
-.observablehq main p,
-.observablehq main h1,
-.observablehq main li,
-.observablehq main blockquote,
-.observablehq main table,
-.observablehq main pre,
-.observablehq main .card,
-.observablehq main .hero {
-  max-width: 100%;
-}
 </style>
 
 
 
-<div class="hero">
-  <h1> ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025? </h1>
-
-</div>
-
-
-
-
+---
+# ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025?
 
 <!-- ```js
 
