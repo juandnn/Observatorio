@@ -398,6 +398,9 @@ mapaPrimerInsightColsegPeor({
 })
 ```
 
+
+Es posible evidenciar que en 2025 la población en general sintió que la situación del país iba a peor. Con las siguientes graficas se pretende entender mejor esta situación.
+
 ---
 
 El siguiente filtro es la selección de la variable que se va a ver tanto en el histograma, como en el heatmap. 
@@ -425,9 +428,9 @@ variableSeleccionada;
 
 
 
-# Histogramas
+# I. Entendimiento de los Datos
 
-A continuación se muestra un histograma de la variable escogida. A la izquierda está para 2021, a la derecha para 2025. Si no hay datos para ese año se específicará.
+Inicialmente, para poder hacer el análisis se va a presentar un histograma de cada variable utilizada. A la izquierda está para 2021, a la derecha para 2025. Si no hay datos para ese año se específicará. Este histograma no solo muestra el conteo por categoría, sino que permite ver cuales son los atributos que se tienen en cada grupo, teniendo la opción de hacer click en las barras para desplegar una tarjeta con información más detallada.
 
 <!-- FUNCIÓN Histogramas individuales -->
 
@@ -854,6 +857,13 @@ function distribucionPorAnio(data, variableKey, {
 ```js
 distribucionPorAnio(data, variableSeleccionada.key)
 ```
+
+
+Inicialmente se puede ver que dentro de las encuestas se tienen más respuestas para el año 2021 (2993 respuesta) que para el año 2025 (1569 respuestas), lo cual puede significar cierto grado de limite al momento de sacar conclusiones con respecto a los valores absolutos. No obstante, está grafica igual es útil para entender la distribución general de las variables y el cómo están codificadas.
+
+En cuanto al estrato socioeconómico primario, este representa la región del encuestado, dentro de las cuales se encuentra la Oriental Bogotá, Central, Atlántica, Pacífica y la Amazonia. Sin embargo, es posible notar que no todas las regiones tienen la misma cantidad de encuestados, resaltando que para ambos años en la Amazonía es donde menos hay encuestados (100 encuestados en 2021 y 50 en 2025). En cuanto al 2021, se puede ver una distribución desigual entre las demás regiones, teniendo más datos para la región oriental (total de 859 datos) y una cantidad menor para la región pacífica (total de 292 datos). En el 2025 se puede ver una distribución más uniforme con todos los demás totales entre 275 y 358, aunque se evidencia un pico en la región central y un valle para la oriental.
+
+\#TODO aún me falta completar la interpretación para las demás gráficas
 
 ---
 <!-- Pedir si relativo -->
