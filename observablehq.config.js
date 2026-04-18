@@ -12,7 +12,7 @@ export default {
       name: "Pages",
       pages: [
         
-        {name: "Percepción de Seguridad", path: "/example-report"}
+        {name: "Percepción de Seguridad", path: "/reporte_percepcion_seguridad"}
       ]
     }
   ],
