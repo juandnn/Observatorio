@@ -3,10 +3,33 @@ title: Exploración de datos
 ---
 
 
+<style>
+.observablehq {
+  max-width: 200%;
+}
+
+.observablehq main {
+  max-width: 100%;
+}
+
+.observablehq main p,
+.observablehq main h1,
+.observablehq main li,
+.observablehq main blockquote,
+.observablehq main table,
+.observablehq main pre,
+.observablehq main .card,
+.observablehq main .hero {
+  max-width: 100%;
+}
+</style>
+
+
+
 <div class="hero">
   <h1> ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025? </h1>
+  <p> ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025? ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025?  </p>
 </div>
-
 
 
 
@@ -94,9 +117,37 @@ function distribucionPorAnio(data, variableKey, {
   diccionario = data_dicc
 } = {}) {
   const container = html`<div style="width: 100%;"></div>`;
+  const yarrrPalette = [
+  "#1f77b4",
+  "#ff7f0e",
+  "#2ca02c",
+  "#d62728",
+  "#9467bd",
+  "#8c564b",
+  "#e377c2",
+  "#7f7f7f",
+  "#bcbd22",
+  "#17becf"
+];
 
   function valorValido(v) {
     return v !== null && v !== undefined && v !== "" && v !== "NA" && v !== "NaN";
+  }
+
+  function categorizarEdad(age) {
+    if (!valorValido(age)) return null;
+
+    const edad = +age;
+    if (isNaN(edad)) return null;
+    if (edad < 29) return "Jóvenes";
+    if (edad < 45) return "Adultez temprana";
+    if (edad < 60) return "Adultez media";
+    return "Adultos mayores";
+  }
+
+  function normalizarValorVariable(row) {
+    if (variableKey === "q2") return categorizarEdad(row[variableKey]);
+    return row[variableKey];
   }
 
   function esNumero(v) {
@@ -105,7 +156,7 @@ function distribucionPorAnio(data, variableKey, {
 
   function detectarTipoVariable(rows) {
     const valores = rows
-      .map(d => d[variableKey])
+      .map(d => normalizarValorVariable(d))
       .filter(valorValido);
 
     if (!valores.length) return "categorica";
@@ -166,12 +217,25 @@ function distribucionPorAnio(data, variableKey, {
     const tituloVariable = diccionario?.[variableKey] || variableKey;
 
     if (tipo === "numerica") {
+      const cardBaseWidth = width < 700 ? width : (width - 16) / 2;
+      const innerWidthAprox = Math.max(Math.max(cardBaseWidth, 300) - marginLeft - marginRight, 120);
+      const binsAjustados = Math.max(6, Math.min(
+        binsCount,
+        Math.floor(innerWidthAprox / 32),
+        Math.ceil(Math.sqrt(datosBase.length))
+      ));
+
       const datosNumericos = datosBase
+        .filter(d => valorValido(normalizarValorVariable(d)))
         .map(d => ({
           year: d.year,
-          valor: +d[variableKey]
+          valorOriginal: normalizarValorVariable(d)
         }))
-        .filter(d => !isNaN(d.valor));
+        .filter(d => esNumero(d.valorOriginal))
+        .map(d => ({
+          year: d.year,
+          valor: +d.valorOriginal
+        }));
 
       if (!datosNumericos.length) {
         d3.select(container)
@@ -185,7 +249,7 @@ function distribucionPorAnio(data, variableKey, {
 
       const binGenerator = d3.bin()
         .domain(xDomain)
-        .thresholds(binsCount);
+        .thresholds(binsAjustados);
 
       const binsPorAnio = years.map(year => {
         const subset = datosNumericos.filter(d => d.year === year).map(d => d.valor);
@@ -196,6 +260,14 @@ function distribucionPorAnio(data, variableKey, {
       });
 
       const yMax = d3.max(binsPorAnio.flatMap(d => d.bins), b => b.length) || 1;
+      const binKeys = binsPorAnio[0]?.bins.map((b, i) => `${b.x0}-${b.x1}-${i}`) || [];
+      const colorInterpolator = d3.interpolateRgbBasis(yarrrPalette);
+      const colorScale = d3.scaleOrdinal()
+        .domain(binKeys)
+        .range(binKeys.map((_, i) => {
+          const t = binKeys.length <= 1 ? 0.5 : i / (binKeys.length - 1);
+          return colorInterpolator(t);
+        }));
 
       years.forEach(year => {
         const subset = datosNumericos.filter(d => d.year === year);
@@ -245,12 +317,12 @@ function distribucionPorAnio(data, variableKey, {
           .selectAll("rect")
           .data(info.bins)
           .join("rect")
-          .attr("x", d => x(d.x0) + 1)
+          .attr("x", d => x(d.x0) + 2)
           .attr("y", d => y(d.length))
-          .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+          .attr("width", d => Math.max(6, x(d.x1) - x(d.x0) - 4))
           .attr("height", d => y(0) - y(d.length))
-          .attr("fill", "currentColor")
-          .attr("opacity", 0.75);
+          .attr("fill", (d, i) => colorScale(`${d.x0}-${d.x1}-${i}`))
+          .attr("opacity", 0.9);
 
         activarInteraccionBarras(
           barras,
@@ -260,7 +332,7 @@ function distribucionPorAnio(data, variableKey, {
 
         svg.append("g")
           .attr("transform", `translate(0,${marginTop + innerHeight})`)
-          .call(d3.axisBottom(x).ticks(Math.min(8, binsCount)));
+          .call(d3.axisBottom(x).ticks(Math.min(8, binsAjustados)));
 
         svg.append("g")
           .attr("transform", `translate(${marginLeft},0)`)
@@ -288,7 +360,7 @@ function distribucionPorAnio(data, variableKey, {
       const datosCategoricos = datosBase
         .map(d => ({
           year: d.year,
-          valor: d[variableKey]
+          valor: normalizarValorVariable(d)
         }))
         .filter(d => valorValido(d.valor))
         .map(d => ({
@@ -318,6 +390,15 @@ function distribucionPorAnio(data, variableKey, {
       const categoriasFinales = [...categoriasTop];
       const incluirOtros = frecuenciaGlobal.length > maxCategorias;
       if (incluirOtros) categoriasFinales.push("Otros");
+      const categoriasOrdenEdad = ["Jóvenes", "Adultez temprana", "Adultez media", "Adultos mayores"];
+      const categoriasDominio = variableKey === "q2"
+        ? categoriasOrdenEdad.filter(cat => categoriasFinales.includes(cat))
+        : categoriasFinales;
+      if (incluirOtros && !categoriasDominio.includes("Otros")) categoriasDominio.push("Otros");
+
+      const colorScale = d3.scaleOrdinal()
+        .domain(categoriasDominio)
+        .range(categoriasDominio.map((_, i) => yarrrPalette[i % yarrrPalette.length]));
 
       const datosPorAnio = years.map(year => {
         const subset = datosCategoricos.filter(d => d.year === year);
@@ -328,7 +409,7 @@ function distribucionPorAnio(data, variableKey, {
           d => categoriasTop.includes(d.valor) ? d.valor : (incluirOtros ? "Otros" : d.valor)
         );
 
-        const datosGrafica = categoriasFinales.map(cat => ({
+        const datosGrafica = categoriasDominio.map(cat => ({
           categoria: cat,
           valor: conteo.get(cat) || 0
         }));
@@ -362,7 +443,7 @@ function distribucionPorAnio(data, variableKey, {
         const innerHeight = height - marginTop - marginBottom;
 
         const x = d3.scaleBand()
-          .domain(categoriasFinales)
+          .domain(categoriasDominio)
           .range([marginLeft, marginLeft + innerWidth])
           .padding(0.15);
 
@@ -389,7 +470,7 @@ function distribucionPorAnio(data, variableKey, {
           .attr("y", d => y(d.valor))
           .attr("width", x.bandwidth())
           .attr("height", d => y(0) - y(d.valor))
-          .attr("fill", "currentColor")
+          .attr("fill", d => colorScale(d.categoria))
           .attr("opacity", 0.75);
 
         activarInteraccionBarras(
