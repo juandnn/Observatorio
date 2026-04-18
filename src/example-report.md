@@ -482,6 +482,8 @@ function distribucionPorAnio(data, variableKey, {
   }
 
   function detectarTipoVariable(rows) {
+    if (variableKey === "year") return "categorica";
+
     const valores = rows
       .map(d => normalizarValorVariable(d))
       .filter(valorValido);
