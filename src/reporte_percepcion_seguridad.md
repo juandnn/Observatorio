@@ -868,7 +868,7 @@ distribucionPorAnio(data, variableSeleccionada.key)
 ```
 
 
-Inicialmente se puede ver que dentro de las encuestas se tienen más respuestas para el año 2021 (2993 respuesta) que para el año 2025 (1569 respuestas), lo cual puede significar cierto grado de limite al momento de sacar conclusiones con respecto a los valores absolutos. No obstante, está grafica igual es útil para entender la distribución general de las variables y el cómo están codificadas.
+Con respecto a las graficas, inicialmente se puede ver que dentro de las encuestas se tienen más respuestas para el año 2021 (2993 respuesta) que para el año 2025 (1569 respuestas), lo cual puede significar cierto grado de limite al momento de sacar conclusiones con respecto a los valores absolutos. No obstante, está grafica igual es útil para entender la distribución general de las variables y el cómo están codificadas.
 
 En cuanto al estrato socioeconómico primario, este representa la región del encuestado, dentro de las cuales se encuentra la Oriental Bogotá, Central, Atlántica, Pacífica y la Amazonia. Sin embargo, es posible notar que no todas las regiones tienen la misma cantidad de encuestados, resaltando que para ambos años en la Amazonía es donde menos hay encuestados (100 encuestados en 2021 y 50 en 2025). En cuanto al 2021, se puede ver una distribución desigual entre las demás regiones, teniendo más datos para la región oriental (total de 859 datos) y una cantidad menor para la región pacífica (total de 292 datos). En el 2025 se puede ver una distribución más uniforme con todos los demás totales entre 275 y 358, aunque se evidencia un pico en la región central y un valle para la oriental.
 
@@ -884,8 +884,9 @@ En cuanto a la favorabilidad del presidente, aquí se encuentra que hay tres gru
 
 Las siguientes dos categorías tampoco estan en 2021 y son la confianza en los policias y la efectividad percibida de la policía. Estas variables tienen 7 categorías donde 1 significa una percepción muy negativa y 7 una muy positiva. En ambas variables se puede ver que la opinión se concentra principalmente en el centro, aunque en general parece ser que la confianza tiene de forma ligera una mejor percepción que la efectividad percibida.
 
-Por último se tiene la autoubicación ideologica que tiene 5 grupos: izquierda, centro izquierda, centro, centro derecha y derecha. En esta variable se puede apreciar una clara tendencia a un cambio en la ubicación ideologica, que pasaron de estar principalmente polarizados, a un claro aumento en los que se autoperciben como de centro (esa categoría pasó de 148 en 2021 a 510 en 2025)
+Por último se tiene la autoubicación ideologica que tiene 5 grupos: izquierda, centro izquierda, centro, centro derecha y derecha. En esta variable se puede apreciar una clara tendencia a un cambio en la ubicación ideologica, que pasaron de estar principalmente polarizados, a un claro aumento en los que se autoperciben como de centro (esa categoría pasó de 148 en 2021 a 510 en 2025).
 
+Finalmente, los datos muestran que, aunque existe una reducción en el tamaño de la muestra en 2025 frente a 2021, se mantienen patrones estructurales similares en varias variables, lo que permite comparaciones generales. También se observa una leve mejora en la percepción de la seguridad (disminuye “peor” y aumentan “igual” y “mejor”), junto con cambios en la percepción de amenazas (menos concentración en delincuencia común y mayor diversificación hacia otros factores). Asimismo, se evidencian diferencias en la representatividad regional y un desplazamiento ideológico hacia el centro. En términos generales, los resultados sugieren una percepción menos pesimista de la seguridad en 2025, aunque condicionada por limitaciones en la distribución y tamaño de la muestra.
 
 ---
 # II. Explorando Correlaciones 
