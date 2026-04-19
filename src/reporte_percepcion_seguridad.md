@@ -863,7 +863,7 @@ En cuanto al estrato socioeconómico primario, este representa la región del en
 \#TODO aún me falta completar la interpretación para las demás gráficas
 
 ---
-# Heatmap 
+# II. Explorando Correlaciones 
 
 A continuación se presenta un heatmap que reacciona con el selector de variable del punto anterior. Para cada variable muestra la cantidad de personas que votaron por cada categoría de la percepción de seguridad. Si el selector está en relativo, muestra el porcentaje dentro de esa categoría; de lo contrario muestra el valor absoluto de votos. Se puede apreciar una codificación de colores en escala de rojo, amarillo y verde que dependiendo de la escala representan un mayor o menor valor. Al hacer click se puede ver el detalle específico de ese recuadro. 
 
@@ -2106,7 +2106,7 @@ mapaColombiaRegionesHeatmap({
 
 ``` -->
 
-# Top influencia
+# III. Explorando los Más Influyentes por Categoría
 
 Esta grafica permite visualizar las diez categorías qué más influyen en las diferentes categorías de percepción. En verde se puede ver las que influyen en "Mejor", en amarillo las que influyen en "Igual" y en rojo las que indican que "Peor". Estas gráficas tienen en cuenta el filtro anterior de si es relativo o no con el fin de manejar la información sobre el total de votos o sobre el porcentaje por categoría. Al hacer click en cada punto se puede ver el detalle de ese atributo en específico, incluyendo el valor para las demás metricas de percepción de ese mismo atributo. También es posible elegir que categorías de percepción se quieren ver mediante el siguiente checkbox:
 
@@ -2538,3 +2538,11 @@ topAtributosInfluyentes({
 })
 
 ```
+
+---
+
+# IV. Conclusión
+
+\#TODO
+
+---
