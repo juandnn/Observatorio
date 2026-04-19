@@ -32,7 +32,7 @@ title: Exploración de datos
 
 
 ---
-# ¿Qué está pasando con la percepción de seguridad en Colombia durante los años 2021 y 2025?
+# ¿Qué factores sociodemográficos son los que más afectan la percepción de seguridad en Colombia durante los años 2021 y 2025?
 
 <!-- ```js
 
@@ -481,6 +481,21 @@ function distribucionPorAnio(data, variableKey, {
     return valorValido(v) && !isNaN(+v);
   }
 
+  function obtenerCategoriasOrdenadas(variableKey, categoriasFinales) {
+    const ordenesEspeciales = {
+      q2: ["Jóvenes", "Adultez temprana", "Adultez media", "Adultos mayores"],
+      ideologia: ["Izquierda", "Centro izquierda", "Centro", "Centro derecha", "Derecha"]
+    };
+
+    const ordenEspecial = ordenesEspeciales[variableKey];
+    if (!ordenEspecial) return [...categoriasFinales];
+
+    const categoriasOrdenadas = ordenEspecial.filter(cat => categoriasFinales.includes(cat));
+    const restantes = categoriasFinales.filter(cat => !ordenEspecial.includes(cat) && cat !== "Otros");
+
+    return [...categoriasOrdenadas, ...restantes];
+  }
+
   function detectarTipoVariable(rows) {
     if (variableKey === "year") return "categorica";
 
@@ -719,10 +734,7 @@ function distribucionPorAnio(data, variableKey, {
       const categoriasFinales = [...categoriasTop];
       const incluirOtros = frecuenciaGlobal.length > maxCategorias;
       if (incluirOtros) categoriasFinales.push("Otros");
-      const categoriasOrdenEdad = ["Jóvenes", "Adultez temprana", "Adultez media", "Adultos mayores"];
-      const categoriasDominio = variableKey === "q2"
-        ? categoriasOrdenEdad.filter(cat => categoriasFinales.includes(cat))
-        : categoriasFinales;
+      const categoriasDominio = obtenerCategoriasOrdenadas(variableKey, categoriasFinales);
       if (incluirOtros && !categoriasDominio.includes("Otros")) categoriasDominio.push("Otros");
 
       const colorScale = d3.scaleOrdinal()
@@ -860,7 +872,20 @@ Inicialmente se puede ver que dentro de las encuestas se tienen más respuestas 
 
 En cuanto al estrato socioeconómico primario, este representa la región del encuestado, dentro de las cuales se encuentra la Oriental Bogotá, Central, Atlántica, Pacífica y la Amazonia. Sin embargo, es posible notar que no todas las regiones tienen la misma cantidad de encuestados, resaltando que para ambos años en la Amazonía es donde menos hay encuestados (100 encuestados en 2021 y 50 en 2025). En cuanto al 2021, se puede ver una distribución desigual entre las demás regiones, teniendo más datos para la región oriental (total de 859 datos) y una cantidad menor para la región pacífica (total de 292 datos). En el 2025 se puede ver una distribución más uniforme con todos los demás totales entre 275 y 358, aunque se evidencia un pico en la región central y un valle para la oriental.
 
-\#TODO aún me falta completar la interpretación para las demás gráficas
+Siguiendo con la percepción de la principal amenaza de seguridad se tienen 7 factores diferentes dentro de la categoría: delincuentes comunes, crimen organizado (aquí se incluyen pandillas, las BACRIM y narcotraficantes), Guerrillas, Fuerzas de seguridad (policía, militares, seguridad privada o celadores), personas cercanas (vecinos de su barrio o comunidad o personas pertenecientes a su familia), otros y finalmente los que votaron que ninguno. De estos datos se puede ver que tanto para 2021, como para 2025 se ve un patrón en las respuestas, en donde en orden descendiente de las opciones más votadas se tienen: delicuentes comunes (con 718 votos en 2021 y 580 en 2025), crimen organizado (441 votos en 2021 y 487 en 2025), guerrillas (149 votos en 2021 y 309 en 2025) y nínguno (37 votos en 2021 y 67 en 2025). En cuanto a fuerza de seguridad y personas cercanas, estas no tuvieron votos en 2021 pero en 2025 contaron con 51 y 21 votos respectivamente. En general se observa que la percepción de delincuencia disminuye un poco (probablemente por que se tienen menos datos), pero igual las demás opciones aumentan en 2025.
+
+Continuando con la percepción de la situación general de seguridad, esta es la variable de interés en este análisis y cuenta con tres opciones de respuesta: peor, igual y mejor. Aquí se evidencia lo que se mencionó en el apartado anterior de que la categoría de Peor disminuye su número de votos pasando de 1134 a 967. También se puede ver que en el 2025 las otras dos categorías aumentan, pues los que votaron Igual suben en 241 votos y los que votaron a mejor suben en 45 votos.
+
+En las variables de tipo de área en la que se vive y género dele encuestado se tiene la particularidad de que no hay datos para el 2021, igual se puede hablar de su distribución en el 2025. Para este año se tienen 1428 votos de zona urbana y 140 de una rural, mostrando una clara delimitación del perfil del encuestado. Por otro lado, en el género sí se tiene un mejor balance teniendo 796 votos para mujer y 773 para el hombre.
+
+Para la edad del encuestado se decidió dividir a la muestra en cuatro grupos de edad. El primero son los que tienen entre 18 y 28, los cuales se representan en Jóvenes y que tienen una frecuencia de 581 votos en 2021 y 414 en 2025. El segundo grupo tiene entre 28 y y 44, se representa como adultez temprana y tienen 1291 ocurrencias en 2021 y 546 en 2025. El tercer grupo es la adultez media y son los que tienen entre 45 y 59 años, este grupo tiene una frecuencia de 869 en 2021 y 354 en 2025. Por último están los adultos mayores que tienen 60 años o más, este es el grupo más pequeño ya que hay un total de 252 en 2021 y 242 en 2025. En general, se puede evidenciar que estructuralmente hay un patrón similar en ambos grupos en especial por la forma del histograma.
+
+En cuanto a la favorabilidad del presidente, aquí se encuentra que hay tres grupos. El primero son los que tienen una percepción negativa o muy negativa del presidente. Este es el grupo más grande y hay 662 ocurrencias en 2021 y 583 en 2025. El segundo grupo son los neutrales, y hay 433 en 2021 y 514 en 2025. Por último se tienen los que tienen una percepcuón positiva, y hay 341 en 2021 y 447 en 2025. Así, se puede evidenciar que en general tienen una forma similar aunque en 2021 proporcionalmente hay más neutros y positivos.
+
+Las siguientes dos categorías tampoco estan en 2021 y son la confianza en los policias y la efectividad percibida de la policía. Estas variables tienen 7 categorías donde 1 significa una percepción muy negativa y 7 una muy positiva. En ambas variables se puede ver que la opinión se concentra principalmente en el centro, aunque en general parece ser que la confianza tiene de forma ligera una mejor percepción que la efectividad percibida.
+
+Por último se tiene la autoubicación ideologica que tiene 5 grupos: izquierda, centro izquierda, centro, centro derecha y derecha. En esta variable se puede apreciar una clara tendencia a un cambio en la ubicación ideologica, que pasaron de estar principalmente polarizados, a un claro aumento en los que se autoperciben como de centro (esa categoría pasó de 148 en 2021 a 510 en 2025)
+
 
 ---
 # II. Explorando Correlaciones 
@@ -1489,6 +1514,8 @@ heatmapsColsegPorAnio({
 })
 
 ```
+
+\#TODO aún me falta completar la interpretación para las demás gráficas
 
 ---
 <!-- Filtro año -->
@@ -2538,6 +2565,8 @@ topAtributosInfluyentes({
 })
 
 ```
+
+\#TODO aún me falta completar la interpretación para las gráficas
 
 ---
 
