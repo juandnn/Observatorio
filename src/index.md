@@ -2,56 +2,54 @@
 toc: false
 ---
 
-<div class="hero">
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <h1>Observatorio de la Democracia: percepción de seguridad</h1>
-</div>
-
-
+# Observatorio de la Democracia 
 ---
 
+El Observatorio de Paz y Seguridad de la Universidad de los Andes ha recolectado una gran cantidad de datos a partir de entrevistas realizadas en diversas zonas del país. De esta manera, cuentan con una base de datos considerable que contiene las percepciones de seguridad de un gran número de individuos, por lo que es un insumo relevante para el análisis de opinión pública. Sin embargo, esta información a pesar de que existe, se encuentra distribuida en bases de datos complejas que requieren de un tratamiento cuidadoso. En esta página se pretende hacer un análisis descriptivo de la percepción de seguridad.
 
 
 
 <style>
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: var(--sans-serif);
-  margin: 4rem 0 8rem;
-  text-wrap: balance;
-  text-align: center;
+.observablehq,
+.observablehq main,
+.observablehq-center,
+.observablehq article {
+  width: 100%;
+  max-width: calc(100%) !important;
 }
 
-.hero h1 {
-  margin: 1rem 0;
-  padding: 1rem 0;
-  max-width: none;
-  font-size: 14vw;
-  font-weight: 900;
-  line-height: 1;
-  background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.observablehq p,
+.observablehq h1,
+.observablehq h2,
+.observablehq h3,
+.observablehq ul,
+.observablehq ol,
+.observablehq li,
+.observablehq blockquote,
+.observablehq table,
+.observablehq pre {
+  width: 100%;
+  max-width: none !important;
+  box-sizing: border-box;
+  font-size: 1.15rem;
+  line-height: 1.6;
 }
 
-.hero h2 {
-  margin: 0;
-  max-width: 34em;
-  font-size: 20px;
-  font-style: initial;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--theme-foreground-muted);
+.observablehq h1 {
+  font-size: 5rem;
 }
 
-@media (min-width: 640px) {
-  .hero h1 {
-    font-size: 90px;
-  }
+.observablehq h2 {
+  font-size: 1rem;
 }
 
+.observablehq h3 {
+  font-size: 1.8rem;
+}
+
+.observablehq p {
+  font-size: 1.8rem;
+}
 </style>
+
+
