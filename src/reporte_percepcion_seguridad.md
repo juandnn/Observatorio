@@ -407,7 +407,7 @@ La anterior gráfica presenta unos mapas de Colombia que por cada región muestr
 
 Inicialmente, para poder hacer el análisis se va a presentar un histograma de cada variable utilizada. A la izquierda está para 2021, a la derecha para 2025. Si no hay datos para ese año se específicará. Este histograma no solo muestra el conteo por categoría, sino que permite ver cuales son los atributos que se tienen en cada grupo, teniendo la opción de hacer click en las barras para desplegar una tarjeta con información más detallada.
 
-El siguiente filtro es la selección de la variable que se va a. 
+El siguiente filtro es la selección de la variable que se va a visualizar en los histogramas: 
 
 
 <!-- Pedir variable -->
@@ -863,20 +863,33 @@ En cuanto al estrato socioeconómico primario, este representa la región del en
 \#TODO aún me falta completar la interpretación para las demás gráficas
 
 ---
+# Heatmap 
+
+A continuación se presenta un heatmap que reacciona con el selector de variable del punto anterior. Para cada variable muestra la cantidad de personas que votaron por cada categoría de la percepción de seguridad. Si el selector está en relativo, muestra el porcentaje dentro de esa categoría; de lo contrario muestra el valor absoluto de votos. Se puede apreciar una codificación de colores en escala de rojo, amarillo y verde que dependiendo de la escala representan un mayor o menor valor. Al hacer click se puede ver el detalle específico de ese recuadro. 
+
+Enseguida se van a encontrar dos filtros para el heatmap. El primero permite escoger la variable que se va a visualizar. El segundo permite escoger si el manejo de los datos va a ser relativo. El manejo relativo es el porcentaje de votantes de la variable escogida que también votaron por cada atributo de la percepción de seguridad.
+
+<!-- Pedir variable2 -->
+
+```js
+
+const variableSeleccionada2 = view(
+  Inputs.select(columnas_legibles, {
+    label: "Selecciona variable:",
+    format: d => d.label
+  })
+);
+
+variableSeleccionada2;
+```
 <!-- Pedir si relativo -->
-
-El siguiente selector va a afectar a las siguientes variables de tal manera que no se tiene la cuenta en terminos absolutos sino en relativos dependiendo del porcentaje de votos en esa categoría:
-
 ```js
 
 const esRelativo = view(Inputs.select(["Sí", "No"], {label: "Elige si el manejo de variables será relativo:"}));
 esRelativo;
 
 ```
----
-# Heatmap 
 
-A continuación se presenta un heatmap que reacciona con el selector de variable del punto anterior. Para cada variable muestra la cantidad de personas que votaron por cada categoría de la percepción de seguridad. Si el selector está en relativo, muestra el porcentaje dentro de esa categoría; de lo contrario muestra el valor absoluto de votos. Se puede apreciar una codificación de colores en escala de rojo, amarillo y verde que dependiendo de la escala representan un mayor o menor valor. Al hacer click se puede ver el detalle específico de ese recuadro. 
 <!-- FUNCIÓN Heatmap por variables compartiendo año -->
 
 
@@ -1468,7 +1481,7 @@ function heatmapsColsegPorAnio({
 ```js
 
 heatmapsColsegPorAnio({
-  variableKey: variableSeleccionada.key,
+  variableKey: variableSeleccionada2.key,
   esRelativo,
   dataHeatmapRelativo: data_heatmap_relativo,
   dataHeatmapAbsoluto: data_heatmap_absoluto,
@@ -2097,6 +2110,9 @@ mapaColombiaRegionesHeatmap({
 
 Esta grafica permite visualizar las diez categorías qué más influyen en las diferentes categorías de percepción. En verde se puede ver las que influyen en "Mejor", en amarillo las que influyen en "Igual" y en rojo las que indican que "Peor". Estas gráficas tienen en cuenta el filtro anterior de si es relativo o no con el fin de manejar la información sobre el total de votos o sobre el porcentaje por categoría. Al hacer click en cada punto se puede ver el detalle de ese atributo en específico, incluyendo el valor para las demás metricas de percepción de ese mismo atributo. También es posible elegir que categorías de percepción se quieren ver mediante el siguiente checkbox:
 
+
+
+
 <!-- Variable influencia -->
 
 ```js
@@ -2110,13 +2126,20 @@ const categoriasInfluencia = view(
 categoriasInfluencia;
 
 ```
+<!-- Pedir si relativo -->
+```js
 
+const esRelativo2 = view(Inputs.select(["Sí", "No"], {label: "Elige si el manejo de variables será relativo:"}));
+esRelativo2;
+
+```
 
 ```js
 function topAtributosInfluyentes({
   dataHeatmapRelativo,
   dataHeatmapAbsoluto,
   esRelativo,
+  esRelativo2,
   categoriasInfluencia,
   diccionario = null,
   years = [2021, 2025],
@@ -2136,6 +2159,7 @@ function topAtributosInfluyentes({
     Igual: "#f2c94c",
     Mejor: "#1a9850"
   };
+  const modoRelativo = esRelativo2 ?? esRelativo;
 
   function normalizarYearKeys(y) {
     return [String(y), `${y}.0`, +y];
@@ -2165,7 +2189,7 @@ function topAtributosInfluyentes({
 
   function construirSeries(year, categoriasActivas) {
     const resultados = [];
-    const dataHeatmap = esRelativo === "Sí"
+    const dataHeatmap = modoRelativo === "Sí"
       ? dataHeatmapRelativo
       : dataHeatmapAbsoluto;
 
@@ -2214,7 +2238,7 @@ function topAtributosInfluyentes({
   }
 
   function formatValue(v) {
-    return esRelativo === "Sí" ? d3.format(".3f")(v) : d3.format(",")(v);
+    return modoRelativo === "Sí" ? d3.format(".3f")(v) : d3.format(",")(v);
   }
 
   function crearTarjetaDetalle(parent) {
@@ -2284,7 +2308,7 @@ function topAtributosInfluyentes({
       series: construirSeries(year, categoriasActivas)
     }));
 
-    const yMaxCompartido = esRelativo === "Sí"
+    const yMaxCompartido = modoRelativo === "Sí"
       ? 1
       : d3.max(
         seriesPorAnio.flatMap(({ series }) => series.flatMap(({ puntos }) => puntos)),
@@ -2394,7 +2418,7 @@ function topAtributosInfluyentes({
         .call(
           d3.axisLeft(y)
             .ticks(6)
-            .tickFormat(esRelativo === "Sí" ? d3.format(".2f") : d3.format(","))
+            .tickFormat(modoRelativo === "Sí" ? d3.format(".2f") : d3.format(","))
         );
 
       svg.append("text")
@@ -2508,7 +2532,7 @@ function topAtributosInfluyentes({
 topAtributosInfluyentes({
   dataHeatmapRelativo: data_heatmap_relativo,
   dataHeatmapAbsoluto: data_heatmap_absoluto,
-  esRelativo,
+  esRelativo: esRelativo2,
   categoriasInfluencia,
   diccionario: data_dicc
 })
