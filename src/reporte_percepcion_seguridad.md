@@ -75,10 +75,6 @@ console.log(data_heatmap_relativo)
 ```
 
 <!-- Mapas primer insight-->
----
-# Mapas con Heatmap de percepción
-
-A continuación se muestran unos mapas que muestran por cada región el porcentaje de personas de esa región que votaron que sentián que Colombia iba a peor.
 
 ```js
 function mapaPrimerInsightColsegPeor({
@@ -399,11 +395,20 @@ mapaPrimerInsightColsegPeor({
 ```
 
 
-Es posible evidenciar que en 2025 la población en general sintió que la situación del país iba a peor. Con las siguientes graficas se pretende entender mejor esta situación.
+La anterior gráfica presenta unos mapas de Colombia que por cada región muestran el porcentaje de personas de esa región que votaron que sentián que Colombia iba a peor. Es posible evidenciar que en 2025 la población en general sintió que la situación de seguridad del país iba a ser ligeramente mejor comparado con 2021, aún así en ambos años se tienen porcentajes muy altos sobre la percepción de que la seguridad estaba emperando. De esta manera, a continuación se presenta un análisis con los datos del observatorio con el objetivo de entender qué factores sociodemográficos son los que más afectan la percepción de seguridad en Colombia durante los años 2021 y 2025.
 
----
 
-El siguiente filtro es la selección de la variable que se va a ver tanto en el histograma, como en el heatmap. 
+
+--- 
+
+
+
+# I. Entendimiento de los Datos
+
+Inicialmente, para poder hacer el análisis se va a presentar un histograma de cada variable utilizada. A la izquierda está para 2021, a la derecha para 2025. Si no hay datos para ese año se específicará. Este histograma no solo muestra el conteo por categoría, sino que permite ver cuales son los atributos que se tienen en cada grupo, teniendo la opción de hacer click en las barras para desplegar una tarjeta con información más detallada.
+
+El siguiente filtro es la selección de la variable que se va a. 
+
 
 <!-- Pedir variable -->
 
@@ -423,14 +428,6 @@ const variableSeleccionada = view(
 
 variableSeleccionada;
 ```
-
---- 
-
-
-
-# I. Entendimiento de los Datos
-
-Inicialmente, para poder hacer el análisis se va a presentar un histograma de cada variable utilizada. A la izquierda está para 2021, a la derecha para 2025. Si no hay datos para ese año se específicará. Este histograma no solo muestra el conteo por categoría, sino que permite ver cuales son los atributos que se tienen en cada grupo, teniendo la opción de hacer click en las barras para desplegar una tarjeta con información más detallada.
 
 <!-- FUNCIÓN Histogramas individuales -->
 
