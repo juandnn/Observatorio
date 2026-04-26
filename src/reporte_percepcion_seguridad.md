@@ -542,6 +542,8 @@ function distribucionPorAnio(data, variableKey, {
     selection
       .style("cursor", "pointer")
       .on("click", function(event, d) {
+        event.preventDefault();
+        event.stopPropagation();
         selection.attr("opacity", 0.75);
         d3.select(this).attr("opacity", 1);
 
@@ -687,6 +689,13 @@ function distribucionPorAnio(data, variableKey, {
           tooltip,
           d => `Rango: ${d.x0} a ${d.x1} | Frecuencia exacta: ${d.length}`
         );
+
+        svg.on("click", () => {
+          barras.attr("opacity", 0.9);
+          tooltip
+            .style("visibility", "visible")
+            .text("Haz click en una barra para ver el detalle.");
+        });
 
         svg.append("g")
           .selectAll("text")
@@ -847,6 +856,13 @@ function distribucionPorAnio(data, variableKey, {
           tooltip,
           d => `Categoría: ${d.categoria} | Frecuencia exacta: ${d.valor}`
         );
+
+        svg.on("click", () => {
+          barras.attr("opacity", 0.75);
+          tooltip
+            .style("visibility", "visible")
+            .text("Haz click en una barra para ver el detalle.");
+        });
 
         svg.append("g")
           .selectAll("text")
@@ -1200,6 +1216,20 @@ function heatmapsColsegPorAnio({
       .style("color", "white");
   }
 
+  function crearBotonReinicio(parent, year) {
+    return parent.append("button")
+      .attr("type", "button")
+      .style("margin-top", "10px")
+      .style("padding", "4px 10px")
+      .style("border", "1px solid rgba(255,255,255,0.2)")
+      .style("border-radius", "999px")
+      .style("background", "rgba(255,255,255,0.08)")
+      .style("color", "white")
+      .style("font-size", "12px")
+      .style("cursor", "pointer")
+      .text(`Reiniciar gráfica ${year}`);
+  }
+
   function renderInfoBox(selection) {
     if (!selection) {
       return `
@@ -1472,14 +1502,23 @@ function heatmapsColsegPorAnio({
               : d3.format(",")(valorMaxCompartido));
         });
 
+      
+
       const infoBox = crearTarjetaDetalle(card)
         .html(renderInfoBox(selectedDatumByYear.get(year) || null));
-
-      cards.push({ year, cells, infoBox });
+        
+      const resetButton = crearBotonReinicio(card, year)
+        .on("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          selectedDatumByYear.delete(year);
+          actualizarSeleccionVisual();
+        });
+      cards.push({ year, cells, infoBox, resetButton });
     });
 
     function actualizarSeleccionVisual() {
-      cards.forEach(({ year, cells, infoBox }) => {
+      cards.forEach(({ year, cells, infoBox, resetButton }) => {
         const selection = selectedDatumByYear.get(year) || null;
 
         cells
@@ -1489,6 +1528,11 @@ function heatmapsColsegPorAnio({
             if (!selection) return 1;
             return esSeleccionado(d, selection) ? 1 : 0.55;
           });
+
+        resetButton
+          .property("disabled", !selection)
+          .style("opacity", selection ? "1" : "0.5")
+          .style("cursor", selection ? "pointer" : "not-allowed");
 
         infoBox.html(renderInfoBox(selection));
       });
@@ -2543,7 +2587,7 @@ function topAtributosInfluyentes({
       const infoBox = crearTarjetaDetalle(card)
         .html(renderInfoBox(selectedDatumByYear.get(year) || null));
 
-      cards.push({ year, lines, points, infoBox });
+      cards.push({ year, svg, lines, points, infoBox });
     });
 
     function actualizarSeleccionVisual() {
@@ -2571,6 +2615,13 @@ function topAtributosInfluyentes({
         event.preventDefault();
         event.stopPropagation();
         selectedDatumByYear.set(year, d);
+        actualizarSeleccionVisual();
+      });
+    });
+
+    cards.forEach(({ year, svg }) => {
+      svg.on("click", () => {
+        selectedDatumByYear.delete(year);
         actualizarSeleccionVisual();
       });
     });
