@@ -481,6 +481,19 @@ function distribucionPorAnio(data, variableKey, {
     return valorValido(v) && !isNaN(+v);
   }
 
+  function posicionEtiquetaBarra(yEscala, valor) {
+    const yBarra = yEscala(valor);
+    const yBase = yEscala(0);
+    const alturaBarra = yBase - yBarra;
+    return alturaBarra >= 20 ? yBarra + 14 : yBarra - 6;
+  }
+
+  function anclaEtiquetaBarra(yEscala, valor) {
+    const yBarra = yEscala(valor);
+    const yBase = yEscala(0);
+    return (yBase - yBarra) >= 20 ? "hanging" : "auto";
+  }
+
   function obtenerCategoriasOrdenadas(variableKey, categoriasFinales) {
     const ordenesEspeciales = {
       q2: ["Jóvenes", "Adultez temprana", "Adultez media", "Adultos mayores"],
@@ -521,7 +534,8 @@ function distribucionPorAnio(data, variableKey, {
       .style("border-radius", "6px")
       .style("background", "rgba(255,255,255,0.08)")
       .style("color", "white")
-      .style("visibility", "hidden");
+      .style("visibility", "visible")
+      .text("Haz click en una barra para ver el detalle.");
   }
 
   function activarInteraccionBarras(selection, tooltip, formatearTexto) {
@@ -675,6 +689,20 @@ function distribucionPorAnio(data, variableKey, {
         );
 
         svg.append("g")
+          .selectAll("text")
+          .data(info.bins.filter(d => d.length > 0))
+          .join("text")
+          .attr("x", d => x(d.x0) + Math.max(6, x(d.x1) - x(d.x0) - 4) / 2 + 2)
+          .attr("y", d => posicionEtiquetaBarra(y, d.length))
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", d => anclaEtiquetaBarra(y, d.length))
+          .attr("font-size", 11)
+          .attr("font-weight", "600")
+          .attr("fill", "white")
+          .attr("pointer-events", "none")
+          .text(d => d.length);
+
+        svg.append("g")
           .attr("transform", `translate(0,${marginTop + innerHeight})`)
           .call(d3.axisBottom(x).ticks(Math.min(8, binsAjustados)));
 
@@ -819,6 +847,20 @@ function distribucionPorAnio(data, variableKey, {
           tooltip,
           d => `Categoría: ${d.categoria} | Frecuencia exacta: ${d.valor}`
         );
+
+        svg.append("g")
+          .selectAll("text")
+          .data(info.datosGrafica.filter(d => d.valor > 0))
+          .join("text")
+          .attr("x", d => x(d.categoria) + x.bandwidth() / 2)
+          .attr("y", d => posicionEtiquetaBarra(y, d.valor))
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", d => anclaEtiquetaBarra(y, d.valor))
+          .attr("font-size", 11)
+          .attr("font-weight", "600")
+          .attr("fill", "white")
+          .attr("pointer-events", "none")
+          .text(d => d.valor);
 
         svg.append("g")
           .attr("transform", `translate(0,${marginTop + innerHeight})`)
@@ -1161,6 +1203,7 @@ function heatmapsColsegPorAnio({
   function renderInfoBox(selection) {
     if (!selection) {
       return `
+        <div>Haz click en una barra para ver el detalle.</div>
         <div>Haz click en un cuadro para ver el detalle.</div>
       `;
     }
