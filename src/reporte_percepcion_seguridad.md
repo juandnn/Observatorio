@@ -1203,7 +1203,7 @@ function heatmapsColsegPorAnio({
   function renderInfoBox(selection) {
     if (!selection) {
       return `
-        <div>Haz click en una barra para ver el detalle.</div>
+        
         <div>Haz click en un cuadro para ver el detalle.</div>
       `;
     }
