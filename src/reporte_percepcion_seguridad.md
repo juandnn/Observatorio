@@ -418,11 +418,27 @@ const columnas_legibles = Object.keys(data[0]).map(c => ({
   label: data_dicc[c] || c
 }));
 
+const anchoCajasSeleccion = "430px";
+
+function cajaSeleccionUniforme(input) {
+  input.style.width = anchoCajasSeleccion;
+  input.style.maxWidth = "100%";
+  input.style.boxSizing = "border-box";
+
+  const select = input.querySelector("select");
+  if (select) {
+    select.style.width = "100%";
+    select.style.maxWidth = "100%";
+    select.style.boxSizing = "border-box";
+  }
+  return input;
+}
+
 const variableSeleccionada = view(
-  Inputs.select(columnas_legibles, {
+  cajaSeleccionUniforme(Inputs.select(columnas_legibles, {
     label: "Selecciona variable:",
     format: d => d.label
-  })
+  }))
 );
 
 variableSeleccionada;
@@ -958,10 +974,10 @@ Enseguida se van a encontrar dos filtros para el heatmap. El primero permite esc
 ```js
 
 const variableSeleccionada2 = view(
-  Inputs.select(columnas_legibles, {
+  cajaSeleccionUniforme(Inputs.select(columnas_legibles, {
     label: "Selecciona variable:",
     format: d => d.label
-  })
+  }))
 );
 
 variableSeleccionada2;
@@ -969,7 +985,7 @@ variableSeleccionada2;
 <!-- Pedir si relativo -->
 ```js
 
-const esRelativo = view(Inputs.select(["Sí", "No"], {label: "Elige si el manejo de variables será relativo:"}));
+const esRelativo = view(cajaSeleccionUniforme(Inputs.select(["Sí", "No"], {label: "Elige si el manejo de variables será relativo:"})));
 esRelativo;
 
 ```
@@ -1603,7 +1619,7 @@ heatmapsColsegPorAnio({
 
 ```
 
-A continuación para cada variable se indicaran los hallazgos:
+Ahora para cada variable se indicaran los hallazgos:
 
 Año:
 la variable año confirma el patrón general del análisis: en términos absolutos, la percepción de que la seguridad va a “peor” disminuye de 1134 en 2021 a 967 en 2025, mientras que “igual” y “mejor” aumentan (especialmente “igual”, que casi se duplica) . En términos relativos, esto se traduce en una caída importante de “peor” (de 79% a 62%) y un aumento de “igual” (de 17% a 31%) y “mejor” (de 4% a 6%) . Es decir, aunque sigue predominando una percepción negativa, hay una mejora clara en 2025 hacia posturas menos pesimistas.
