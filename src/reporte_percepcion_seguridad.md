@@ -395,8 +395,7 @@ mapaPrimerInsightColsegPeor({
 ```
 
 
-La anterior gráfica presenta unos mapas de Colombia que por cada región muestran el porcentaje de personas de esa región que votaron que sentián que Colombia iba a peor. Es posible evidenciar que en 2025 la población en general sintió que la situación de seguridad del país iba a ser ligeramente mejor comparado con 2021, aún así en ambos años se tienen porcentajes muy altos sobre la percepción de que la seguridad estaba emperando. De esta manera, a continuación se presenta un análisis con los datos del observatorio con el objetivo de entender qué factores sociodemográficos son los que más afectan la percepción de seguridad en Colombia durante los años 2021 y 2025.
-
+La gráfica anterior presenta mapas de Colombia que muestran, para cada región, el porcentaje de personas que perciben que la situación de seguridad del país ha empeorado. A partir de estos mapas, se puede observar que en 2025 existe una ligera reducción en esta percepción negativa en comparación con 2021, lo que sugiere una mejora moderada en la percepción general de seguridad. Sin embargo, en ambos años persisten niveles elevados de respuestas que indican que la situación “va a peor”, lo que evidencia que el pesimismo sigue siendo predominante a nivel nacional. Asimismo, se identifican variaciones regionales que sugieren que esta percepción no es homogénea en el territorio. En este contexto, surge la necesidad de profundizar en el análisis para entender qué factores explican estas diferencias. Por ello, a continuación se presentan los principales hallazgos a partir de los datos del observatorio, junto con las visualizaciones correspondientes, de modo que el lector pueda explorar en mayor detalle los patrones y relaciones según su interés.
 
 
 --- 
@@ -926,25 +925,26 @@ distribucionPorAnio(data, variableSeleccionada.key)
 ```
 
 
-Con respecto a las graficas, inicialmente se puede ver que dentro de las encuestas se tienen más respuestas para el año 2021 (2993 respuesta) que para el año 2025 (1569 respuestas), lo cual puede significar cierto grado de limite al momento de sacar conclusiones con respecto a los valores absolutos. No obstante, está grafica igual es útil para entender la distribución general de las variables y el cómo están codificadas.
+Con respecto a las gráficas, inicialmente se puede observar que en las encuestas hay una mayor cantidad de respuestas para el año 2021 (2993 respuestas) en comparación con 2025 (1569 respuestas), lo cual puede implicar ciertas limitaciones al momento de extraer conclusiones basadas en valores absolutos. No obstante, esta gráfica sigue siendo útil para comprender la distribución general de las variables y su codificación.
 
-En cuanto al estrato socioeconómico primario, este representa la región del encuestado, dentro de las cuales se encuentra la Oriental Bogotá, Central, Atlántica, Pacífica y la Amazonia. Sin embargo, es posible notar que no todas las regiones tienen la misma cantidad de encuestados, resaltando que para ambos años en la Amazonía es donde menos hay encuestados (100 encuestados en 2021 y 50 en 2025). En cuanto al 2021, se puede ver una distribución desigual entre las demás regiones, teniendo más datos para la región oriental (total de 859 datos) y una cantidad menor para la región pacífica (total de 292 datos). En el 2025 se puede ver una distribución más uniforme con todos los demás totales entre 275 y 358, aunque se evidencia un pico en la región central y un valle para la oriental.
+En cuanto al estrato socioeconómico primario, este representa la región del encuestado, dentro de las cuales se encuentran la Oriental, Bogotá, Central, Atlántica, Pacífica y Amazonía. Sin embargo, no todas las regiones cuentan con la misma cantidad de encuestados. Se destaca que, en ambos años, la Amazonía es la región con menor número de observaciones (100 en 2021 y 50 en 2025). Para 2021, se evidencia una distribución desigual entre las regiones, con un mayor número de datos en la región Oriental (859) y una menor cantidad en la región Pacífica (292). En 2025, la distribución es más uniforme, con totales entre 275 y 358 en la mayoría de regiones, aunque se observa un pico en la región Central y un valor más bajo en la Oriental.
 
-Siguiendo con la percepción de la principal amenaza de seguridad se tienen 7 factores diferentes dentro de la categoría: delincuentes comunes, crimen organizado (aquí se incluyen pandillas, las BACRIM y narcotraficantes), Guerrillas, Fuerzas de seguridad (policía, militares, seguridad privada o celadores), personas cercanas (vecinos de su barrio o comunidad o personas pertenecientes a su familia), otros y finalmente los que votaron que ninguno. De estos datos se puede ver que tanto para 2021, como para 2025 se ve un patrón en las respuestas, en donde en orden descendiente de las opciones más votadas se tienen: delicuentes comunes (con 718 votos en 2021 y 580 en 2025), crimen organizado (441 votos en 2021 y 487 en 2025), guerrillas (149 votos en 2021 y 309 en 2025) y nínguno (37 votos en 2021 y 67 en 2025). En cuanto a fuerza de seguridad y personas cercanas, estas no tuvieron votos en 2021 pero en 2025 contaron con 51 y 21 votos respectivamente. En general se observa que la percepción de delincuencia disminuye un poco (probablemente por que se tienen menos datos), pero igual las demás opciones aumentan en 2025.
+Respecto a la percepción de la principal amenaza de seguridad, se identifican siete categorías: delincuentes comunes, crimen organizado (incluyendo pandillas, BACRIM y narcotraficantes), guerrillas, fuerzas de seguridad (policía, militares y seguridad privada), personas cercanas (vecinos o familiares), otros y ninguno. En ambos años se observa un patrón consistente, donde las opciones más frecuentes, en orden descendente, son: delincuentes comunes (718 votos en 2021 y 580 en 2025), crimen organizado (441 en 2021 y 487 en 2025), guerrillas (149 en 2021 y 309 en 2025) y ninguno (37 en 2021 y 67 en 2025). Las categorías de fuerzas de seguridad y personas cercanas no registran votos en 2021, pero en 2025 alcanzan 51 y 21 votos respectivamente. En general, se observa una leve disminución en la percepción centrada en la delincuencia, junto con un aumento en la diversidad de amenazas percibidas en 2025.
 
-Continuando con la percepción de la situación general de seguridad, esta es la variable de interés en este análisis y cuenta con tres opciones de respuesta: peor, igual y mejor. Aquí se evidencia lo que se mencionó en el apartado anterior de que la categoría de Peor disminuye su número de votos pasando de 1134 a 967. También se puede ver que en el 2025 las otras dos categorías aumentan, pues los que votaron Igual suben en 241 votos y los que votaron a mejor suben en 45 votos.
+En relación con la percepción de la situación general de seguridad, que es la variable de interés del análisis, esta cuenta con tres categorías: peor, igual y mejor. Se evidencia que la categoría “peor” disminuye en número de votos, pasando de 1134 en 2021 a 967 en 2025. Por otro lado, las categorías “igual” y “mejor” aumentan en 2025, con incrementos de 241 y 45 votos respectivamente.
 
-En las variables de tipo de área en la que se vive y género dele encuestado se tiene la particularidad de que no hay datos para el 2021, igual se puede hablar de su distribución en el 2025. Para este año se tienen 1428 votos de zona urbana y 140 de una rural, mostrando una clara delimitación del perfil del encuestado. Por otro lado, en el género sí se tiene un mejor balance teniendo 796 votos para mujer y 773 para el hombre.
+Para las variables de área de residencia y género del encuestado, no se cuenta con datos para 2021, pero sí es posible analizar su distribución en 2025. En este año, se registran 1428 respuestas en zonas urbanas y 140 en zonas rurales, lo que muestra una clara concentración en población urbana. En cuanto al género, la distribución es más equilibrada, con 796 mujeres y 773 hombres.
 
-Para la edad del encuestado se decidió dividir a la muestra en cuatro grupos de edad. El primero son los que tienen entre 18 y 28, los cuales se representan en Jóvenes y que tienen una frecuencia de 581 votos en 2021 y 414 en 2025. El segundo grupo tiene entre 28 y y 44, se representa como adultez temprana y tienen 1291 ocurrencias en 2021 y 546 en 2025. El tercer grupo es la adultez media y son los que tienen entre 45 y 59 años, este grupo tiene una frecuencia de 869 en 2021 y 354 en 2025. Por último están los adultos mayores que tienen 60 años o más, este es el grupo más pequeño ya que hay un total de 252 en 2021 y 242 en 2025. En general, se puede evidenciar que estructuralmente hay un patrón similar en ambos grupos en especial por la forma del histograma.
+En el caso de la edad, la muestra se dividió en cuatro grupos: jóvenes (18 a 28 años), adultez temprana (28 a 44 años), adultez media (45 a 59 años) y adultos mayores (60 años o más). En 2021, estos grupos registran 581, 1291, 869 y 252 observaciones respectivamente, mientras que en 2025 tienen 414, 546, 354 y 242. En general, se observa un patrón estructural similar entre ambos años, especialmente en la forma de la distribución.
 
-En cuanto a la favorabilidad del presidente, aquí se encuentra que hay tres grupos. El primero son los que tienen una percepción negativa o muy negativa del presidente. Este es el grupo más grande y hay 662 ocurrencias en 2021 y 583 en 2025. El segundo grupo son los neutrales, y hay 433 en 2021 y 514 en 2025. Por último se tienen los que tienen una percepcuón positiva, y hay 341 en 2021 y 447 en 2025. Así, se puede evidenciar que en general tienen una forma similar aunque en 2021 proporcionalmente hay más neutros y positivos.
+En cuanto a la favorabilidad del presidente, se identifican tres grupos: percepción negativa, neutra y positiva. El grupo con percepción negativa es el más numeroso, con 662 observaciones en 2021 y 583 en 2025. Le sigue el grupo neutro (433 en 2021 y 514 en 2025) y finalmente el grupo con percepción positiva (341 en 2021 y 447 en 2025). En términos generales, la distribución es similar en ambos años, aunque en 2021 hay proporcionalmente más respuestas neutras y positivas.
 
-Las siguientes dos categorías tampoco estan en 2021 y son la confianza en los policias y la efectividad percibida de la policía. Estas variables tienen 7 categorías donde 1 significa una percepción muy negativa y 7 una muy positiva. En ambas variables se puede ver que la opinión se concentra principalmente en el centro, aunque en general parece ser que la confianza tiene de forma ligera una mejor percepción que la efectividad percibida.
+Las variables de confianza en la policía y efectividad percibida de la policía no están disponibles para 2021. Ambas cuentan con siete niveles, donde 1 representa una percepción muy negativa y 7 una muy positiva. En 2025, se observa que la opinión se concentra principalmente en valores intermedios. Además, la confianza en la policía presenta, en promedio, una percepción ligeramente más favorable que la efectividad percibida.
 
-Por último se tiene la autoubicación ideologica que tiene 5 grupos: izquierda, centro izquierda, centro, centro derecha y derecha. En esta variable se puede apreciar una clara tendencia a un cambio en la ubicación ideologica, que pasaron de estar principalmente polarizados, a un claro aumento en los que se autoperciben como de centro (esa categoría pasó de 148 en 2021 a 510 en 2025).
+Por último, la autoubicación ideológica se divide en cinco categorías: izquierda, centro izquierda, centro, centro derecha y derecha. En esta variable se observa un cambio notable, pasando de una distribución más polarizada en 2021 a un aumento significativo en la categoría de centro en 2025 (de 148 a 510 observaciones).
 
-Finalmente, los datos muestran que, aunque existe una reducción en el tamaño de la muestra en 2025 frente a 2021, se mantienen patrones estructurales similares en varias variables, lo que permite comparaciones generales. También se observa una leve mejora en la percepción de la seguridad (disminuye “peor” y aumentan “igual” y “mejor”), junto con cambios en la percepción de amenazas (menos concentración en delincuencia común y mayor diversificación hacia otros factores). Asimismo, se evidencian diferencias en la representatividad regional y un desplazamiento ideológico hacia el centro. En términos generales, los resultados sugieren una percepción menos pesimista de la seguridad en 2025, aunque condicionada por limitaciones en la distribución y tamaño de la muestra.
+Finalmente, los datos muestran que, a pesar de la reducción en el tamaño de la muestra en 2025 frente a 2021, se mantienen patrones estructurales similares en varias variables, lo que permite realizar comparaciones generales. También se evidencia una leve mejora en la percepción de seguridad (disminución de “peor” y aumento de “igual” y “mejor”), junto con cambios en la percepción de amenazas (menor concentración en delincuencia común y mayor diversificación). Asimismo, se identifican diferencias en la representatividad regional y un desplazamiento ideológico hacia el centro. En términos generales, los resultados sugieren una percepción menos pesimista de la seguridad en 2025, aunque condicionada por las limitaciones en la distribución y tamaño de la muestra.
+
 
 ---
 # II. Explorando Correlaciones 
@@ -1603,7 +1603,38 @@ heatmapsColsegPorAnio({
 
 ```
 
-\#TODO aún me falta completar la interpretación para las demás gráficas
+A continuación para cada variable se indicaran los hallazgos:
+
+Año:
+La variable año confirma el patrón general del análisis: en términos absolutos, la percepción de que la seguridad va a “peor” disminuye de 1134 en 2021 a 967 en 2025, mientras que “igual” y “mejor” aumentan (especialmente “igual”, que casi se duplica) . En términos relativos, esto se traduce en una caída importante de “peor” (de ~79% a ~62%) y un aumento de “igual” (de ~17% a ~31%) y “mejor” (de ~4% a ~6%) . Es decir, aunque sigue predominando una percepción negativa, hay una mejora clara en 2025 hacia posturas menos pesimistas.
+
+Estrato socioeconómico primario (región):
+En valores absolutos, todas las regiones mantienen “peor” como categoría dominante en ambos años, aunque con una reducción general en 2025 y un aumento de “igual” y “mejor”, especialmente en regiones como Atlántica, Central y Pacífica . En términos relativos, en 2021 Bogotá destaca como la más pesimista (~87% en “peor”), mientras que en 2025 todas las regiones reducen ese pesimismo, con caídas importantes en Atlántica (~54%) y Bogotá (~60%) . Esto sugiere una convergencia regional hacia percepciones menos negativas, aunque persisten diferencias estructurales.
+
+Percepción de la principal amenaza (aoj21):
+En términos absolutos, “delincuentes comunes” y “crimen organizado” concentran la mayor cantidad de respuestas en ambos años, y en todos los casos domina la percepción de “peor” . Sin embargo, en 2025 aumentan notablemente los votos en “igual” y “mejor” en casi todas las amenazas. En relativo, en 2021 las proporciones de “peor” superan el 80% en varias categorías, mientras que en 2025 caen hacia rangos cercanos al 60-65% . Esto indica que, aunque la amenaza percibida sigue asociada a deterioro, su impacto en la percepción negativa se debilita.
+
+Área urbana o rural (ur):
+Solo hay datos para 2025. En términos absolutos, la mayoría de respuestas provienen de zonas urbanas, donde también se concentra el mayor número de percepciones negativas . Sin embargo, en relativo, las zonas rurales presentan una mayor proporción de “peor” (~67%) frente a urbano (~62%), y también una mayor proporción de “mejor” . Esto sugiere mayor polarización en zonas rurales, frente a una percepción más moderada en lo urbano.
+
+Género (q1):
+En valores absolutos para 2025, hombres y mujeres presentan distribuciones muy similares, con ligera mayoría femenina en “peor” . En términos relativos, las diferencias son marginales: las mujeres son levemente más pesimistas (~62.5% vs ~61.7% en “peor”), mientras que los hombres reportan más “mejor” . En conjunto, el género no parece ser un factor altamente diferenciador en la percepción de seguridad.
+
+Edad (q2):
+En términos absolutos, todos los grupos etarios mantienen “peor” como categoría dominante, aunque en 2025 se incrementan los conteos de “igual” en todos los grupos . En relativo, en 2021 los adultos (especialmente adultez temprana) son los más pesimistas (>80%), mientras que en 2025 los jóvenes presentan la menor proporción de “peor” (~55%) y mayor “igual” (~39%) . Esto sugiere que las generaciones más jóvenes tienen una percepción relativamente más optimista o menos negativa.
+
+Favorabilidad del presidente (m1):
+En valores absolutos, quienes tienen percepción negativa del presidente concentran la mayor cantidad de respuestas en “peor” en ambos años . En relativo, el gradiente es claro: en 2021, “peor” es ~89% para percepción negativa y ~61% para positiva; en 2025 se mantiene el patrón aunque con menor intensidad (83% vs 38%) . Esto evidencia una fuerte asociación entre evaluación del gobierno y percepción de seguridad.
+
+Confianza en la policía (trust):
+Solo disponible para 2025. En valores absolutos, los niveles intermedios de confianza concentran más respuestas, pero “peor” sigue dominando en todos los niveles . En relativo, se observa un patrón no lineal: niveles muy bajos y muy altos de confianza tienden a tener mayores proporciones de “peor”, mientras que niveles medios muestran más equilibrio hacia “igual” . Esto sugiere que la confianza no reduce directamente el pesimismo.
+
+Efectividad percibida de la policía (pr5):
+En valores absolutos, nuevamente “peor” domina en todos los niveles de percepción de efectividad . En relativo, los niveles bajos de efectividad tienen mayor proporción de “peor” (~78%), mientras que niveles intermedios muestran más balance hacia “igual” y “mejor” . A diferencia de confianza, aquí sí hay una leve relación: mayor percepción de efectividad reduce parcialmente el pesimismo.
+
+Ideología política:
+En términos absolutos, en 2021 todos los grupos ideológicos presentan mayoría en “peor”, mientras que en 2025 se observa un aumento fuerte en “igual”, especialmente en centro y centro izquierda . En relativo, en 2021 las diferencias ideológicas son pequeñas (todos ~75-87% en “peor”), pero en 2025 se amplían: izquierda (~48% “peor”) es mucho menos pesimista que derecha (~80%) . Esto indica una fuerte polarización ideológica en la percepción de seguridad en 2025.
+
 
 ---
 <!-- Filtro año -->
@@ -1918,7 +1949,7 @@ function mapaColombiaRegionesHeatmap({
       return { color, domainMin, domainMax, minValor, maxValor };
     }
 
-    if (tipoVariable === "categorica" && escalaPorcentualModoMapa === "0–100%") {
+    if (tipoVariable === "categorica" && escalaPorcentualModoMapa === "0-100%") {
       color = d3.scaleSequential(colorInterpolator).domain([0, 1]);
       domainMin = 0;
       domainMax = 1;
@@ -2156,7 +2187,7 @@ function mapaColombiaRegionesHeatmap({
         .style("border", "1px solid #666");
 
       select.selectAll("option")
-        .data(["Auto", "0–100%"])
+        .data(["Auto", "0-100%"])
         .join("option")
         .attr("value", d => d)
         .property("selected", d => d === escalaPorcentualModoMapa)
@@ -2661,12 +2692,32 @@ topAtributosInfluyentes({
 
 ```
 
-\#TODO aún me falta completar la interpretación para las gráficas
+De esta gráfica se puede decir que sintetiza el comportamiento global de las variables al mostrar únicamente los atributos más influyentes (top 10) para cada categoría de percepción, lo que permite identificar patrones estructurales más allá del detalle individual del heatmap.
+
+En primer lugar, para la categoría “Peor”, se observa que en ambos años domina ampliamente sobre las demás categorías, lo cual es consistente con los resultados previos. Sin embargo, hay un cambio relevante: en 2021 los valores relativos de influencia están concentrados en niveles muy altos (cercanos a 0.8-0.9), mientras que en 2025 estos disminuyen (aproximadamente 0.67-0.83). Esto indica que, aunque los factores más influyentes siguen empujando hacia una percepción negativa, su efecto es menos extremo en 2025. En términos absolutos, el patrón se mantiene pero con menor magnitud total, reflejando tanto la reducción del tamaño muestral como la disminución de votos en “peor”.
+
+Para la categoría “Igual”, se evidencia un incremento sistemático en 2025 tanto en relativo como en absoluto. En 2021, los valores de influencia son bajos y relativamente planos (alrededor de 0.17-0.30 en relativo), mientras que en 2025 aumentan y presentan una pendiente más pronunciada (hasta ~0.45). Esto sugiere que varios atributos que antes contribuyen principalmente a una percepción negativa ahora están asociados a una postura más neutral. En otras palabras, “igual” gana peso como categoría intermedia.
+
+En la categoría “Mejor”, aunque sigue siendo la menos influyente, se observa el cambio más interesante en términos relativos: en 2021 los valores son muy bajos (cercanos a 0.05-0.20), mientras que en 2025 aumentan significativamente, alcanzando incluso valores por encima de 0.30 en los atributos más influyentes. En términos absolutos el crecimiento también es visible, aunque más moderado. Esto indica que ciertos factores empiezan a asociarse con percepciones positivas de manera más clara en 2025, aunque todavía de forma minoritaria.
+
+Un aspecto clave de la gráfica es la forma de las curvas: en 2021 las tres categorías están más separadas (alta dominancia de “peor”), mientras que en 2025 hay una convergencia parcial, donde “igual” y “mejor” se acercan a “peor”. Esto refuerza la idea de una transición hacia percepciones menos polarizadas y más distribuidas.
+
+Finalmente, el hecho de que los atributos más influyentes en “peor” (por ejemplo, favorabilidad negativa del presidente o ciertos grupos ideológicos) sigan apareciendo en el top confirma que los determinantes estructurales de la percepción negativa no cambian, pero su intensidad sí disminuye, permitiendo que emerjan con mayor peso las categorías “igual” y “mejor”.
+
+En conjunto, la gráfica muestra que entre 2021 y 2025 hay una reducción en la concentración del pesimismo y una redistribución de la influencia hacia percepciones más neutrales y ligeramente positivas, sin que desaparezca la predominancia de la percepción negativa.
+
 
 ---
 
 # IV. Conclusión
 
-\#TODO
+El análisis realizado permite concluir que la percepción de seguridad en Colombia durante 2021 y 2025 está marcada por un predominio del pesimismo, aunque con señales claras de cambio hacia posiciones menos negativas en el tiempo. En ambos años, la mayoría de la población considera que la situación “va a peor”, pero en 2025 se evidencia una reducción en esta percepción y un aumento significativo en las categorías “igual” y, en menor medida, “mejor”. Este cambio sugiere una mejora moderada en la percepción general, aunque no lo suficientemente fuerte como para revertir la tendencia dominante.
+
+A nivel de factores sociodemográficos, se identifican algunos determinantes clave. La favorabilidad del presidente y la ideología política destacan como variables altamente influyentes, mostrando una relación clara entre percepciones políticas y percepción de seguridad. Asimismo, la edad introduce diferencias importantes, donde los jóvenes tienden a ser menos pesimistas que los adultos. Por otro lado, variables como el género presentan efectos marginales, mientras que la región evidencia variaciones relevantes, aunque con una tendencia a la convergencia en 2025. En cuanto a las percepciones institucionales, la efectividad de la policía muestra una relación más clara con la percepción de seguridad que la confianza, lo que sugiere que los resultados percibidos tienen mayor peso que las valoraciones generales.
+
+Las visualizaciones utilizadas aportan un valor fundamental al análisis. Los histogramas permiten entender la estructura y distribución de los datos, evidenciando posibles sesgos como el tamaño desigual de la muestra entre años. Los mapas facilitan la identificación de patrones territoriales y muestran que la percepción negativa es generalizada, aunque con diferencias regionales. Los heatmaps permiten analizar relaciones específicas entre variables y la percepción de seguridad, diferenciando entre efectos absolutos y relativos, lo que resulta clave para interpretar correctamente la influencia de cada factor. Finalmente, la gráfica de los “más influyentes” sintetiza estos hallazgos y permite observar el comportamiento global del sistema, evidenciando una reducción en la concentración del pesimismo y una mayor dispersión hacia categorías intermedias y positivas.
+
+En conjunto, los resultados muestran que, aunque los factores que explican la percepción de seguridad se mantienen relativamente estables, su intensidad cambia en el tiempo, dando lugar a una percepción menos polarizada en 2025. No obstante, este análisis también está condicionado por limitaciones en el tamaño y la distribución de la muestra, especialmente en comparaciones absolutas. Por ello, las herramientas visuales no solo permiten presentar los principales hallazgos, sino que también ofrecen al lector la posibilidad de explorar en mayor profundidad las relaciones entre variables, ampliando el alcance interpretativo del estudio.
+
 
 ---
